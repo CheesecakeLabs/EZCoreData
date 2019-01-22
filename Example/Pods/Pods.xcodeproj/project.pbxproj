@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		02C4F6D24CBACACB652A0B05991BDD61 /* Pods-EZCoreData_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4603B29AEC0925A4FF1757BDD3127BC8 /* Pods-EZCoreData_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1F1A8FC821F7DE780037059F /* NSManagedObjectContext+Save.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FC621F7DE780037059F /* NSManagedObjectContext+Save.swift */; };
+		1F1A8FC921F7DE780037059F /* EZCoreDataLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FC721F7DE780037059F /* EZCoreDataLogger.swift */; };
 		3925FB6D2AC04307FB4FC673BD69DE96 /* Pods-EZCoreData_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7DE241E55CC99B481EA8014DBD044 /* Pods-EZCoreData_Example-dummy.m */; };
 		58A8C788CC026E890D4054C36FA5A696 /* Pods-EZCoreData_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B14D57BEAE782E61651953B2CAC300F3 /* Pods-EZCoreData_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DDD019E82F839A96CD4C340358CDC53 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C05080F797B206327D66C22F788ED7 /* Foundation.framework */; };
@@ -42,8 +44,10 @@
 		0BD52AD474941D2BFA3AE7ADD9C1201C /* Pods-EZCoreData_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EZCoreData_Tests-resources.sh"; sourceTree = "<group>"; };
 		11A3575E4F2DE86F27CFA925C1E3AE41 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18036541F44164C63A204E60C76B0A55 /* Pods-EZCoreData_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EZCoreData_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		2CFBF6FB20474F1A8AD1889A157245F4 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		2F561635EEAD609BF15FC52944902381 /* EZCoreData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = EZCoreData.framework; path = EZCoreData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F1A8FC621F7DE780037059F /* NSManagedObjectContext+Save.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Save.swift"; sourceTree = "<group>"; };
+		1F1A8FC721F7DE780037059F /* EZCoreDataLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EZCoreDataLogger.swift; sourceTree = "<group>"; };
+		2CFBF6FB20474F1A8AD1889A157245F4 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2F561635EEAD609BF15FC52944902381 /* EZCoreData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EZCoreData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39822ABCBCFBA641F33E50B3F1D34F30 /* EZCoreData-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EZCoreData-umbrella.h"; sourceTree = "<group>"; };
 		3BC7BD678C540B0525B3C4448E9874D7 /* EZCoreData.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EZCoreData.xcconfig; sourceTree = "<group>"; };
 		3CA802006E4C5C0C65A01AB18078C035 /* Pods-EZCoreData_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EZCoreData_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -51,21 +55,21 @@
 		4603B29AEC0925A4FF1757BDD3127BC8 /* Pods-EZCoreData_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EZCoreData_Tests-umbrella.h"; sourceTree = "<group>"; };
 		4C8FF3CEB136C2FFF365E3350E2FE938 /* EZCoreData-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "EZCoreData-dummy.m"; sourceTree = "<group>"; };
 		53DAF47A005E1861094FD5CF69BC55A0 /* Pods-EZCoreData_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EZCoreData_Example.release.xcconfig"; sourceTree = "<group>"; };
-		5E877EFB95ADBBA04A52AFB88EE36323 /* Pods_EZCoreData_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EZCoreData_Tests.framework; path = "Pods-EZCoreData_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E877EFB95ADBBA04A52AFB88EE36323 /* Pods_EZCoreData_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EZCoreData_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		609853FF62220D4D4BA4F34AC6F86220 /* Pods-EZCoreData_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EZCoreData_Example-frameworks.sh"; sourceTree = "<group>"; };
 		6634CE81C91E6BBB917ACD033D0A7B11 /* Pods-EZCoreData_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EZCoreData_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		6921CBA754868D7F125767D546CDB1D1 /* Pods-EZCoreData_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EZCoreData_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		694E7FE3346F0F7B063D00CE9AE10D66 /* Pods-EZCoreData_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EZCoreData_Example-resources.sh"; sourceTree = "<group>"; };
 		6B822E40378137A5595F656C1CCCD7A8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		813DEE77A61CE6B3BC25A95907C37399 /* Pods-EZCoreData_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EZCoreData_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		85E43A432931B128DC050F5DF8BC9EA5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		85E43A432931B128DC050F5DF8BC9EA5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		91B0F6D81669D0D6850BB481E643688B /* EZCoreData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EZCoreData.swift; path = EZCoreData/Classes/EZCoreData.swift; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		94C05080F797B206327D66C22F788ED7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		96066C4051B784BF4B1AE7533ABEC479 /* Pods-EZCoreData_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EZCoreData_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		9D9203172F0BC1772586CA9A3E25438B /* EZCoreData.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = EZCoreData.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D9203172F0BC1772586CA9A3E25438B /* EZCoreData.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = EZCoreData.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A5B7DE241E55CC99B481EA8014DBD044 /* Pods-EZCoreData_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EZCoreData_Example-dummy.m"; sourceTree = "<group>"; };
-		AE96B2A17D70C9E90CF5F7B668653959 /* Pods_EZCoreData_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EZCoreData_Example.framework; path = "Pods-EZCoreData_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE96B2A17D70C9E90CF5F7B668653959 /* Pods_EZCoreData_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EZCoreData_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B14D57BEAE782E61651953B2CAC300F3 /* Pods-EZCoreData_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EZCoreData_Example-umbrella.h"; sourceTree = "<group>"; };
 		B3F346F082524969BA09A803D4766B8D /* EZCoreData-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EZCoreData-prefix.pch"; sourceTree = "<group>"; };
 		B467A2C4AE304753F483F5C8BA149170 /* Pods-EZCoreData_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EZCoreData_Example.modulemap"; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				91B0F6D81669D0D6850BB481E643688B /* EZCoreData.swift */,
+				1F1A8FC721F7DE780037059F /* EZCoreDataLogger.swift */,
+				1F1A8FC621F7DE780037059F /* NSManagedObjectContext+Save.swift */,
 				A11730D66E9B3DA2C215F432E13CF9FF /* Pod */,
 				D43C5B4AFCBED5940DA4824DAF78AA06 /* Support Files */,
 			);
@@ -374,8 +380,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F1A8FC821F7DE780037059F /* NSManagedObjectContext+Save.swift in Sources */,
 				FF276542808B4B3E4417C3890B467A9B /* EZCoreData-dummy.m in Sources */,
 				D534E98CABCC26D3438579551F498ADD /* EZCoreData.swift in Sources */,
+				1F1A8FC921F7DE780037059F /* EZCoreDataLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,8 +449,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -475,8 +482,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
