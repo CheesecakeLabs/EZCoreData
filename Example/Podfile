@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'EZCoreData_Example' do
+  pod 'EZCoreData', :path => '../'
+
+  target 'EZCoreData_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
