@@ -28,7 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		150A636B2DC395C4FDEC1FBB /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		150A636B2DC395C4FDEC1FBB /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		4F83EC6C4E0697DF1576CB0D /* Pods-EZCoreData_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EZCoreData_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EZCoreData_Tests/Pods-EZCoreData_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* EZCoreData_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EZCoreData_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -42,11 +42,11 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		6BA22C01B36201119759EBF9 /* Pods-EZCoreData_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EZCoreData_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-EZCoreData_Example/Pods-EZCoreData_Example.release.xcconfig"; sourceTree = "<group>"; };
 		7FA60AE9AE9AF98311AC5AE5 /* Pods_EZCoreData_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EZCoreData_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E5A82DACF25BF17B7B41E55 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		8E5A82DACF25BF17B7B41E55 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		9B2AB259B8CD5C1238DCC6EB /* Pods_EZCoreData_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EZCoreData_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE5C6938F534975E1716217A /* Pods-EZCoreData_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EZCoreData_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EZCoreData_Example/Pods-EZCoreData_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		AEC3CEA2DE90EE7365BFE9F1 /* Pods-EZCoreData_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EZCoreData_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EZCoreData_Tests/Pods-EZCoreData_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		D575D4FBC6C418BFDF34BB39 /* EZCoreData.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = EZCoreData.podspec; path = ../EZCoreData.podspec; sourceTree = "<group>"; };
+		D575D4FBC6C418BFDF34BB39 /* EZCoreData.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EZCoreData.podspec; path = ../EZCoreData.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

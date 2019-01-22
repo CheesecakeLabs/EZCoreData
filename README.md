@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/cocoapods/l/EZCoreData.svg?style=flat)](https://cocoapods.org/pods/EZCoreData)
 [![Platform](https://img.shields.io/cocoapods/p/EZCoreData.svg?style=flat)](https://cocoapods.org/pods/EZCoreData)
 
+A library that builds up the basic main and private contexts for CoreData and brings a few utility methods
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.

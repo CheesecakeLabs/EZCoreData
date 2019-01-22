@@ -1,0 +1,6 @@
+framework module EZCoreData {
+  umbrella header "EZCoreData-umbrella.h"
+
+  export *
+  module * { export * }
+}

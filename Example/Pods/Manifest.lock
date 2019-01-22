@@ -1,0 +1,16 @@
+PODS:
+  - EZCoreData (0.1.0)
+
+DEPENDENCIES:
+  - EZCoreData (from `../`)
+
+EXTERNAL SOURCES:
+  EZCoreData:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  EZCoreData: f4109100d8f757dc82d3911ce4c31bf914e71610
+
+PODFILE CHECKSUM: 940d9902ff30fb43b09f362d8acd04c81a7fdff7
+
+COCOAPODS: 1.5.3

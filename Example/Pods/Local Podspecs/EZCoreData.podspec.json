@@ -1,0 +1,22 @@
+{
+  "name": "EZCoreData",
+  "version": "0.1.0",
+  "summary": "A short description of EZCoreData.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/marcelosalloum/EZCoreData",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "marcelosalloum": "marcelosalloum@gmal.com"
+  },
+  "source": {
+    "git": "https://github.com/marcelosalloum/EZCoreData.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "EZCoreData/Classes/**/*"
+}
