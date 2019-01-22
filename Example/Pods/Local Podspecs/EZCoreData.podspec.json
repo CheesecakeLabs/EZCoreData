@@ -1,7 +1,7 @@
 {
   "name": "EZCoreData",
   "version": "0.1.0",
-  "summary": "A short description of EZCoreData.",
+  "summary": "A library that builds up the basic main and private contexts for CoreData and brings a few utility methods.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/marcelosalloum/EZCoreData",
   "license": {
@@ -16,7 +16,7 @@
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "10.0"
   },
   "source_files": "EZCoreData/Classes/**/*"
 }
