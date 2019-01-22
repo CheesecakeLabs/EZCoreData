@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'marcelosalloum' => 'marcelosalloum@gmal.com' }
   s.source           = { :git => 'https://github.com/marcelosalloum/EZCoreData.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url   = 'https://www.linkedin.com/in/marcelosalloum'
 
   s.ios.deployment_target = '10.0'
 
@@ -38,5 +38,6 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
+  s.frameworks = 'CoreData'
   # s.dependency 'AFNetworking', '~> 2.3'
 end

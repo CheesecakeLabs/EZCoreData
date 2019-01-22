@@ -14,7 +14,20 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Date.today())
+        
+        EZCoreData.databaseName = "Model"
+        _ = EZCoreData.shared
+        print(EZCoreData.databaseName)
+        print(EZCoreData.shared.persistentContainer)
+        print(EZCoreData.shared.mainThredContext)
+        print(EZCoreData.mainThredContext)
+        print(EZCoreData.shared.privateThreadContext)
+        print(EZCoreData.privateThreadContext)
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {
