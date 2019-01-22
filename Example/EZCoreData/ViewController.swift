@@ -23,6 +23,10 @@ class ViewController: UIViewController {
         print(EZCoreData.mainThredContext)
         print(EZCoreData.shared.privateThreadContext)
         print(EZCoreData.privateThreadContext)
+        
+        EZCoreData.shared.privateThreadContext.saveContextToStore { (result) in
+            print(result)
+        }
         // Do any additional setup after loading the view, typically from a nib.
     }
     
