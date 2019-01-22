@@ -30,6 +30,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
 
   s.source_files = 'EZCoreData/Classes/**/*'
+  s.swift_version = '4.2'
   
   # s.resource_bundles = {
   #   'EZCoreData' => ['EZCoreData/Assets/*.png']

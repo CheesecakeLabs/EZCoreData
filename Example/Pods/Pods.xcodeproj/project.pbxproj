@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		02C4F6D24CBACACB652A0B05991BDD61 /* Pods-EZCoreData_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4603B29AEC0925A4FF1757BDD3127BC8 /* Pods-EZCoreData_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		089B1F01BDD4BD5AA8F20B26E9318141 /* EZCoreData-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8FF3CEB136C2FFF365E3350E2FE938 /* EZCoreData-dummy.m */; };
+		205598193C8DC76BB43D4F5CDDF22ECA /* EZCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B0F6D81669D0D6850BB481E643688B /* EZCoreData.swift */; };
 		3925FB6D2AC04307FB4FC673BD69DE96 /* Pods-EZCoreData_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7DE241E55CC99B481EA8014DBD044 /* Pods-EZCoreData_Example-dummy.m */; };
-		515B8E1E287962CFD2302E8F2C75733C /* EZCoreData-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 97450A0E5BBB95F00CB27B090AB19816 /* EZCoreData-dummy.m */; };
 		58A8C788CC026E890D4054C36FA5A696 /* Pods-EZCoreData_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B14D57BEAE782E61651953B2CAC300F3 /* Pods-EZCoreData_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DDD019E82F839A96CD4C340358CDC53 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		713112ABD3CA9B10190EF41F420A96A8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
-		9493A244E7C7C5CD34BF74BCCA844100 /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8376664A4B5EB44C59C8387E0B5365 /* ReplaceMe.swift */; };
 		AE6776EEF8C92D55E3D71802EFEE5782 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		B205C0E4AFDFBF271DE264CEB02F4773 /* Pods-EZCoreData_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF633C0EB88D30916A4D339DBA3F16F /* Pods-EZCoreData_Tests-dummy.m */; };
-		CCB636C7815B90A7C19DACFA737948C5 /* EZCoreData-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D9D1A231FC4518585256B4CB3E584C /* EZCoreData-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CCB636C7815B90A7C19DACFA737948C5 /* EZCoreData-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 39822ABCBCFBA641F33E50B3F1D34F30 /* EZCoreData-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,16 +37,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0AD1238EEACC412740D82541682F8655 /* EZCoreData-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EZCoreData-prefix.pch"; sourceTree = "<group>"; };
+		089991822F6B4E8DB6C91AB7287B0BDF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BD52AD474941D2BFA3AE7ADD9C1201C /* Pods-EZCoreData_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EZCoreData_Tests-resources.sh"; sourceTree = "<group>"; };
-		102B6BEF1A30D83BFE494BC06E43CD85 /* EZCoreData.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = EZCoreData.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		11A3575E4F2DE86F27CFA925C1E3AE41 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18036541F44164C63A204E60C76B0A55 /* Pods-EZCoreData_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EZCoreData_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		2CFBF6FB20474F1A8AD1889A157245F4 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		2F561635EEAD609BF15FC52944902381 /* EZCoreData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = EZCoreData.framework; path = EZCoreData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		39822ABCBCFBA641F33E50B3F1D34F30 /* EZCoreData-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EZCoreData-umbrella.h"; sourceTree = "<group>"; };
+		3BC7BD678C540B0525B3C4448E9874D7 /* EZCoreData.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EZCoreData.xcconfig; sourceTree = "<group>"; };
 		3CA802006E4C5C0C65A01AB18078C035 /* Pods-EZCoreData_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EZCoreData_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		4099D5D03AB894C8E1D78687A4FE3D20 /* Pods-EZCoreData_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EZCoreData_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		44E7921B5D12B53D6DF39FD54A93A48B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4603B29AEC0925A4FF1757BDD3127BC8 /* Pods-EZCoreData_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EZCoreData_Tests-umbrella.h"; sourceTree = "<group>"; };
+		4C8FF3CEB136C2FFF365E3350E2FE938 /* EZCoreData-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "EZCoreData-dummy.m"; sourceTree = "<group>"; };
 		53DAF47A005E1861094FD5CF69BC55A0 /* Pods-EZCoreData_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EZCoreData_Example.release.xcconfig"; sourceTree = "<group>"; };
 		5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		5E877EFB95ADBBA04A52AFB88EE36323 /* Pods_EZCoreData_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EZCoreData_Tests.framework; path = "Pods-EZCoreData_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,19 +57,17 @@
 		6921CBA754868D7F125767D546CDB1D1 /* Pods-EZCoreData_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EZCoreData_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		694E7FE3346F0F7B063D00CE9AE10D66 /* Pods-EZCoreData_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EZCoreData_Example-resources.sh"; sourceTree = "<group>"; };
 		813DEE77A61CE6B3BC25A95907C37399 /* Pods-EZCoreData_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EZCoreData_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		85E43A432931B128DC050F5DF8BC9EA5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		91B0F6D81669D0D6850BB481E643688B /* EZCoreData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EZCoreData.swift; path = EZCoreData/Classes/EZCoreData.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		96066C4051B784BF4B1AE7533ABEC479 /* Pods-EZCoreData_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EZCoreData_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		97450A0E5BBB95F00CB27B090AB19816 /* EZCoreData-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "EZCoreData-dummy.m"; sourceTree = "<group>"; };
-		9A8376664A4B5EB44C59C8387E0B5365 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = EZCoreData/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
-		9D70512B059FAF019D4C0964BF91A96D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		9D9203172F0BC1772586CA9A3E25438B /* EZCoreData.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = EZCoreData.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A5B7DE241E55CC99B481EA8014DBD044 /* Pods-EZCoreData_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EZCoreData_Example-dummy.m"; sourceTree = "<group>"; };
 		AE96B2A17D70C9E90CF5F7B668653959 /* Pods_EZCoreData_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EZCoreData_Example.framework; path = "Pods-EZCoreData_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B14D57BEAE782E61651953B2CAC300F3 /* Pods-EZCoreData_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EZCoreData_Example-umbrella.h"; sourceTree = "<group>"; };
-		B3D9D1A231FC4518585256B4CB3E584C /* EZCoreData-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EZCoreData-umbrella.h"; sourceTree = "<group>"; };
+		B3F346F082524969BA09A803D4766B8D /* EZCoreData-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EZCoreData-prefix.pch"; sourceTree = "<group>"; };
 		B467A2C4AE304753F483F5C8BA149170 /* Pods-EZCoreData_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EZCoreData_Example.modulemap"; sourceTree = "<group>"; };
-		C3D128123CA3BE6866F49471F98938CA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		CB8B3A5BBB19ACFE301B7E5F521D8377 /* EZCoreData.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = EZCoreData.modulemap; sourceTree = "<group>"; };
-		D55EFB3C49D4CF8CB71EA8FAC3B32C3D /* EZCoreData.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EZCoreData.xcconfig; sourceTree = "<group>"; };
+		C98BB2A3C694B6DC0CE94CCD05193940 /* EZCoreData.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = EZCoreData.modulemap; sourceTree = "<group>"; };
 		DD479816C39A165FE9D1901FC8DC4C6D /* Pods-EZCoreData_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EZCoreData_Tests.modulemap"; sourceTree = "<group>"; };
 		DD5619444C0D66A835405155E5119BE3 /* Pods-EZCoreData_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EZCoreData_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		ECF633C0EB88D30916A4D339DBA3F16F /* Pods-EZCoreData_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EZCoreData_Tests-dummy.m"; sourceTree = "<group>"; };
@@ -102,16 +102,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		123BE0C315E147F8C2457681067E2A09 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				102B6BEF1A30D83BFE494BC06E43CD85 /* EZCoreData.podspec */,
-				C3D128123CA3BE6866F49471F98938CA /* LICENSE */,
-				9D70512B059FAF019D4C0964BF91A96D /* README.md */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
 		2620E85982218672FB8C7ABFBB1D30E0 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,12 +111,12 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		3833620A509D0AA04440808232B5BA7A /* EZCoreData */ = {
+		3CF0AF60738F2787E4536180D5AF5C1B /* EZCoreData */ = {
 			isa = PBXGroup;
 			children = (
-				9A8376664A4B5EB44C59C8387E0B5365 /* ReplaceMe.swift */,
-				123BE0C315E147F8C2457681067E2A09 /* Pod */,
-				94ADA2B699510AA9708B631C365E2C28 /* Support Files */,
+				91B0F6D81669D0D6850BB481E643688B /* EZCoreData.swift */,
+				A11730D66E9B3DA2C215F432E13CF9FF /* Pod */,
+				D43C5B4AFCBED5940DA4824DAF78AA06 /* Support Files */,
 			);
 			name = EZCoreData;
 			path = ../..;
@@ -169,18 +159,14 @@
 			path = "Target Support Files/Pods-EZCoreData_Example";
 			sourceTree = "<group>";
 		};
-		94ADA2B699510AA9708B631C365E2C28 /* Support Files */ = {
+		A11730D66E9B3DA2C215F432E13CF9FF /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				CB8B3A5BBB19ACFE301B7E5F521D8377 /* EZCoreData.modulemap */,
-				D55EFB3C49D4CF8CB71EA8FAC3B32C3D /* EZCoreData.xcconfig */,
-				97450A0E5BBB95F00CB27B090AB19816 /* EZCoreData-dummy.m */,
-				0AD1238EEACC412740D82541682F8655 /* EZCoreData-prefix.pch */,
-				B3D9D1A231FC4518585256B4CB3E584C /* EZCoreData-umbrella.h */,
-				44E7921B5D12B53D6DF39FD54A93A48B /* Info.plist */,
+				9D9203172F0BC1772586CA9A3E25438B /* EZCoreData.podspec */,
+				85E43A432931B128DC050F5DF8BC9EA5 /* LICENSE */,
+				2CFBF6FB20474F1A8AD1889A157245F4 /* README.md */,
 			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/EZCoreData";
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -209,10 +195,24 @@
 			path = "Target Support Files/Pods-EZCoreData_Tests";
 			sourceTree = "<group>";
 		};
+		D43C5B4AFCBED5940DA4824DAF78AA06 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				C98BB2A3C694B6DC0CE94CCD05193940 /* EZCoreData.modulemap */,
+				3BC7BD678C540B0525B3C4448E9874D7 /* EZCoreData.xcconfig */,
+				4C8FF3CEB136C2FFF365E3350E2FE938 /* EZCoreData-dummy.m */,
+				B3F346F082524969BA09A803D4766B8D /* EZCoreData-prefix.pch */,
+				39822ABCBCFBA641F33E50B3F1D34F30 /* EZCoreData-umbrella.h */,
+				089991822F6B4E8DB6C91AB7287B0BDF /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/EZCoreData";
+			sourceTree = "<group>";
+		};
 		DEEEB7ADB5D9A83E07FD908FADE487A5 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3833620A509D0AA04440808232B5BA7A /* EZCoreData */,
+				3CF0AF60738F2787E4536180D5AF5C1B /* EZCoreData */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
@@ -281,7 +281,7 @@
 			buildConfigurationList = EAAB26B796E48C849EDF4695077BE6C8 /* Build configuration list for PBXNativeTarget "EZCoreData" */;
 			buildPhases = (
 				1F4F6D299B27CB8D52987B19207CBB84 /* Headers */,
-				79CCDEF8FB6C74A00CDFD1C43A2F97E4 /* Sources */,
+				E7D39F39DAAADEEA82BC0272BCEE904F /* Sources */,
 				9ADB0BA711F367D73434F8AA734C59DD /* Frameworks */,
 				9299A5868369FB3313727A5BF6A21C56 /* Resources */,
 			);
@@ -366,15 +366,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		79CCDEF8FB6C74A00CDFD1C43A2F97E4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				515B8E1E287962CFD2302E8F2C75733C /* EZCoreData-dummy.m in Sources */,
-				9493A244E7C7C5CD34BF74BCCA844100 /* ReplaceMe.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9C7964FB76E5F5511FEED0E87264CB46 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -388,6 +379,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				B205C0E4AFDFBF271DE264CEB02F4773 /* Pods-EZCoreData_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7D39F39DAAADEEA82BC0272BCEE904F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				089B1F01BDD4BD5AA8F20B26E9318141 /* EZCoreData-dummy.m in Sources */,
+				205598193C8DC76BB43D4F5CDDF22ECA /* EZCoreData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +409,41 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		0D7C5C7EFBAE22F84F8AF5C7D72CAECE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3BC7BD678C540B0525B3C4448E9874D7 /* EZCoreData.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/EZCoreData/EZCoreData-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/EZCoreData/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/EZCoreData/EZCoreData.modulemap";
+				PRODUCT_MODULE_NAME = EZCoreData;
+				PRODUCT_NAME = EZCoreData;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		346A976FFFEDDE3AD26B7E59EA5E7404 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 53DAF47A005E1861094FD5CF69BC55A0 /* Pods-EZCoreData_Example.release.xcconfig */;
@@ -445,39 +480,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		53CD02E201BD405D987AFD1BCC93DDF4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D55EFB3C49D4CF8CB71EA8FAC3B32C3D /* EZCoreData.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/EZCoreData/EZCoreData-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/EZCoreData/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/EZCoreData/EZCoreData.modulemap";
-				PRODUCT_MODULE_NAME = EZCoreData;
-				PRODUCT_NAME = EZCoreData;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		829D5C708E786CA53094EC9CF9F69BFF /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -548,41 +550,6 @@
 			};
 			name = Debug;
 		};
-		C45BC39651946625CA6B16BA878EBD40 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D55EFB3C49D4CF8CB71EA8FAC3B32C3D /* EZCoreData.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/EZCoreData/EZCoreData-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/EZCoreData/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/EZCoreData/EZCoreData.modulemap";
-				PRODUCT_MODULE_NAME = EZCoreData;
-				PRODUCT_NAME = EZCoreData;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		C92782E717C52E3633C9A5F211E7987A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -644,6 +611,39 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		E1B0AE225DCA8CE9DF6755F3009EB099 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3BC7BD678C540B0525B3C4448E9874D7 /* EZCoreData.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/EZCoreData/EZCoreData-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/EZCoreData/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/EZCoreData/EZCoreData.modulemap";
+				PRODUCT_MODULE_NAME = EZCoreData;
+				PRODUCT_NAME = EZCoreData;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
@@ -775,8 +775,8 @@
 		EAAB26B796E48C849EDF4695077BE6C8 /* Build configuration list for PBXNativeTarget "EZCoreData" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				53CD02E201BD405D987AFD1BCC93DDF4 /* Debug */,
-				C45BC39651946625CA6B16BA878EBD40 /* Release */,
+				E1B0AE225DCA8CE9DF6755F3009EB099 /* Debug */,
+				0D7C5C7EFBAE22F84F8AF5C7D72CAECE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

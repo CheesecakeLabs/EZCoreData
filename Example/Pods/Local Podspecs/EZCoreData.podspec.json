@@ -18,5 +18,6 @@
   "platforms": {
     "ios": "10.0"
   },
-  "source_files": "EZCoreData/Classes/**/*"
+  "source_files": "EZCoreData/Classes/**/*",
+  "swift_version": "4.2"
 }
