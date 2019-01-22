@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F1A8FCF21F7DFA10037059F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FCD21F7DFA10037059F /* Model.xcdatamodeld */; };
 		1F6C6DCD21F7AE5200E59082 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C6DCC21F7AE5200E59082 /* main.swift */; };
-		1F6C6DD221F7BF0900E59082 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C6DD021F7BF0900E59082 /* Model.xcdatamodeld */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -31,8 +31,8 @@
 
 /* Begin PBXFileReference section */
 		150A636B2DC395C4FDEC1FBB /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		1F1A8FCE21F7DFA10037059F /* CKL_iOS_Challenge.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CKL_iOS_Challenge.xcdatamodel; sourceTree = "<group>"; };
 		1F6C6DCC21F7AE5200E59082 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		1F6C6DD121F7BF0900E59082 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		4F83EC6C4E0697DF1576CB0D /* Pods-EZCoreData_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EZCoreData_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EZCoreData_Tests/Pods-EZCoreData_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* EZCoreData_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EZCoreData_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -73,6 +73,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F1A8FCC21F7DF6E0037059F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1F1A8FCD21F7DFA10037059F /* Model.xcdatamodeld */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +105,7 @@
 		607FACD21AFB9204008FA782 /* Example for EZCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				1F1A8FCC21F7DF6E0037059F /* Models */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -104,7 +113,6 @@
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				1F6C6DCC21F7AE5200E59082 /* main.swift */,
-				1F6C6DD021F7BF0900E59082 /* Model.xcdatamodeld */,
 			);
 			name = "Example for EZCoreData";
 			path = EZCoreData;
@@ -343,7 +351,7 @@
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				1F6C6DCD21F7AE5200E59082 /* main.swift in Sources */,
-				1F6C6DD221F7BF0900E59082 /* Model.xcdatamodeld in Sources */,
+				1F1A8FCF21F7DFA10037059F /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,12 +595,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		1F6C6DD021F7BF0900E59082 /* Model.xcdatamodeld */ = {
+		1F1A8FCD21F7DFA10037059F /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				1F6C6DD121F7BF0900E59082 /* Model.xcdatamodel */,
+				1F1A8FCE21F7DFA10037059F /* CKL_iOS_Challenge.xcdatamodel */,
 			);
-			currentVersion = 1F6C6DD121F7BF0900E59082 /* Model.xcdatamodel */;
+			currentVersion = 1F1A8FCE21F7DFA10037059F /* CKL_iOS_Challenge.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -10,6 +10,7 @@
 		02C4F6D24CBACACB652A0B05991BDD61 /* Pods-EZCoreData_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4603B29AEC0925A4FF1757BDD3127BC8 /* Pods-EZCoreData_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F1A8FC821F7DE780037059F /* NSManagedObjectContext+Save.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FC621F7DE780037059F /* NSManagedObjectContext+Save.swift */; };
 		1F1A8FC921F7DE780037059F /* EZCoreDataLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FC721F7DE780037059F /* EZCoreDataLogger.swift */; };
+		1F1A8FCB21F7DECD0037059F /* NSManagedObject+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FCA21F7DECD0037059F /* NSManagedObject+Delete.swift */; };
 		3925FB6D2AC04307FB4FC673BD69DE96 /* Pods-EZCoreData_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7DE241E55CC99B481EA8014DBD044 /* Pods-EZCoreData_Example-dummy.m */; };
 		58A8C788CC026E890D4054C36FA5A696 /* Pods-EZCoreData_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B14D57BEAE782E61651953B2CAC300F3 /* Pods-EZCoreData_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DDD019E82F839A96CD4C340358CDC53 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C05080F797B206327D66C22F788ED7 /* Foundation.framework */; };
@@ -46,6 +47,7 @@
 		18036541F44164C63A204E60C76B0A55 /* Pods-EZCoreData_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EZCoreData_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		1F1A8FC621F7DE780037059F /* NSManagedObjectContext+Save.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Save.swift"; sourceTree = "<group>"; };
 		1F1A8FC721F7DE780037059F /* EZCoreDataLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EZCoreDataLogger.swift; sourceTree = "<group>"; };
+		1F1A8FCA21F7DECD0037059F /* NSManagedObject+Delete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Delete.swift"; sourceTree = "<group>"; };
 		2CFBF6FB20474F1A8AD1889A157245F4 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2F561635EEAD609BF15FC52944902381 /* EZCoreData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EZCoreData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39822ABCBCFBA641F33E50B3F1D34F30 /* EZCoreData-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EZCoreData-umbrella.h"; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				91B0F6D81669D0D6850BB481E643688B /* EZCoreData.swift */,
 				1F1A8FC721F7DE780037059F /* EZCoreDataLogger.swift */,
 				1F1A8FC621F7DE780037059F /* NSManagedObjectContext+Save.swift */,
+				1F1A8FCA21F7DECD0037059F /* NSManagedObject+Delete.swift */,
 				A11730D66E9B3DA2C215F432E13CF9FF /* Pod */,
 				D43C5B4AFCBED5940DA4824DAF78AA06 /* Support Files */,
 			);
@@ -383,6 +386,7 @@
 				1F1A8FC821F7DE780037059F /* NSManagedObjectContext+Save.swift in Sources */,
 				FF276542808B4B3E4417C3890B467A9B /* EZCoreData-dummy.m in Sources */,
 				D534E98CABCC26D3438579551F498ADD /* EZCoreData.swift in Sources */,
+				1F1A8FCB21F7DECD0037059F /* NSManagedObject+Delete.swift in Sources */,
 				1F1A8FC921F7DE780037059F /* EZCoreDataLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
