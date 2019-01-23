@@ -32,7 +32,7 @@ class TestEZCoreData: XCTestCase {
             
             // Check if creating container wrong
             if let error = error {
-                fatalError("Create an in-mem coordinator failed \(error)")
+                fatalError("Creating an in-mem coordinator failed \(error)")
             }
         }
         return container
@@ -58,11 +58,6 @@ class TestEZCoreData: XCTestCase {
         } catch let error {
             print(error.localizedDescription)
         }
-    }
-    
-    func test() {
-        let entity = NSEntityDescription.entity(forEntityName: "Article", in: context)!
-        _ = Article.init(entity: entity, insertInto: context)
     }
 }
 

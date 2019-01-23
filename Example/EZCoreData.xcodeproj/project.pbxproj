@@ -20,7 +20,6 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		6B69AAE70561FCC8EB4D9811 /* Pods_EZCoreData_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FA60AE9AE9AF98311AC5AE5 /* Pods_EZCoreData_Tests.framework */; };
 		70BE271EA987D57D6C3D2005 /* Pods_EZCoreData_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2AB259B8CD5C1238DCC6EB /* Pods_EZCoreData_Example.framework */; };
 /* End PBXBuildFile section */
@@ -55,7 +54,6 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* EZCoreData_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EZCoreData_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		6BA22C01B36201119759EBF9 /* Pods-EZCoreData_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EZCoreData_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-EZCoreData_Example/Pods-EZCoreData_Example.release.xcconfig"; sourceTree = "<group>"; };
 		7FA60AE9AE9AF98311AC5AE5 /* Pods_EZCoreData_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EZCoreData_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A82DACF25BF17B7B41E55 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -97,11 +95,31 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		1F1A8FE421F86BD70037059F /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				607FACD91AFB9204008FA782 /* Main.storyboard */,
+			);
+			name = Screens;
+			sourceTree = "<group>";
+		};
+		1F1A8FE521F86BEB0037059F /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				607FACDC1AFB9204008FA782 /* Images.xcassets */,
+				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for EZCoreData */,
+				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
+				1F6C6DCC21F7AE5200E59082 /* main.swift */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				DCD22163F1C1E4A2EA5B6F2D /* Pods */,
@@ -121,14 +139,10 @@
 		607FACD21AFB9204008FA782 /* Example for EZCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				1F1A8FE521F86BEB0037059F /* Assets */,
 				1F1A8FCC21F7DF6E0037059F /* Models */,
-				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				607FACD71AFB9204008FA782 /* ViewController.swift */,
-				607FACD91AFB9204008FA782 /* Main.storyboard */,
-				607FACDC1AFB9204008FA782 /* Images.xcassets */,
-				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
+				1F1A8FE421F86BD70037059F /* Screens */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
-				1F6C6DCC21F7AE5200E59082 /* main.swift */,
 			);
 			name = "Example for EZCoreData";
 			path = EZCoreData;
@@ -147,7 +161,6 @@
 			children = (
 				1F1A8FD821F7E1460037059F /* MockJSON.swift */,
 				1F1A8FD921F7E1460037059F /* TestEZCoreData.swift */,
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -382,7 +395,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F1A8FDB21F7E1460037059F /* TestEZCoreData.swift in Sources */,
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
 				1F1A8FDA21F7E1460037059F /* MockJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

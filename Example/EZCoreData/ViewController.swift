@@ -13,8 +13,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(Date.today())
-        
         
         EZCoreData.databaseName = "Model"
         _ = EZCoreData.shared
@@ -25,18 +23,12 @@ class ViewController: UIViewController {
         print(EZCoreData.shared.privateThreadContext)
         print(EZCoreData.privateThreadContext)
         
-        EZCoreData.shared.privateThreadContext.saveContextToStore { (result) in
-            print(result)
-        }
-        
-        Article.init(entity: Article.entity(), insertInto: EZCoreData.mainThredContext)
-        
         do {
             try print(Article.count(context: EZCoreData.mainThredContext))
+            try Article.deleteAll(context: EZCoreData.mainThredContext)
         } catch let error {
             print(error.localizedDescription)
         }
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewDidAppear(_ animated: Bool) {
