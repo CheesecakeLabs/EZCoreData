@@ -7,12 +7,32 @@
 //
 
 import UIKit
+import EZCoreData
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        EZCoreData.databaseName = "Model"
+        _ = EZCoreData.shared
+        print(EZCoreData.databaseName)
+        print(EZCoreData.shared.persistentContainer)
+        print(EZCoreData.shared.mainThredContext)
+        print(EZCoreData.mainThredContext)
+        print(EZCoreData.shared.privateThreadContext)
+        print(EZCoreData.privateThreadContext)
+        
+        do {
+            try print(Article.count(context: EZCoreData.mainThredContext))
+            try Article.deleteAll(context: EZCoreData.mainThredContext)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {
