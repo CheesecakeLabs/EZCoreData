@@ -20,11 +20,11 @@ Pod::Spec.new do |s|
   s.description      =  'A library that builds up the basic main and private contexts for CoreData and brings a few utility methods'
 
 
-  s.homepage         = 'https://github.com/marcelosalloum/EZCoreData'
+  s.homepage         = 'https://github.com/CheesecakeLabs/EZCoreData'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'marcelosalloum' => 'marcelosalloum@gmal.com' }
-  s.source           = { :git => 'https://github.com/marcelosalloum/EZCoreData.git', :tag => s.version.to_s }
-  s.social_media_url   = 'https://www.linkedin.com/in/marcelosalloum'
+  s.source           = { :git => 'https://github.com/CheesecakeLabs/EZCoreData.git', :tag => s.version.to_s }
+  s.social_media_url   = 'https://br.linkedin.com/in/marcelosalloum'
 
   s.ios.deployment_target = '10.0'
 
