@@ -118,8 +118,6 @@
 			children = (
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for EZCoreData */,
-				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				1F6C6DCC21F7AE5200E59082 /* main.swift */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				DCD22163F1C1E4A2EA5B6F2D /* Pods */,
@@ -139,6 +137,8 @@
 		607FACD21AFB9204008FA782 /* Example for EZCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
+				1F6C6DCC21F7AE5200E59082 /* main.swift */,
 				1F1A8FE521F86BEB0037059F /* Assets */,
 				1F1A8FCC21F7DF6E0037059F /* Models */,
 				1F1A8FE421F86BD70037059F /* Screens */,
