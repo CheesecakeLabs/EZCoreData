@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         print(Date.today())
         
+        
         EZCoreData.databaseName = "Model"
         _ = EZCoreData.shared
         print(EZCoreData.databaseName)
@@ -26,6 +27,14 @@ class ViewController: UIViewController {
         
         EZCoreData.shared.privateThreadContext.saveContextToStore { (result) in
             print(result)
+        }
+        
+        Article.init(entity: Article.entity(), insertInto: EZCoreData.mainThredContext)
+        
+        do {
+            try print(Article.count(context: EZCoreData.mainThredContext))
+        } catch let error {
+            print(error.localizedDescription)
         }
         // Do any additional setup after loading the view, typically from a nib.
     }
