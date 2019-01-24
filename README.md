@@ -11,6 +11,7 @@ A library that builds up the basic main and private contexts for CoreData and br
 - `EZCoreData`: used for managing the instances of the project's `NSPersistentContainer` and `NSManagedObjectContext`
 - `EZCoreDataLogger`, used for holding the default ENUMs for LogLevel, Error and ResultCallback, as well as some convenient methods to manage logging (error, warning and info logging) 
 - `NSManagedObjectContext+Save`: contains a convenience method (actually, sync and/or async versions of a method) for when you want to ensure the `privateThreadContext` saved changes will be propagated in its parent and siblings.
+- `NSManagedObject+Create`: a set of convenience methods for creating and saving an Object
 - `NSManagedObject+Read`: contains convenience methods to count objects and read list or single objects from the database
 - `NSManagedObject+Update`: used to import objects to the database. Included the method `getOrCreate` as well
 - `NSManagedObject+Delete`: used to delete a list of objects with the given characteristics, allowing the user to avoid deleting from a given list
