@@ -31,9 +31,53 @@ pod 'EZCoreData'
 ```
 
 ## Usage
-### [TODO] EZCoreData setup 
+### EZCoreData setup
+There aree basically 2 ways of initiating EZCoreData. The recommended one is using the `EZCoreData.shared` instance:
+```Swift
+import EZCoreData
 
-### [TODO] Count, ReadFirst, ReadAll
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+  var window: UIWindow?
+
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    // Init Core Data
+    EZCoreData.databaseName = "My_DB_Name"      // Initialize Core Data
+    _ = EZCoreData.shared                       // Initialize Core Data
+    return true
+  }
+...
+}
+```
+
+Alternatively, you can savve an instance of EZCoreData in a class of yours. AppDelegate, for instance:
+```Swift
+import EZCoreData
+
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+  var window: UIWindow?
+  var ezCoreData: EZCoreData!
+
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    // Init Core Data
+    ezCoreData = EZCoreData("My_DB_Namme") {
+      // Handle completion
+    }
+    return true
+  }
+...
+}
+```
+
+### Count
+Alright, now that your core data is setup, let's run a simple count method. Supposing you have a NSManagedObject child called Article, you can count doing the following:
+```Swift
+let articleCount = try? Article.count(context: EZCoreData.mainThredContext)
+```
+Simple, right? BBTW, since the method throws an error, I've used the `try?` syntax in this example. I encourage you to use de do/catch syntax to handle the error properly
+
+### [TODO] ReadFirst, ReadAll
 
 ### [TODO] Delete, DeleteAll
 
