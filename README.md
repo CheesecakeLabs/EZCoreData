@@ -21,6 +21,7 @@ A library that builds up the basic main and private contexts for CoreData and br
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+* iOS 10.0+
 
 ## Installation
 
@@ -88,7 +89,12 @@ newArticle.id = Int.random(in: 0...400)
 newArticle.save()
 ```
 
-### [TODO] getOrCreate
+### Get or Create
+```Swift
+let newOrExistingArticle = Article.getOrCreate(attribute: "id", value: 2, context: context)
+newOrExistingArticle.title = "EZCoreData lib was finally launched, and it looks great!"
+newOrExistingArticle.save()
+```
 
 ### Read First
 You can read the first object ay a given attribute:
@@ -118,7 +124,21 @@ let allArticles = Article.readAll()
 
 ### [TODO] import (and override models)
 
-### [TODO] Delete, DeleteAll
+### Delete One
+```Swift
+article.delete(context: context)
+```
+
+### Delete All
+You can Delete All by doing:
+```Swift
+Article.deleteAll()
+```
+Or you can delete a subset:
+```Swift
+let remainingList = Article.readAll(predicate: NSPredicate(format: "title CONTAINS[c] 'Art'"))
+Article.deleteAll(except: remainingList, context: context)
+```
 
 ## Advanced Topics
 
