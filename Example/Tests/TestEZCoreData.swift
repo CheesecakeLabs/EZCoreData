@@ -164,7 +164,6 @@ extension TestEZCoreData {
         XCTAssertEqual(bckgCount!, fgndCount!)
     }
     
-    // MARK: - Test Creation
     func testSave() {
         _ = Article.create(in: TestEZCoreData.backgroundContext, shouldSave: true)
         let bckgCount = try? Article.count(context: TestEZCoreData.backgroundContext)   // Counts objects in the Background Context
@@ -218,6 +217,14 @@ extension TestEZCoreData {
         let articles = try? Article.readAll(context: context)
         XCTAssertEqual(articles?.count, 6)
     }
+    
+    
+    func testReadByAttribute() {
+        _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
+        let articles = try? Article.readAllByAttribute("title", value: "Art", context: context)
+        XCTAssertEqual(articles?.count, 2)
+    }
+
 
     func testReadAllAsync() {
         // Initial SetuUp

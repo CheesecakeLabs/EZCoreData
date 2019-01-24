@@ -24,14 +24,14 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     
     // MARK: - Get or Create
     /// GET or CREATE object with `attribute` equals `value`
-    public static func getOrCreate(attribute: String?, value: String?, context: NSManagedObjectContext) -> Self? {
+    public static func getOrCreate(attribute: String, value: String, context: NSManagedObjectContext) -> Self? {
         // Initializing return variables
         var object: Self!
         var fetchedObjects: [Self] = []
         
         // GET, if idKey exists
         do {
-            fetchedObjects = try readAllByAttribute(attribute, value: value, context: context)
+            fetchedObjects = try readAll(predicate: NSPredicate(format: "\(attribute) == \(value)"), context: context)
         } catch let error {
             EZCoreDataLogger.logError(error.localizedDescription)
             return nil
