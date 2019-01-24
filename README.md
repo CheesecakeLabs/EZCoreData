@@ -122,7 +122,57 @@ Like the other read methods, if you don't pass any predicate, the result will be
 let allArticles = Article.readAll()
 ```
 
-### [TODO] import (and override models)
+### Import JSON into Objects
+
+Supose we have a JSON array or maybe a JSON object that you'd like to import to your CoreData. To do so, you first need to override the method `open func populateFromJSON(_ json: [String: Any], context: NSManagedObjectContext)` in your `NSManagedObjectContext` child class. Like we do in your example project:
+```Swift
+import CoreData
+import EZCoreData
+
+
+public class Article: NSManagedObject {
+    /// Populates Article objects from JSON
+    public override func populateFromJSON(_ json: [String : Any], context: NSManagedObjectContext) {
+        guard let rawId = json["id"]\ else { return }
+        self.id = id
+        self.title = json["title"] as? String
+        
+        guard let tags = json["tags"] as? [[String: Any]] else { return }
+        do {
+            guard let tagObjects = try Tag.importList(tags, idKey: "id", shouldSave: false, context: context) else { return }
+            self.addToTags(NSSet(array: tagObjects))
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+}
+```
+
+After overriding the method `open func populateFromJSON(_ json: [String: Any], context: NSManagedObjectContext)`, you can import an object as simple as this:
+```Swift
+let jsonObject: [String: Any] = [
+    "id": 1,
+    "title": "EZCoreData lib was finally launched, and it looks great!"
+]
+let article = importObject(jsonObject, shouldSave: true)
+```
+
+To import list of objects from a JSON, simply do this:
+```Swift
+let jsonArray: [[String: Any]] = [
+    [
+        "id": 1,
+        "title": "EZCoreData lib was finally launched, and it looks great!"
+    ],
+    [
+        "id": 2,
+        "title": "EZCoreData launch was delayed in 1 week"
+    ],
+]
+let articlesList = Article.importList(jsonArray, idKey: "id", shouldSave: true)
+```
+You can check a sample code of this in this repo's example project.
+
 
 ### Delete One
 ```Swift
