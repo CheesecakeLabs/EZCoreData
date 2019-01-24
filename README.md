@@ -72,11 +72,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ```
 
 ### Count
+
 Alright, now that your core data is setup, let's run a simple count method. Supposing you have a NSManagedObject child called Article, you can count doing the following:
 ```Swift
 let articleCount = try? Article.count(context: EZCoreData.mainThredContext)
 ```
 Simple, right? BBTW, since the method throws an error, I've used the `try?` syntax in this example. I encourage you to use de do/catch syntax to handle the error properly
+
+### Create & Save
+
+```Swift
+let newArticle = Article.create()
+newArticle.id = Int.random(in: 0...400)
+newArticle.save()
+```
 
 ### [TODO] ReadFirst, ReadAll
 
