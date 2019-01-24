@@ -7,6 +7,28 @@
 
 A library that builds up the basic main and private contexts for CoreData and brings a few utility methods
 
+## Table of Contents
+   * [EZCoreData](#ezcoredata)
+      * [Example Project](#example-project)
+      * [Installation](#installation)
+      * [Usage](#usage)
+         * [Set-up](#set-up)
+         * [Count](#count)
+         * [Create &amp; Save](#create--save)
+         * [Get or Create](#get-or-create)
+         * [Read First](#read-first)
+         * [Read All](#read-all)
+         * [Delete One](#delete-one)
+         * [Delete All](#delete-all)
+      * [Advanced Topics](#advanced-topics)
+         * [ASYNC Methods](#async-methods)
+         * [Import JSON into Objects](#import-json-into-objects)
+         * [Error Handling:](#error-handling)
+         * [NSManagedObjectContext](#nsmanagedobjectcontext)
+      * [Files' Reference:](#files-reference)
+      * [Author](#author)
+      * [License](#license)
+
 ## Example Project
 
 To run the example project, clone this repo, and run `pod install` from the Example directory first.
