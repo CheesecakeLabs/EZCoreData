@@ -190,21 +190,6 @@ public class Article: NSManagedObject {
 }
 ```
 
-### Error Handling:
-Most functions in thislibrary have 2 versions: Syncronous and Asyncronous. Theyhandle erros in a different form:
-**Syncronous Functions**: the SYNC functions throw the error so the user can handle it with a `do+try+catch` ou at least with a `try?` or `try!`.
-**Asyncronous Functions**: the ASYNC functions deal with the error internally and then return the result in a very civilized completion handler, hich derives from the following ENUM:
-```Swift
-/// Handles any kind of results
-public enum EZCoreDataResult<Object> {
-    /// Handles success results
-    case success(result: Object?)
-    
-    /// Handles failure results
-    case failure(error: Error)
-}
-```
-
 After overriding the method `open func populateFromJSON(_ json: [String: Any], context: NSManagedObjectContext)`, you can import an object as simple as this:
 ```Swift
 let jsonObject: [String: Any] = [
@@ -229,6 +214,21 @@ let jsonArray: [[String: Any]] = [
 let articlesList = Article.importList(jsonArray, idKey: "id", shouldSave: true)
 ```
 You can check a sample code of this in this repo's example project.
+
+### Error Handling:
+Most functions in thislibrary have 2 versions: Syncronous and Asyncronous. Theyhandle erros in a different form:
+**Syncronous Functions**: the SYNC functions throw the error so the user can handle it with a `do+try+catch` ou at least with a `try?` or `try!`.
+**Asyncronous Functions**: the ASYNC functions deal with the error internally and then return the result in a very civilized completion handler, hich derives from the following ENUM:
+```Swift
+/// Handles any kind of results
+public enum EZCoreDataResult<Object> {
+    /// Handles success results
+    case success(result: Object?)
+
+    /// Handles failure results
+    case failure(error: Error)
+}
+```
 
 ### NSManagedObjectContext
 
