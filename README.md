@@ -7,21 +7,9 @@
 
 A library that builds up the basic main and private contexts for CoreData and brings a few utility methods
 
-## Brief Reference:
-- `EZCoreData`: used for managing the instances of the project's `NSPersistentContainer` and `NSManagedObjectContext`
-- `EZCoreDataLogger`, used for holding the default ENUMs for LogLevel, Error and ResultCallback, as well as some convenient methods to manage logging (error, warning and info logging) 
-- `NSManagedObjectContext+Save`: contains a convenience method (actually, sync and/or async versions of a method) for when you want to ensure the `privateThreadContext` saved changes will be propagated in its parent and siblings.
-- `NSManagedObject+Create`: a set of convenience methods for creating and saving an Object
-- `NSManagedObject+Read`: contains convenience methods to count objects and read list or single objects from the database
-- `NSManagedObject+Update`: used to import objects to the database. Included the method `getOrCreate` as well
-- `NSManagedObject+Delete`: used to delete a list of objects with the given characteristics, allowing the user to avoid deleting from a given list
+## Example Project
 
-## Example
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
-## Requirements
-* iOS 10.0+
+To run the example project, clone this repo, and run `pod install` from the Example directory first.
 
 ## Installation
 
@@ -33,7 +21,7 @@ pod 'EZCoreData'
 ```
 
 ## Usage
-### EZCoreData setup
+### Set-up
 There aree basically 2 ways of initiating EZCoreData. The recommended one is using the `EZCoreData.shared` instance:
 ```Swift
 import EZCoreData
@@ -228,6 +216,14 @@ Th library was designed to run the SYNC tasks in the main thread and the ASYNC t
 
 There is also the possibility of using your own NSMAnagedObjectContext in the convenience methods. All methods have an optonal parameter `context: NSManagedObjectContext` that is filled with one of the default contexts if you don't specify them. It's important to say that th pre-set contexts should work fine and there is Unit Tests to guarante that.
 
+## Files' Reference:
+- `EZCoreData`: used for managing the instances of the project's `NSPersistentContainer` and `NSManagedObjectContext`
+- `EZCoreDataLogger`, used for holding the default ENUMs for LogLevel, Error and ResultCallback, as well as some convenient methods to manage logging (error, warning and info logging) 
+- `NSManagedObjectContext+Save`: contains a convenience method (actually, sync and/or async versions of a method) for when you want to ensure the `privateThreadContext` saved changes will be propagated in its parent and siblings.
+- `NSManagedObject+Create`: a set of convenience methods for creating and saving an Object
+- `NSManagedObject+Read`: contains convenience methods to count objects and read list or single objects from the database
+- `NSManagedObject+Update`: used to import objects to the database. Included the method `getOrCreate` as well
+- `NSManagedObject+Delete`: used to delete a list of objects with the given characteristics, allowing the user to avoid deleting from a given list
 
 ## Author
 
