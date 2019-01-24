@@ -25,6 +25,7 @@ public class EZCoreData: NSObject {
         var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
 
         managedObjectContext.persistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
+        configureManagedObjectContext(managedObjectContext)
 
         return managedObjectContext
     }()
@@ -39,6 +40,7 @@ public class EZCoreData: NSObject {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
 
         managedObjectContext.parent = self.mainThredContext
+        configureManagedObjectContext(managedObjectContext)
 
         return managedObjectContext
     }()
@@ -58,5 +60,11 @@ public class EZCoreData: NSObject {
             }
             completion()
         }
+    }
+    
+    // MARK: - Helpers
+    open func configureManagedObjectContext(_ context: NSManagedObjectContext) {
+        context.automaticallyMergesChangesFromParent = true
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }
 }
