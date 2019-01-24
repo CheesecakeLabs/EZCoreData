@@ -39,7 +39,19 @@ class TestEZCoreData: XCTestCase {
     }()
     
     static let context: NSManagedObjectContext = {
-        return mockPersistantContainer.viewContext
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        
+        managedObjectContext.persistentStoreCoordinator = TestEZCoreData.mockPersistantContainer.persistentStoreCoordinator
+        
+        return managedObjectContext
+    }()
+    
+    static let backgroundContext: NSManagedObjectContext = {
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+
+        managedObjectContext.parent = context
+        
+        return managedObjectContext
     }()
     
     var context: NSManagedObjectContext {
@@ -132,15 +144,47 @@ extension TestEZCoreData {
         let countSix = try? Article.count(context: context)
         XCTAssertEqual(countSix, 6)
         
-        let remainingList = try? Article.readAll(predicate: NSPredicate(format: "id <= 3"), context: context)
+        let remainingList = try? Article.readAll(predicate: NSPredicate(format: "id < 3"), context: context)
+        let expectedCountSubset = remainingList?.count
         try? Article.deleteAll(except: remainingList, context: context)
-        let countHalf = try? Article.count(context: context)
-        XCTAssertEqual(countHalf, 3)
+        let countSubset = try? Article.count(context: context)
+        XCTAssertEqual(countSubset, expectedCountSubset)
+    }
+    
+    // MARK: - Test Creation
+    func testCreateAndSave() {
+        let newArticle = Article.create(in: TestEZCoreData.backgroundContext)
+        var bckgCount = try? Article.count(context: TestEZCoreData.backgroundContext)   // Counts objects in the Background Context
+        var fgndCount = try? Article.count(context: context)                            // Counts objects in the Foreground Context
+        XCTAssertEqual(bckgCount!, fgndCount! + 1)
+        
+        newArticle?.save()
+        bckgCount = try? Article.count(context: TestEZCoreData.backgroundContext)
+        fgndCount = try? Article.count(context: context)
+        XCTAssertEqual(bckgCount!, fgndCount!)
+    }
+    
+    func testSave() {
+        _ = Article.create(in: TestEZCoreData.backgroundContext, shouldSave: true)
+        let bckgCount = try? Article.count(context: TestEZCoreData.backgroundContext)   // Counts objects in the Background Context
+        let fgndCount = try? Article.count(context: context)                            // Counts objects in the Foreground Context
+        XCTAssertEqual(bckgCount!, fgndCount!)
     }
 
 
-    // Mark: - Test Import
-    func testImportSync() {
+    // MARK: - Test Import
+    func testImportObjectSync() {
+        try? Article.deleteAll(context: context)
+        let countZero = try? Article.count(context: context)
+        XCTAssertEqual(countZero, 0)
+        
+        _ = try? Article.importObject(mockArticleListResponseJSON[0], shouldSave: false, context: context)
+        _ = try? Article.importObject(mockArticleListResponseJSON[1], shouldSave: true, context: context)
+        let countSix = try? Article.count(context: context)
+        XCTAssertEqual(countSix, 2)
+    }
+    
+    func testImportListSync() {
         try? Article.deleteAll(context: context)
         let countZero = try? Article.count(context: context)
         XCTAssertEqual(countZero, 0)
@@ -150,7 +194,7 @@ extension TestEZCoreData {
         XCTAssertEqual(countSix, 6)
     }
 
-    func testImportAsync() {
+    func testImportListAsync() {
         // Initial SetuUp
         try? Article.deleteAll(context: context)
         let countZero = try? Article.count(context: context)
@@ -184,6 +228,14 @@ extension TestEZCoreData {
         let articles = try? Article.readAll(context: context)
         XCTAssertEqual(articles?.count, 6)
     }
+    
+    
+    func testReadByAttribute() {
+        _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
+        let articles = try? Article.readAllByAttribute("title", value: "Art", context: context)
+        XCTAssertEqual(articles?.count, 2)
+    }
+
 
     func testReadAllAsync() {
         // Initial SetuUp

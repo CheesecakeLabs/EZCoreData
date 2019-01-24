@@ -156,7 +156,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         // Prepare the request
         let fetchRequest = readAllFetchRequest(context: context, sortDescriptors: sortDescriptors)
         guard let attribute = attribute, let value = value  else { return fetchRequest }
-        fetchRequest.predicate = NSPredicate(format: "\(attribute) == \(value)")
+        fetchRequest.predicate = NSPredicate(format: "\(attribute) CONTAINS[c] '\(value)'")
         return fetchRequest
 
     }
