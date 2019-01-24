@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-Alternatively, you can savve an instance of EZCoreData in a class of yours. AppDelegate, for instance:
+Alternatively, you can save an instance of EZCoreData in a class of yours. AppDelegate, for instance:
 ```Swift
 import EZCoreData
 
@@ -122,6 +122,38 @@ Like the other read methods, if you don't pass any predicate, the result will be
 let allArticles = Article.readAll()
 ```
 
+### Delete One
+```Swift
+article.delete(context: context)
+```
+
+### Delete All
+You can Delete All by doing:
+```Swift
+Article.deleteAll()
+```
+Or you can delete a subset:
+```Swift
+let remainingList = Article.readAll(predicate: NSPredicate(format: "title CONTAINS[c] 'Art'"))
+Article.deleteAll(except: remainingList, context: context)
+```
+
+## Advanced Topics
+
+### ASYNC Methods
+
+Since the examples below illustrate only the SYNC functions (without the part of the try-catch error handling), Let's illustrate at least one ASYNC method to count as an example :D:
+```Swift
+Article.readFirst(attribute: "title", value: "Art") { (awesomeResult) in
+    switch awesomeResult {
+    case .success(result: let articlesList):
+        print(articlesList!)                 // Do something with your list of articles
+    case .failure(error: let error):
+        print(error.localizedDescription)    // Handle your error
+    }
+}
+```
+
 ### Import JSON into Objects
 
 Supose we have a JSON array or maybe a JSON object that you'd like to import to your CoreData. To do so, you first need to override the method `open func populateFromJSON(_ json: [String: Any], context: NSManagedObjectContext)` in your `NSManagedObjectContext` child class. Like we do in your example project:
@@ -136,7 +168,7 @@ public class Article: NSManagedObject {
         guard let rawId = json["id"]\ else { return }
         self.id = id
         self.title = json["title"] as? String
-        
+
         guard let tags = json["tags"] as? [[String: Any]] else { return }
         do {
             guard let tagObjects = try Tag.importList(tags, idKey: "id", shouldSave: false, context: context) else { return }
@@ -145,6 +177,21 @@ public class Article: NSManagedObject {
             print(error.localizedDescription)
         }
     }
+}
+```
+
+### Error Handling:
+Most functions in thislibrary have 2 versions: Syncronous and Asyncronous. Theyhandle erros in a different form:
+**Syncronous Functions**: the SYNC functions throw the error so the user can handle it with a `do+try+catch` ou at least with a `try?` or `try!`.
+**Asyncronous Functions**: the ASYNC functions deal with the error internally and then return the result in a very civilized completion handler, hich derives from the following ENUM:
+```Swift
+/// Handles any kind of results
+public enum EZCoreDataResult<Object> {
+    /// Handles success results
+    case success(result: Object?)
+    
+    /// Handles failure results
+    case failure(error: Error)
 }
 ```
 
@@ -173,53 +220,8 @@ let articlesList = Article.importList(jsonArray, idKey: "id", shouldSave: true)
 ```
 You can check a sample code of this in this repo's example project.
 
-
-### Delete One
-```Swift
-article.delete(context: context)
-```
-
-### Delete All
-You can Delete All by doing:
-```Swift
-Article.deleteAll()
-```
-Or you can delete a subset:
-```Swift
-let remainingList = Article.readAll(predicate: NSPredicate(format: "title CONTAINS[c] 'Art'"))
-Article.deleteAll(except: remainingList, context: context)
-```
-
-## Advanced Topics
-
-### Error Handling:
-Most functions in thislibrary have 2 versions: Syncronous and Asyncronous. Theyhandle erros in a different form:
-**Syncronous Functions**: the SYNC functions throw the error so the user can handle it with a `do+try+catch` ou at least with a `try?` or `try!`.
-**Asyncronous Functions**: the ASYNC functions deal with the error internally and then return the result in a very civilized completion handler, hich derives from the following ENUM:
-```Swift
-/// Handles any kind of results
-public enum EZCoreDataResult<Object> {
-    /// Handles success results
-    case success(result: Object?)
-    
-    /// Handles failure results
-    case failure(error: Error)
-}
-```
-### ASYNC Methods
-Since the examples below illustrate only the SYNC functions (without the part of the try-catch error handling), Let's illustrate at least one ASYNC method to count as an example :D:
-```Swift
-Article.readFirst(attribute: "title", value: "Art") { (awesomeResult) in
-    switch awesomeResult {
-    case .success(result: let articlesList):
-        print(articlesList!)                 // Do something with your list of articles
-    case .failure(error: let error):
-        print(error.localizedDescription)    // Handle your error
-    }
-}
-```
-
 ### NSManagedObjectContext
+
 Th library was designed to run the SYNC tasks in the main thread and the ASYNC tasks on the bacground task. For that reason, there are two built-in `NSManagedObjectContexts` in the shared instance:
 * `EZCoreData.shared.mainThredContext`: Used in the lib for the SYNC methods. It's recommended to use the main context when the user is wasting his time waiting for a CoreData result.
 * `EZCoreData.shared.privateThreadContext`: Used in the lib for the ASYNC methods. It's recommended to use background/private contexts when you perform a time-consuming task or when your user doesn't need to waste his time waiting for the result.
