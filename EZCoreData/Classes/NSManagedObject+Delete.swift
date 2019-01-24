@@ -33,15 +33,14 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     /// SYNC Delete all objects of this kind except the given list
     static public func deleteAll(except toKeep: [Self]? = nil,
                                  context: NSManagedObjectContext = EZCoreData.mainThredContext) throws {
-        // Fech Reqest
-        let deleteFetchRequest = NSFetchRequest<NSFetchRequestResult>()
-        deleteFetchRequest.entity = entity()
         // Predicate
+        var predicate: NSPredicate?
         if let toKeep = toKeep, toKeep.count > 0 {
-            deleteFetchRequest.predicate = NSPredicate(format: "NOT (self IN %@)", toKeep)
+            predicate = NSPredicate(format: "NOT (self IN %@)", toKeep)
         }
         // Delete Request
-        try deleteAllFromFetchRequest(deleteFetchRequest, context: context)
+        try deleteAllFromFetchRequest(predicate, context: context)
+        context.saveContextToStore()
     }
     
     /// ASYNC Delete all objects of this kind except the given list
@@ -49,20 +48,25 @@ extension NSFetchRequestResult where Self: NSManagedObject {
                                  backgroundContext: NSManagedObjectContext = EZCoreData.privateThreadContext,
                                  completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
         backgroundContext.perform {
-            let deleteFetchRequest = NSFetchRequest<NSFetchRequestResult>()
-            deleteFetchRequest.entity = entity()
+            // Predicate
+            var predicate: NSPredicate?
             if let toKeep = toKeep, toKeep.count > 0 {
-                deleteFetchRequest.predicate = NSPredicate(format: "NOT (self IN %@)", toKeep)
+                predicate = NSPredicate(format: "NOT (self IN %@)", toKeep)
             }
-            // Delete Request
             do {
-                try deleteAllFromFetchRequest(deleteFetchRequest, context: backgroundContext)
-//                try print(Article.count(context: backgroundContext))
-//                try print(Article.count(context: context))
-                completion(.success(result: nil))
-                EZCoreDataLogger.log("Deleted list of objects")
+                // Delete Request
+                try deleteAllFromFetchRequest(predicate, context: backgroundContext)
+                backgroundContext.saveContextToStore({ (result) in
+                    switch result {
+                    case .success(result: _):
+                        completion(EZCoreDataResult<[Self]>.success(result: nil))
+                    case .failure(error: let error):
+                        completion(EZCoreDataResult<[Self]>.failure(error: error))
+                    }
+                })
             } catch let error {
-                EZCoreDataLogger.logError(error.localizedDescription)
+                print(error.localizedDescription)
+                print(error)
                 completion(.failure(error: error))
             }
         }
@@ -77,10 +81,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     static public func deleteAllByAttribute(except attributeName: String,
                                             toKeep: [String],
                                             context: NSManagedObjectContext = EZCoreData.mainThredContext) throws {
-        let deleteFetchRequest = NSFetchRequest<NSFetchRequestResult>()
-        deleteFetchRequest.entity = entity()
-        deleteFetchRequest.predicate = NSPredicate(format: "NOT (\(attributeName) IN %@)", toKeep)
-        try deleteAllFromFetchRequest(deleteFetchRequest, context: context)
+        try deleteAllFromFetchRequest(NSPredicate(format: "NOT (\(attributeName) IN %@)", toKeep), context: context)
     }
     
     /// ASYNC Delete all objects of this kind except those with the given attribute
@@ -89,12 +90,9 @@ extension NSFetchRequestResult where Self: NSManagedObject {
                                             backgroundContext: NSManagedObjectContext = EZCoreData.privateThreadContext,
                                             completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
         backgroundContext.perform {
-            let deleteFetchRequest = NSFetchRequest<NSFetchRequestResult>()
-            deleteFetchRequest.entity = entity()
-            deleteFetchRequest.predicate = NSPredicate(format: "NOT (\(attributeName) IN %@)", toKeep)
             // Delete Request
             do {
-                try deleteAllFromFetchRequest(deleteFetchRequest, context: backgroundContext)
+                try deleteAllFromFetchRequest(NSPredicate(format: "NOT (\(attributeName) IN %@)", toKeep), context: backgroundContext)
                 completion(.success(result: nil))
             } catch let error {
                 EZCoreDataLogger.logError(error.localizedDescription)
@@ -102,12 +100,21 @@ extension NSFetchRequestResult where Self: NSManagedObject {
             }
         }
     }
-    
-    // MARK: - Private Funcs
+}
+
+
+// MARK: - Private Funcs
+extension NSFetchRequestResult where Self: NSManagedObject {
     /// Delete all objects returned in the given NSFetchRequest
-    fileprivate static func deleteAllFromFetchRequest(_ fetchRequest: NSFetchRequest<NSFetchRequestResult>,
-                                                      context: NSManagedObjectContext) throws {
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        try context.execute(deleteRequest)
+    fileprivate static func deleteAllFromFetchRequest(_ predicate: NSPredicate?,
+                                                       context: NSManagedObjectContext) throws {
+        let objectList = try self.readAll(predicate: predicate, context: context)
+        let objectCount = objectList.count
+        var objectType: String = "Unknown"
+        for object in objectList {
+            objectType = String(describing: type(of: object))
+            try object.delete(shouldSave: false, context: context)
+        }
+        print("Attemting to delete a list of \(objectCount) objects of type '\(objectType)'")
     }
 }

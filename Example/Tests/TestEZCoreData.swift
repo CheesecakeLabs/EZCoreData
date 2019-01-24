@@ -45,20 +45,6 @@ class TestEZCoreData: XCTestCase {
     var context: NSManagedObjectContext {
         return TestEZCoreData.context
     }
-    
-    func purgeDatabase() {
-        do {
-            for article in try Article.readAll(context: context) {
-                try article.delete(shouldSave: false, context: context)
-            }
-            for tag in try Tag.readAll(context: context) {
-                try tag.delete(shouldSave: false, context: context)
-            }
-            try context.save()
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
 }
 
 
@@ -101,7 +87,7 @@ extension TestEZCoreData {
     }
 
     // Mark: - Test Delete
-    func testArticleDeletion() {
+    func testDeleteOne() {
         do {
             // Test Count and Save methods
             let initialCount = try Article.count(context: context)
@@ -123,16 +109,39 @@ extension TestEZCoreData {
         }
     }
 
-    func testDatabasePurge() {
-        purgeDatabase()
+    func testDeleteAll() {
+        try? Article.deleteAll(context: context)
+        var countZero = try? Article.count(context: context)
+        XCTAssertEqual(countZero, 0)
+        
+        _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
+        let countSix = try? Article.count(context: context)
+        XCTAssertEqual(countSix, 6)
+
+        try? Article.deleteAll(context: context)
+        countZero = try? Article.count(context: context)
+        XCTAssertEqual(countZero, 0)
+    }
+    
+    func testDeleteSubset() {
+        try? Article.deleteAll(context: context)
         let countZero = try? Article.count(context: context)
         XCTAssertEqual(countZero, 0)
+        
+        _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
+        let countSix = try? Article.count(context: context)
+        XCTAssertEqual(countSix, 6)
+        
+        let remainingList = try? Article.readAll(predicate: NSPredicate(format: "id <= 3"), context: context)
+        try? Article.deleteAll(except: remainingList, context: context)
+        let countHalf = try? Article.count(context: context)
+        XCTAssertEqual(countHalf, 3)
     }
 
 
     // Mark: - Test Import
     func testImportSync() {
-        purgeDatabase()
+        try? Article.deleteAll(context: context)
         let countZero = try? Article.count(context: context)
         XCTAssertEqual(countZero, 0)
 
@@ -143,7 +152,7 @@ extension TestEZCoreData {
 
     func testImportAsync() {
         // Initial SetuUp
-        purgeDatabase()
+        try? Article.deleteAll(context: context)
         let countZero = try? Article.count(context: context)
         XCTAssertEqual(countZero, 0)
 
@@ -170,7 +179,7 @@ extension TestEZCoreData {
 
     // Mark: - Test Read
     func testReadAll() {
-        purgeDatabase()
+        try? Article.deleteAll(context: context)
         _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
         let articles = try? Article.readAll(context: context)
         XCTAssertEqual(articles?.count, 6)
@@ -178,7 +187,7 @@ extension TestEZCoreData {
 
     func testReadAllAsync() {
         // Initial SetuUp
-        purgeDatabase()
+        try? Article.deleteAll(context: context)
         _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
         var articles: [Article] = []
 
@@ -207,7 +216,7 @@ extension TestEZCoreData {
     // Mark: - Test Read
     func testReadFirst() {
         do {
-            purgeDatabase()
+            try? Article.deleteAll(context: context)
             _ = try Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
             let randId = Int16.random(in: 1 ... 6)
             let article = try Article.readFirst(NSPredicate(format: "id == \(randId)"), context: context)
