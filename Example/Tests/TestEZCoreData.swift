@@ -173,7 +173,18 @@ extension TestEZCoreData {
 
 
     // MARK: - Test Import
-    func testImportSync() {
+    func testImportObjectSync() {
+        try? Article.deleteAll(context: context)
+        let countZero = try? Article.count(context: context)
+        XCTAssertEqual(countZero, 0)
+        
+        _ = try? Article.importObject(mockArticleListResponseJSON[0], shouldSave: false, context: context)
+        _ = try? Article.importObject(mockArticleListResponseJSON[1], shouldSave: true, context: context)
+        let countSix = try? Article.count(context: context)
+        XCTAssertEqual(countSix, 2)
+    }
+    
+    func testImportListSync() {
         try? Article.deleteAll(context: context)
         let countZero = try? Article.count(context: context)
         XCTAssertEqual(countZero, 0)
@@ -183,7 +194,7 @@ extension TestEZCoreData {
         XCTAssertEqual(countSix, 6)
     }
 
-    func testImportAsync() {
+    func testImportListAsync() {
         // Initial SetuUp
         try? Article.deleteAll(context: context)
         let countZero = try? Article.count(context: context)
