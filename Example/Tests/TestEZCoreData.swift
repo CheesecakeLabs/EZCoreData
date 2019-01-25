@@ -158,7 +158,7 @@ extension TestEZCoreData {
         var fgndCount = try? Article.count(context: context)                            // Counts objects in the Foreground Context
         XCTAssertEqual(bckgCount!, fgndCount! + 1)
         
-        newArticle?.save()
+        newArticle?.managedObjectContext?.saveContextToStore()
         bckgCount = try? Article.count(context: TestEZCoreData.backgroundContext)
         fgndCount = try? Article.count(context: context)
         XCTAssertEqual(bckgCount!, fgndCount!)

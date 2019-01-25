@@ -95,8 +95,8 @@ let articleCount = Article.count(NSPredicate(format: "title CONTAINS[c] 'Art'"))
 ### Create & Save
 ```Swift
 let newArticle = Article.create()
-newArticle.id = Int.random(in: 0...400)
-newArticle.save()
+newArticle?.id = Int.random(in: 0...400)
+newArticle?.managedObjectContext?.saveContextToStore()
 ```
 
 ### Get or Create
