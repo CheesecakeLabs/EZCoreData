@@ -19,10 +19,8 @@ extension NSManagedObject {
 }
 
 
+// MARK: - Get or Create
 extension NSFetchRequestResult where Self: NSManagedObject {
-    
-    
-    // MARK: - Get or Create
     /// GET or CREATE object with `attribute` equals `value`
     public static func getOrCreate(attribute: String, value: String, context: NSManagedObjectContext) -> Self? {
         // Initializing return variables
@@ -33,7 +31,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         do {
             fetchedObjects = try readAll(predicate: NSPredicate(format: "\(attribute) == \(value)"), context: context)
         } catch let error {
-            EZCoreDataLogger.logError(error.localizedDescription)
+            EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
             return nil
         }
         

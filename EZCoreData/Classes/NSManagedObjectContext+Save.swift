@@ -23,8 +23,8 @@ public extension NSManagedObjectContext {
                     completion(.success(result: nil))
                 }
             } catch let error {
-                EZCoreDataLogger.logError("Unable to Save Changes of Private Managed Object Context")
-                EZCoreDataLogger.logError(error.localizedDescription)
+                EZCoreDataLogger.log("Unable to Save Changes of Private Managed Object Context", verboseLevel: .error)
+                EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
                 completion(.failure(error: error))
             }
         }
@@ -48,8 +48,8 @@ public extension NSManagedObjectContext {
                 return
             }
         } catch let error {
-            EZCoreDataLogger.logError("Unable to Save Changes of Private Managed Object Context")
-            EZCoreDataLogger.logError(error.localizedDescription)
+            EZCoreDataLogger.log("Unable to Save Changes of Private Managed Object Context", verboseLevel: .error)
+            EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
             return
         }
     }

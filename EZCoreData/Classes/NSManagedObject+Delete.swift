@@ -95,7 +95,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
                 try deleteAllFromFetchRequest(NSPredicate(format: "NOT (\(attributeName) IN %@)", toKeep), context: backgroundContext)
                 completion(.success(result: nil))
             } catch let error {
-                EZCoreDataLogger.logError(error.localizedDescription)
+                EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
                 completion(.failure(error: error))
             }
         }

@@ -25,7 +25,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     public func save(in context: NSManagedObjectContext? = nil) {
         let saveContext: NSManagedObjectContext? = (context != nil) ? context : self.managedObjectContext
         if (saveContext == nil) {
-            EZCoreDataLogger.logError("Attempting to save a NSMangedObject '\(String(describing: type(of: self)))', but it is lacking any NSManagedObjectContext !!!")
+            EZCoreDataLogger.log("Attempting to save a NSMangedObject '\(String(describing: type(of: self)))', but it is lacking any NSManagedObjectContext !!!", verboseLevel: .error)
             return
         }
         saveContext?.saveContextToStore()
