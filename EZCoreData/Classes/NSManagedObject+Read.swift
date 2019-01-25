@@ -34,7 +34,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         do {
             _ = try context.execute(asynchronousFetchRequest)
         } catch {
-            EZCoreDataLogger.logError(error.localizedDescription)
+            EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
             completion(.failure(error: error))
         }
     }
@@ -113,7 +113,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 
 // MARK: - Read All
 extension NSFetchRequestResult where Self: NSManagedObject {
-
+    
     /// Fetch Request for reading all results with the given predicate
     fileprivate static func readAllFetchRequest(_ predicate: NSPredicate? = nil,
                                                 context: NSManagedObjectContext,

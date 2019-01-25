@@ -36,48 +36,32 @@ public enum EZCoreDataError: Error {
 
 // MARK: - Logging Handling
 /// Printing Level
-public enum EZCoreDataLogLevel: String {
-    /// Prints everything
-    case info
-    
-    /// Prints only errors and warnings
-    case warning
+public enum EZCoreDataLogLevel: Int {
+    /// Prints nothing
+    case none = 0
     
     /// Prints only errors
-    case error
+    case error = 1
     
-    /// Prints nothing
-    case silent
+    /// Prints only errors and warnings
+    case warning = 2
+    
+    /// Prints everything
+    case info = 3
 }
+
 
 public struct EZCoreDataLogger {
     
-    fileprivate static let libSuffix = "[EZCoreData]"
+    fileprivate static let libName = "[EZCoreData]"
     
-    /// Logging level. Can be any of the following: [info, warning, error, silent]
-    static var logLevel = EZCoreDataLogLevel.info
+    /// Authorized Logging level. Can be any of the following: [none, error, warning, info]
+    static var authorizedVerbose = EZCoreDataLogLevel.info
     
-    /// Loggs the given text if `logLevel == .info`
-    static func log(_ logText: Any?) {
-        if logLevel == .info {
-            guard let text = logText else { return }
-            print("\(libSuffix) INFO: \(text)")
-        }
-    }
-    
-    /// Loggs the given text if `logLevel in [.info, .warning]`
-    static func logWarning(_ logText: Any?) {
-        if [.info, .warning].contains(logLevel) {
-            guard let text = logText else { return }
-            print("\(libSuffix) WARNING: \(text)")
-        }
-    }
-    
-    /// Loggs the given text if `logLevel in [.info, .warning, .error]`
-    static func logError(_ logText: Any?) {
-        if [.info, .warning, .error].contains(logLevel) {
-            guard let text = logText else { return }
-            print("\(libSuffix) ERROR: \(text)")
-        }
+    /// Prints `logText` if `verboseLevel > authorizedVerbose`
+    static func log(_ logText: Any?, verboseLevel: EZCoreDataLogLevel = .info) {
+        guard let text = logText else { return }
+        if (verboseLevel.rawValue > self.authorizedVerbose.rawValue) { return }
+        print("\(libName) \(String(describing: verboseLevel).uppercased()): \(text)")
     }
 }

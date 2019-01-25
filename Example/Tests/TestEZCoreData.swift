@@ -16,46 +16,14 @@ import CoreData
 // MARK: - Mocking Core Data:
 class TestEZCoreData: XCTestCase {
 
-    let myID = "123456789"
+    private let myID = "123456789"
 
-    static let mockPersistantContainer: NSPersistentContainer = {
-        
-        let container = NSPersistentContainer(name: "Model")
-        let description = NSPersistentStoreDescription()
-        description.type = NSInMemoryStoreType
-        description.shouldAddStoreAsynchronously = false // Make it simpler in test env
-        
-        container.persistentStoreDescriptions = [description]
-        container.loadPersistentStores { (description, error) in
-            // Check if the data store is in memory
-            precondition( description.type == NSInMemoryStoreType )
-            
-            // Check if creating container wrong
-            if let error = error {
-                fatalError("Creating an in-mem coordinator failed \(error)")
-            }
-        }
-        return container
-    }()
-    
-    static let context: NSManagedObjectContext = {
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        
-        managedObjectContext.persistentStoreCoordinator = TestEZCoreData.mockPersistantContainer.persistentStoreCoordinator
-        
-        return managedObjectContext
-    }()
-    
-    static let backgroundContext: NSManagedObjectContext = {
-        let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-
-        managedObjectContext.parent = context
-        
-        return managedObjectContext
-    }()
-    
     var context: NSManagedObjectContext {
-        return TestEZCoreData.context
+        return EZCoreData.shared.mainThredContext
+    }
+    
+    var backgroundContext: NSManagedObjectContext {
+        return EZCoreData.shared.privateThreadContext
     }
 }
 
@@ -64,7 +32,7 @@ class TestEZCoreData: XCTestCase {
 extension TestEZCoreData {
 
     override func setUp() {
-        _ = TestEZCoreData.mockPersistantContainer
+        EZCoreData.shared.setupPersistence("Model")
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
@@ -153,21 +121,21 @@ extension TestEZCoreData {
     
     // MARK: - Test Creation
     func testCreateAndSave() {
-        let newArticle = Article.create(in: TestEZCoreData.backgroundContext)
-        var bckgCount = try? Article.count(context: TestEZCoreData.backgroundContext)   // Counts objects in the Background Context
-        var fgndCount = try? Article.count(context: context)                            // Counts objects in the Foreground Context
+        let newArticle = Article.create(in: backgroundContext)
+        var bckgCount = try? Article.count(context: backgroundContext)   // Counts objects in the Background Context
+        var fgndCount = try? Article.count(context: context)             // Counts objects in the Foreground Context
         XCTAssertEqual(bckgCount!, fgndCount! + 1)
         
-        newArticle?.save()
-        bckgCount = try? Article.count(context: TestEZCoreData.backgroundContext)
+        newArticle?.managedObjectContext?.saveContextToStore()
+        bckgCount = try? Article.count(context: backgroundContext)
         fgndCount = try? Article.count(context: context)
         XCTAssertEqual(bckgCount!, fgndCount!)
     }
     
     func testSave() {
-        _ = Article.create(in: TestEZCoreData.backgroundContext, shouldSave: true)
-        let bckgCount = try? Article.count(context: TestEZCoreData.backgroundContext)   // Counts objects in the Background Context
-        let fgndCount = try? Article.count(context: context)                            // Counts objects in the Foreground Context
+        _ = Article.create(in: backgroundContext, shouldSave: true)
+        let bckgCount = try? Article.count(context: backgroundContext)   // Counts objects in the Background Context
+        let fgndCount = try? Article.count(context: context)             // Counts objects in the Foreground Context
         XCTAssertEqual(bckgCount!, fgndCount!)
     }
 

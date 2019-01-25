@@ -14,10 +14,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        EZCoreData.databaseName = "Model"
-        _ = EZCoreData.shared
-        print(EZCoreData.databaseName)
-        print(EZCoreData.shared.persistentContainer)
+        EZCoreData.shared.setupPersistence("Model")
         print(EZCoreData.shared.mainThredContext)
         print(EZCoreData.mainThredContext)
         print(EZCoreData.shared.privateThreadContext)
