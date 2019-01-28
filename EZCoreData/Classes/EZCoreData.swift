@@ -10,8 +10,9 @@
 import CoreData
 
 
-// MARK: - SetUp/Init
 public class EZCoreData: NSObject {
+    // MARK: - SetUp/Init
+    
     /// Shared instance of `EZCoreData`. If the shared version is not enough for your case, you're encoouraged to create an intance of your own
     public static let shared: EZCoreData = EZCoreData()
     
@@ -31,18 +32,8 @@ public class EZCoreData: NSObject {
         }
     }
     
-    /// Setup the persistentContainer: NSPersistentContainer so the saved changes will be persisted in the database
+    /// Initialization of a persistent NSPersistentContainer
     public func setupPersistence(_ modelName: String, _ completion: (() -> Void)? = nil) {
-        self.setupPersistentStoreCoordinator(modelName, completion)
-    }
-    
-    /// Setup the persistentContainer: NSPersistentContainer so the saved instances will remain in memory and not be persisted. It's useful for unit tests
-    public func setupInMemoryPersistence(_ modelName: String, _ completion: (() -> Void)? = nil) {
-        self.setupInMemoryStoreCoordinator(modelName, completion)
-    }
-    
-    /// Async initialization of a persistent NSPersistentContainer
-    private func setupPersistentStoreCoordinator(_ modelName: String, _ completion: (() -> Void)? = nil) {
         if _persistentContainer != nil { return }
         persistentContainer = NSPersistentContainer(name: modelName)
         persistentContainer.loadPersistentStores() { (description, error) in
@@ -53,8 +44,8 @@ public class EZCoreData: NSObject {
         }
     }
     
-    /// Async initialization of an in-memory NSPersistentContainer
-    private func setupInMemoryStoreCoordinator(_ modelName: String, _ completion: (() -> Void)? = nil) {
+    /// Initialization of an in-memory NSPersistentContainer
+    public func setupInMemoryPersistence(_ modelName: String, _ completion: (() -> Void)? = nil) {
         if _persistentContainer != nil { return }
         persistentContainer = NSPersistentContainer(name: modelName)
         
@@ -76,7 +67,9 @@ public class EZCoreData: NSObject {
         }
     }
 
+    
     // MARK: - NSManagedObjectContext SetUp
+    
     /// NSManagedObjectContext that executes in Main Thread
     public lazy var mainThreadContext: NSManagedObjectContext = {
         return persistentContainer.viewContext
@@ -86,7 +79,6 @@ public class EZCoreData: NSObject {
     public lazy var privateThreadContext: NSManagedObjectContext = {
         
         let backgroundContext = persistentContainer.newBackgroundContext()
-        backgroundContext.parent = self.mainThreadContext
         backgroundContext.automaticallyMergesChangesFromParent = true
         backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
