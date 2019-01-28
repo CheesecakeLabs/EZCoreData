@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'EZCoreData'
-  s.version          = '0.4.1'
+  s.version          = '0.4.2'
   s.summary          = 'A great helper for core data if you use iOS 10.0+'
 
 # This description is used to generate tags and improve search results.
