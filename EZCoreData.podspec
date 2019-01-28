@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.author           = { 'marcelosalloum' => 'marcelosalloum@gmal.com' }
   s.source           = { :git => 'https://github.com/CheesecakeLabs/EZCoreData.git', :tag => s.version.to_s }
   # s.social_media_url   = 'https://www.linkedin.com/in/marcelosalloum/'
-  s.social_media_url   = 'https://cheesecakelabs.com/'
+  # s.social_media_url   = 'https://cheesecakelabs.com/'
 
   s.ios.deployment_target = '10.0'
 
