@@ -19,7 +19,7 @@ class TestEZCoreData: XCTestCase {
     private let myID = "123456789"
 
     var context: NSManagedObjectContext {
-        return EZCoreData.shared.mainThredContext
+        return EZCoreData.shared.mainThreadContext
     }
     
     var backgroundContext: NSManagedObjectContext {

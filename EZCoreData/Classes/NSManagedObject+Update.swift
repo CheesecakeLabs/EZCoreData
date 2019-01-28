@@ -55,7 +55,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     public static func importObject(_ jsonObject: [String: Any]?,
                                     idKey: String = "id",
                                     shouldSave: Bool,
-                                    context: NSManagedObjectContext = EZCoreData.mainThredContext) throws -> Self {
+                                    context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> Self {
         guard let jsonObject = jsonObject else { throw EZCoreDataError.jsonIsEmpty }
         guard let objectId = jsonObject[idKey] as? Int else { throw EZCoreDataError.invalidIdKey }
         guard let object = getOrCreate(attribute: idKey, value: String(describing: objectId), context: context) else { throw EZCoreDataError.getOrCreateObjIsEmpty }
@@ -71,7 +71,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     public static func importList(_ jsonArray: [[String: Any]]?,
                                   idKey: String = "id",
                                   shouldSave: Bool,
-                                  context: NSManagedObjectContext = EZCoreData.mainThredContext) throws -> [Self]? {
+                                  context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> [Self]? {
         // Input validations
         guard let jsonArray = jsonArray else { throw EZCoreDataError.jsonIsEmpty }
         if jsonArray.isEmpty { throw EZCoreDataError.jsonIsEmpty }
