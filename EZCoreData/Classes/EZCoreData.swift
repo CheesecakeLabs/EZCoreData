@@ -72,17 +72,26 @@ public class EZCoreData: NSObject {
     
     /// NSManagedObjectContext that executes in Main Thread
     public lazy var mainThreadContext: NSManagedObjectContext = {
-        return persistentContainer.viewContext
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        
+        managedObjectContext.persistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
+        managedObjectContext.automaticallyMergesChangesFromParent = true
+        managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        return managedObjectContext
+
     }()
     
     /// NSManagedObjectContext that executes in a Private Thread
     public lazy var privateThreadContext: NSManagedObjectContext = {
         
-        let backgroundContext = persistentContainer.newBackgroundContext()
-        backgroundContext.automaticallyMergesChangesFromParent = true
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         
-        return backgroundContext
+        managedObjectContext.parent = self.mainThreadContext
+        managedObjectContext.automaticallyMergesChangesFromParent = true
+        managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        return managedObjectContext
     }()
     
     /// static NSManagedObjectContext that executes in Main Thread
