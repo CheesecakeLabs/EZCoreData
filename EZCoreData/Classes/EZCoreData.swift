@@ -68,7 +68,7 @@ public class EZCoreData: NSObject {
             // Check if the data store is in memory
             precondition( description.type == NSInMemoryStoreType )
             
-            // Check if creating container wrong
+            // Check if creating container has gone wrong
             if let error = error {
                 fatalError("Creating an in-mem coordinator failed \(error)")
             }
@@ -79,22 +79,18 @@ public class EZCoreData: NSObject {
     // MARK: - NSManagedObjectContext SetUp
     /// NSManagedObjectContext that executes in Main Thread
     public lazy var mainThredContext: NSManagedObjectContext = {
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        
-        managedObjectContext.persistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
-        configureManagedObjectContext(managedObjectContext)
-        
-        return managedObjectContext
+        return persistentContainer.viewContext
     }()
     
     /// NSManagedObjectContext that executes in a Private Thread
     public lazy var privateThreadContext: NSManagedObjectContext = {
-        let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         
-        managedObjectContext.parent = self.mainThredContext
-        configureManagedObjectContext(managedObjectContext)
+        let backgroundContext = persistentContainer.newBackgroundContext()
+        backgroundContext.parent = self.mainThredContext
+        backgroundContext.automaticallyMergesChangesFromParent = true
+        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
-        return managedObjectContext
+        return backgroundContext
     }()
     
     /// static NSManagedObjectContext that executes in Main Thread
@@ -105,11 +101,5 @@ public class EZCoreData: NSObject {
     /// static NSManagedObjectContext that executes in a Private Thread
     public static var privateThreadContext: NSManagedObjectContext {
         return shared.privateThreadContext
-    }
-    
-    // MARK: - Helpers
-    open func configureManagedObjectContext(_ context: NSManagedObjectContext) {
-        context.automaticallyMergesChangesFromParent = true
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }
 }
