@@ -14,7 +14,7 @@ import CoreData
 // MARK: - Create Helpers
 extension NSFetchRequestResult where Self: NSManagedObject {
     
-    static public func create(in context: NSManagedObjectContext = EZCoreData.mainThredContext, shouldSave: Bool = false) -> Self? {
+    static public func create(in context: NSManagedObjectContext = EZCoreData.mainThreadContext, shouldSave: Bool = false) -> Self? {
         let newObject = Self.init(entity: self.entity(), insertInto: context)
         if (shouldSave) {
             context.saveContextToStore()

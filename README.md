@@ -1,6 +1,6 @@
 # EZCoreData
 
-[![CI Status](https://img.shields.io/travis/marcelosalloum/EZCoreData.svg?style=flat)](https://travis-ci.org/marcelosalloum/EZCoreData)
+[![CI Status](https://img.shields.io/travis/CheesecakeLabs/EZCoreData.svg?style=flat)](https://travis-ci.org/marcelosalloum/EZCoreData)
 [![Version](https://img.shields.io/cocoapods/v/EZCoreData.svg?style=flat)](https://cocoapods.org/pods/EZCoreData)
 [![License](https://img.shields.io/cocoapods/l/EZCoreData.svg?style=flat)](https://cocoapods.org/pods/EZCoreData)
 [![Platform](https://img.shields.io/cocoapods/p/EZCoreData.svg?style=flat)](https://cocoapods.org/pods/EZCoreData)
@@ -233,7 +233,7 @@ public enum EZCoreDataResult<Object> {
 ### NSManagedObjectContext
 
 Th library was designed to run the SYNC tasks in the main thread and the ASYNC tasks on the bacground task. For that reason, there are two built-in `NSManagedObjectContexts` in the shared instance:
-* `EZCoreData.shared.mainThredContext`: Used in the lib for the SYNC methods. It's recommended to use the main context when the user is wasting his time waiting for a CoreData result.
+* `EZCoreData.shared.mainThreadContext`: Used in the lib for the SYNC methods. It's recommended to use the main context when the user is wasting his time waiting for a CoreData result.
 * `EZCoreData.shared.privateThreadContext`: Used in the lib for the ASYNC methods. It's recommended to use background/private contexts when you perform a time-consuming task or when your user doesn't need to waste his time waiting for the result.
 
 There is also the possibility of using your own NSMAnagedObjectContext in the convenience methods. All methods have an optonal parameter `context: NSManagedObjectContext` that is filled with one of the default contexts if you don't specify them. It's important to say that th pre-set contexts should work fine and there is Unit Tests to guarante that.

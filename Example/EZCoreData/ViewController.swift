@@ -15,14 +15,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         EZCoreData.shared.setupPersistence("Model")
-        print(EZCoreData.shared.mainThredContext)
-        print(EZCoreData.mainThredContext)
+        print(EZCoreData.shared.mainThreadContext)
+        print(EZCoreData.mainThreadContext)
         print(EZCoreData.shared.privateThreadContext)
         print(EZCoreData.privateThreadContext)
         
         do {
-            try print(Article.count(context: EZCoreData.mainThredContext))
-            try Article.deleteAll(context: EZCoreData.mainThredContext)
+            try print(Article.count(context: EZCoreData.mainThreadContext))
+            try Article.deleteAll(context: EZCoreData.mainThreadContext)
         } catch let error {
             print(error.localizedDescription)
         }

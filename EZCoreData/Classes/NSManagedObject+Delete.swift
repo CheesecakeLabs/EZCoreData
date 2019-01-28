@@ -13,7 +13,7 @@ import CoreData
 // MARK: - Delete One
 extension NSFetchRequestResult where Self: NSManagedObject {
     /// Delete given object within the given context
-    static public func delete(_ object: Self, shouldSave: Bool = true, context: NSManagedObjectContext = EZCoreData.mainThredContext) throws {
+    static public func delete(_ object: Self, shouldSave: Bool = true, context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
         context.delete(object)
         if (shouldSave) {
             try context.save()
@@ -21,7 +21,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     }
     
     /// Delete the object within the given context
-    public func delete(shouldSave: Bool = true, context: NSManagedObjectContext = EZCoreData.mainThredContext) throws {
+    public func delete(shouldSave: Bool = true, context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
         try Self.delete(self, shouldSave: shouldSave, context: context)
     }
 }
@@ -32,7 +32,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     
     /// SYNC Delete all objects of this kind except the given list
     static public func deleteAll(except toKeep: [Self]? = nil,
-                                 context: NSManagedObjectContext = EZCoreData.mainThredContext) throws {
+                                 context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
         // Predicate
         var predicate: NSPredicate?
         if let toKeep = toKeep, toKeep.count > 0 {
@@ -80,7 +80,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     /// SYNC Delete all objects of this kind except those with the given attribute
     static public func deleteAllByAttribute(except attributeName: String,
                                             toKeep: [String],
-                                            context: NSManagedObjectContext = EZCoreData.mainThredContext) throws {
+                                            context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
         try deleteAllFromFetchRequest(NSPredicate(format: "NOT (\(attributeName) IN %@)", toKeep), context: context)
     }
     
@@ -115,6 +115,6 @@ extension NSFetchRequestResult where Self: NSManagedObject {
             objectType = String(describing: type(of: object))
             try object.delete(shouldSave: false, context: context)
         }
-        print("Attemting to delete a list of \(objectCount) objects of type '\(objectType)'")
+        print("Attempting to delete a list of \(objectCount) objects of type '\(objectType)'")
     }
 }
