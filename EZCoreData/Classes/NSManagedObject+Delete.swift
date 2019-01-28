@@ -115,6 +115,6 @@ extension NSFetchRequestResult where Self: NSManagedObject {
             objectType = String(describing: type(of: object))
             try object.delete(shouldSave: false, context: context)
         }
-        print("Attemting to delete a list of \(objectCount) objects of type '\(objectType)'")
+        print("Attempting to delete a list of \(objectCount) objects of type '\(objectType)'")
     }
 }
