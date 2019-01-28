@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'EZCoreData'
-  s.version          = '0.4.0'
+  s.version          = '0.4.1'
   s.summary          = 'A great helper for core data if you use iOS 10.0+'
 
 # This description is used to generate tags and improve search results.
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.author           = { 'marcelosalloum' => 'marcelosalloum@gmal.com' }
   s.source           = { :git => 'https://github.com/CheesecakeLabs/EZCoreData.git', :tag => s.version.to_s }
   # s.social_media_url   = 'https://www.linkedin.com/in/marcelosalloum/'
-  s.social_media_url   = 'https://cheesecakelabs.com/'
+  # s.social_media_url   = 'https://cheesecakelabs.com/'
 
   s.ios.deployment_target = '10.0'
 
