@@ -1,15 +1,22 @@
 PODS:
-  - EZCoreData (0.1.0)
+  - EZCoreData (0.4.2):
+    - Promises (= 2.0.1)
+  - Promises (2.0.1)
 
 DEPENDENCIES:
   - EZCoreData (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Promises
 
 EXTERNAL SOURCES:
   EZCoreData:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EZCoreData: 270a9e3946305891c18ef941601cdcf4e405728a
+  EZCoreData: 04574d6384778478a26e326111640ac7d509381b
+  Promises: e94e1d74d818d1d2f8933e1f4f12d443c3bb4f3b
 
 PODFILE CHECKSUM: 76f861169b183ad662d5274a53c56d75f3bc53a7
 

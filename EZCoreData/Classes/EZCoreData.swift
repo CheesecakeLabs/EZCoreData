@@ -6,8 +6,8 @@
 //  Copyright © 2019 Marcelo Salloum dos Santos. All rights reserved.
 //
 
-//import UIKit
 import CoreData
+import Promise
 
 
 public class EZCoreData: NSObject {

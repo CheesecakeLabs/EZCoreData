@@ -1,9 +1,9 @@
 {
   "name": "EZCoreData",
-  "version": "0.1.0",
-  "summary": "A great helper for core data if you use iOS 10+",
+  "version": "0.4.2",
+  "summary": "A great helper for core data if you use iOS 10.0+",
   "description": "A library that builds up the basic main and private contexts for CoreData and brings a few utility methods",
-  "homepage": "https://github.com/marcelosalloum/EZCoreData",
+  "homepage": "https://github.com/CheesecakeLabs/EZCoreData",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,14 +12,18 @@
     "marcelosalloum": "marcelosalloum@gmal.com"
   },
   "source": {
-    "git": "https://github.com/marcelosalloum/EZCoreData.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/CheesecakeLabs/EZCoreData.git",
+    "tag": "0.4.2"
   },
-  "social_media_url": "https://www.linkedin.com/in/marcelosalloum",
   "platforms": {
     "ios": "10.0"
   },
   "source_files": "EZCoreData/Classes/**/*",
   "swift_version": "4.2",
-  "frameworks": "CoreData"
+  "frameworks": "CoreData",
+  "dependencies": {
+    "Promises": [
+      "2.0.1"
+    ]
+  }
 }

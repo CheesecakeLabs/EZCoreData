@@ -6,8 +6,8 @@
 //  Copyright © 2019 Marcelo Salloum dos Santos. All rights reserved.
 //
 
-import Foundation
 import CoreData
+import Promise
 
 
 // MARK: - Used for importing a JSON into an NSManagedObjectContext
@@ -22,29 +22,22 @@ extension NSManagedObject {
 // MARK: - Get or Create
 extension NSFetchRequestResult where Self: NSManagedObject {
     /// GET or CREATE object with `attribute` equals `value`
-    public static func getOrCreate(attribute: String, value: String, context: NSManagedObjectContext) -> Self? {
-        // Initializing return variables
-        var object: Self!
-        var fetchedObjects: [Self] = []
-        
-        // GET, if idKey exists
-        do {
-            fetchedObjects = try readAll(predicate: NSPredicate(format: "\(attribute) == \(value)"), context: context)
-        } catch let error {
-            EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
-            return nil
+    public static func getOrCreate(attribute: String, value: String, context: NSManagedObjectContext) -> Promise<Self> {
+
+        let promise = Promise<Self> { (fulfill, reject) in
+            let predicate = NSPredicate(format: "\(attribute) == \(value)")
+            readFirst(predicate, context: context).then({ (fetchedObjects) in
+                // CREATE if idKey doesn't exist
+                if (fetchedObjects.count > 0) {
+                    fulfill(fetchedObjects[0])
+                } else {
+                    fulfill(self.init(entity: self.entity(), insertInto: context))
+                }
+            }) { (error) in
+                EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
+            }
         }
-        
-        // CREATE if idKey doesn't exist
-        if (fetchedObjects.count > 0) {
-            object = fetchedObjects[0]
-        } else {
-            // let entity = NSEntityDescription.entity(forEntityName: String(self), in: context)!
-            // print(String(describing: self))
-            object = Self.init(entity: self.entity(), insertInto: context)
-        }
-        
-        return object
+        return promise
     }
 }
 
@@ -55,71 +48,52 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     public static func importObject(_ jsonObject: [String: Any]?,
                                     idKey: String = "id",
                                     shouldSave: Bool,
-                                    context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> Self {
-        guard let jsonObject = jsonObject else { throw EZCoreDataError.jsonIsEmpty }
-        guard let objectId = jsonObject[idKey] as? Int else { throw EZCoreDataError.invalidIdKey }
-        guard let object = getOrCreate(attribute: idKey, value: String(describing: objectId), context: context) else { throw EZCoreDataError.getOrCreateObjIsEmpty }
-        object.populateFromJSON(jsonObject, context: context)
-        // Context Save
-        if (shouldSave) {
-            context.saveContextToStore()
+                                    context: NSManagedObjectContext = EZCoreData.mainThreadContext) -> Promise<Self> {
+        
+        let promise = Promise<Self> { (fulfill, reject) in
+            guard let jsonObject = jsonObject else { throw EZCoreDataError.jsonIsEmpty }
+            guard let objectId = jsonObject[idKey] as? Int else { throw EZCoreDataError.invalidIdKey }
+            
+            getOrCreate(attribute: idKey, value: String(describing: objectId), context: context).then({ (object) in
+                object.populateFromJSON(jsonObject, context: context)
+                // Context Save
+                if (shouldSave) {
+                    context.saveContextToStore().then({ _ in
+                        fulfill(object)
+                    }).catch(reject)
+                } else {
+                    fulfill(object)
+                }
+            })
+            
         }
-        return object
-    }
-    
-    /// SYNC import a JSON array into a list of objects and then save them to CoreData
-    public static func importList(_ jsonArray: [[String: Any]]?,
-                                  idKey: String = "id",
-                                  shouldSave: Bool,
-                                  context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> [Self]? {
-        // Input validations
-        guard let jsonArray = jsonArray else { throw EZCoreDataError.jsonIsEmpty }
-        if jsonArray.isEmpty { throw EZCoreDataError.jsonIsEmpty }
-        var objectsArray: [Self] = []
-
-        // Looping over the array then GET or CREATE
-        for objectJSON in jsonArray {
-            let object = try importObject(objectJSON, idKey: idKey, shouldSave: false, context: context)
-            objectsArray.append(object)
-        }
-
-        // Context Save
-        if (shouldSave) {
-            context.saveContextToStore()
-        }
-        return objectsArray
+        return promise
+        
     }
     
     /// ASYNC import a JSON array into a list of objects and then save them to CoreData
-    public static func importList(_ jsonArray: [[String: Any]]?,
+    public static func importList(_ jsonArray: [[String: Any]],
                                   idKey: String = "id",
-                                  backgroundContext: NSManagedObjectContext = EZCoreData.privateThreadContext,
-                                  completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
-        backgroundContext.perform {
-            // Input validations
-            guard let jsonArray = jsonArray else { return }
-            if jsonArray.isEmpty { return }
-            var objectsArray: [Self] = []
-            
-            // Looping over the array then GET or CREATE
-            for objectJSON in jsonArray {
-                do {
-                    let object = try importObject(objectJSON, idKey: idKey, shouldSave: false, context: backgroundContext)
-                    objectsArray.append(object)
-                } catch let error {
-                    completion(EZCoreDataResult<[Self]>.failure(error: error))
-                }
-            }
-            
-            // Context Save
-            backgroundContext.saveContextToStore({ (result) in
-                switch result {
-                case .success(result: _):
-                    completion(EZCoreDataResult<[Self]>.success(result: objectsArray))
-                case .failure(error: let error):
-                    completion(EZCoreDataResult<[Self]>.failure(error: error))
+                                  shouldSave: Bool,
+                                  context: NSManagedObjectContext = EZCoreData.mainThreadContext) -> Promise<[Self]>  {
+        // Looping over the array then GET or CREATE
+        let objectsPromises = jsonArray.map({ objectJSON in
+            importObject(objectJSON, idKey: idKey, shouldSave: false, context: context)
+        })
+        
+        let promise = Promise<[Self]> { (fulfill, reject) in
+            Promises.all(objectsPromises).then({ (objectsArray) in
+                // Context Save
+                if (shouldSave) {
+                    context.saveContextToStore().then({ _ in
+                        fulfill(objectsArray)
+                    }).catch(reject)
+                } else {
+                    fulfill(objectsArray)
                 }
             })
         }
+        
+        return promise
     }
 }

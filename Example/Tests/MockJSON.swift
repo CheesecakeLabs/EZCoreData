@@ -9,7 +9,7 @@
 import Foundation
 
 
-let mockArticleListResponseJSON: [[String: Any]] = [
+public let mockArticleListResponseJSON: [[String: Any]] = [
     [
         "id": 1,
         "title":"Obama Offers Hopeful Vision While Noting Nation's Fears",

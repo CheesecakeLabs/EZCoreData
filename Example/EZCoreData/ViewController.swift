@@ -8,6 +8,7 @@
 
 import UIKit
 import EZCoreData
+import Promise
 
 class ViewController: UIViewController {
 
@@ -18,11 +19,29 @@ class ViewController: UIViewController {
         print(EZCoreData.shared.mainThreadContext)
         print(EZCoreData.mainThreadContext)
         print(EZCoreData.shared.privateThreadContext)
-        print(EZCoreData.privateThreadContext)
+//        print(EZCoreData.privateThreadContext)
         
         do {
             try print(Article.count(context: EZCoreData.mainThreadContext))
-            try Article.deleteAll(context: EZCoreData.mainThreadContext)
+            
+            Article.deleteAll().then({ (_) in
+                return Article.create(shouldSave: true)
+            }).then({ (article) in
+                article.id = 10
+                article.title = "My Title"
+            }).then({ (article) in
+                EZCoreData.mainThreadContext.saveContextToStore()
+            }).then({ _ in
+                try print(Article.count(context: EZCoreData.mainThreadContext))
+            }).then({ _ in
+                return Article.readAll()
+            }).then({ articleList in
+                print(articleList)
+            }).then({ articleList in
+                Article.deleteAll()
+            }).then { (_) in
+                print("Finished!")
+            }
         } catch let error {
             print(error.localizedDescription)
         }

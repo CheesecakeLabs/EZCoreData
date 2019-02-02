@@ -316,12 +316,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EZCoreData_Example/Pods-EZCoreData_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EZCoreData/EZCoreData.framework",
+				"${BUILT_PRODUCTS_DIR}/Promises/Promise.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EZCoreData.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promise.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

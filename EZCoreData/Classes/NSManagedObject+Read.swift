@@ -6,8 +6,8 @@
 //  Copyright © 2019 Marcelo Salloum dos Santos. All rights reserved.
 //
 
-import Foundation
 import CoreData
+import Promise
 
 
 
@@ -16,27 +16,30 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     
     /// SYNC Fetch Request for reading
     fileprivate static func syncFetchRequest(_ context: NSManagedObjectContext) -> NSFetchRequest<Self> {
-        // let req = NSFetchRequest<Self>.init(entityName: String(describing: self))
-        let fetchRequest = Self.fetchRequest() as! NSFetchRequest<Self>
+        let fetchRequest = self.fetchRequest() as! NSFetchRequest<Self>
         return fetchRequest
     }
     
     /// ASYNC Fetch Request for reading
     static public func asyncFetchRequest(_ fetchRequest: NSFetchRequest<Self>,
-                                         context: NSManagedObjectContext,
-                                         completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
-        let asynchronousFetchRequest = NSAsynchronousFetchRequest<Self>(fetchRequest: fetchRequest) { (asyncFetchResult) in
-            if let fetchedObjects = asyncFetchResult.finalResult {
-                completion(.success(result: fetchedObjects))
+                                         context: NSManagedObjectContext) -> Promise<[Self]> {
+        
+        let promise = Promise<[Self]> { (fulfill, reject) in
+            let asynchronousFetchRequest = NSAsynchronousFetchRequest<Self>(fetchRequest: fetchRequest) { (asyncFetchResult) in
+                if let fetchedObjects = asyncFetchResult.finalResult {
+                    fulfill(fetchedObjects)
+                }
+            }
+            
+            do {
+                _ = try context.execute(asynchronousFetchRequest)
+            } catch {
+                EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
+                reject(error)
             }
         }
         
-        do {
-            _ = try context.execute(asynchronousFetchRequest)
-        } catch {
-            EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
-            completion(.failure(error: error))
-        }
+        return promise
     }
 }
 
@@ -55,27 +58,11 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         return fetchRequest
     }
     
-    /// SYNC read first result with the given predicate
-    static public func readFirst(_ predicate: NSPredicate? = nil,
-                                 context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> Self? {
-        let fetchRequest = readFirstFetchRequest(predicate, context: context)
-        return try context.fetch(fetchRequest).first
-        
-    }
-    
     /// ASYNC read first result with the given predicate
     static public func readFirst(_ predicate: NSPredicate? = nil,
-                                 context: NSManagedObjectContext = EZCoreData.mainThreadContext,
-                                 completion: @escaping (EZCoreDataResult<Self>) -> Void) {
+                                 context: NSManagedObjectContext = EZCoreData.mainThreadContext) -> Promise<[Self]> {
         let fetchRequest = readFirstFetchRequest(predicate, context: context)
-        asyncFetchRequest(fetchRequest, context: context, completion: {awesomeResult in
-            switch awesomeResult {
-            case .success(result: let objectList):
-                completion(EZCoreDataResult<Self>.success(result: objectList?.first))
-            case .failure(error: let error):
-                completion(EZCoreDataResult<Self>.failure(error: error))
-            }
-        })
+        return asyncFetchRequest(fetchRequest, context: context)
     }
 }
 
@@ -83,30 +70,13 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 // MARK: - Read First By Attributte
 extension NSFetchRequestResult where Self: NSManagedObject {
     
-    /// SYNC read first result with the given `attribute` and `value`
-    static public func readFirst(attribute: String,
-                                 value: String,
-                                 context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> Self? {
-        let predicate = NSPredicate(format: "\(attribute) == \(value)")
-        let fetchRequest = readFirstFetchRequest(predicate, context: context)
-        return try context.fetch(fetchRequest).first
-    }
-    
     /// ASYNC read first result with the given `attribute` and `value`
     static public func readFirst(attribute: String,
                                  value: String,
-                                 context: NSManagedObjectContext = EZCoreData.mainThreadContext,
-                                 completion: @escaping (EZCoreDataResult<Self>) -> Void) {
+                                 context: NSManagedObjectContext = EZCoreData.mainThreadContext) -> Promise<[Self]> {
         let predicate = NSPredicate(format: "\(attribute) == \(value)")
         let fetchRequest = readFirstFetchRequest(predicate, context: context)
-        asyncFetchRequest(fetchRequest, context: context, completion: {awesomeResult in
-            switch awesomeResult {
-            case .success(result: let objectList):
-                completion(EZCoreDataResult<Self>.success(result: objectList?.first))
-            case .failure(error: let error):
-                completion(EZCoreDataResult<Self>.failure(error: error))
-            }
-        })
+        return asyncFetchRequest(fetchRequest, context: context)
     }
 }
 
@@ -125,23 +95,13 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         return fetchRequest
     }
     
-    /// SYNC read all results with the given predicate
-    static public func readAll(predicate: NSPredicate? = nil,
-                               context: NSManagedObjectContext = EZCoreData.mainThreadContext,
-                               sortDescriptors: [NSSortDescriptor]? = nil) throws -> [Self] {
-        // Prepare the request
-        let fetchRequest = readAllFetchRequest(predicate, context: context, sortDescriptors: sortDescriptors)
-        return try context.fetch(fetchRequest)
-    }
-    
     /// ASYNC read all results with the given predicate
     static public func readAll(predicate: NSPredicate? = nil,
                                sortDescriptors: [NSSortDescriptor]? = nil,
-                               context: NSManagedObjectContext = EZCoreData.mainThreadContext,
-                               completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
+                               context: NSManagedObjectContext = EZCoreData.mainThreadContext) -> Promise<[Self]> {
         // Prepare the request
         let fetchRequest = readAllFetchRequest(predicate, context: context, sortDescriptors: sortDescriptors)
-        asyncFetchRequest(fetchRequest, context: context, completion: completion)
+        return asyncFetchRequest(fetchRequest, context: context)
     }
 }
 
@@ -161,25 +121,14 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 
     }
     
-    /// SYNC read all results with the given `attribute` and `value`
-    static public func readAllByAttribute(_ attribute: String? = nil,
-                                          value: String? = nil,
-                                          sortDescriptors: [NSSortDescriptor]? = nil,
-                                          context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> [Self] {
-        // Prepare the request
-        let fetchRequest = readAllByAttributeFetchRequest(attribute, value: value, sortDescriptors: sortDescriptors, context: context)
-        return try context.fetch(fetchRequest)
-    }
-    
     /// ASYNC read all results with the given `attribute` and `value`
     static public func readAllByAttribute(_ attribute: String? = nil,
                                           value: String? = nil,
                                           sortDescriptors: [NSSortDescriptor]? = nil,
-                                          context: NSManagedObjectContext = EZCoreData.mainThreadContext,
-                                          completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
+                                          context: NSManagedObjectContext = EZCoreData.mainThreadContext) -> Promise<[Self]> {
         // Prepare the request
         let fetchRequest = readAllByAttributeFetchRequest(attribute, value: value, sortDescriptors: sortDescriptors, context: context)
-        asyncFetchRequest(fetchRequest, context: context, completion: completion)
+        return asyncFetchRequest(fetchRequest, context: context)
     }
 }
 
