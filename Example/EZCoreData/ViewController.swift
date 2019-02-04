@@ -13,13 +13,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         EZCoreData.shared.setupPersistence("Model")
         print(EZCoreData.shared.mainThreadContext)
         print(EZCoreData.mainThreadContext)
         print(EZCoreData.shared.privateThreadContext)
         print(EZCoreData.privateThreadContext)
-        
+
         do {
             try print(Article.count(context: EZCoreData.mainThreadContext))
             try Article.deleteAll(context: EZCoreData.mainThreadContext)
@@ -27,7 +27,7 @@ class ViewController: UIViewController {
             print(error.localizedDescription)
         }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
@@ -36,6 +36,4 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 }
-
