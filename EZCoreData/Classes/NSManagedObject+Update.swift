@@ -9,15 +9,13 @@
 import Foundation
 import CoreData
 
-
 // MARK: - Used for importing a JSON into an NSManagedObjectContext
 extension NSManagedObject {
     /// All NSManagedObject children need to override this
     @objc open func populateFromJSON(_ json: [String: Any], context: NSManagedObjectContext) {
-        fatalError("\n\n [EZCoreData] FATAL ERROR!!!  ATTENTION, YOU MUST OVERRIDE METHOD populateFromJSON(_ json: [String: Any], context: NSManagedObjectContext) IN YOUR NSManagedObject subclasses!!! \n\n")
+        fatalError("[EZCoreData] FATAL! YOU MUST OVERRIDE METHOD populateFromJSON IN YOUR NSManagedObject subclasses!")
     }
 }
-
 
 // MARK: - Get or Create
 extension NSFetchRequestResult where Self: NSManagedObject {
@@ -26,7 +24,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         // Initializing return variables
         var object: Self!
         var fetchedObjects: [Self] = []
-        
+
         // GET, if idKey exists
         do {
             fetchedObjects = try readAll(predicate: NSPredicate(format: "\(attribute) == \(value)"), context: context)
@@ -34,20 +32,19 @@ extension NSFetchRequestResult where Self: NSManagedObject {
             EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
             return nil
         }
-        
+
         // CREATE if idKey doesn't exist
-        if (fetchedObjects.count > 0) {
+        if fetchedObjects.count > 0 {
             object = fetchedObjects[0]
         } else {
             // let entity = NSEntityDescription.entity(forEntityName: String(self), in: context)!
             // print(String(describing: self))
             object = Self.init(entity: self.entity(), insertInto: context)
         }
-        
+
         return object
     }
 }
-
 
 // MARK: - Import from JSON
 extension NSFetchRequestResult where Self: NSManagedObject {
@@ -58,15 +55,17 @@ extension NSFetchRequestResult where Self: NSManagedObject {
                                     context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> Self {
         guard let jsonObject = jsonObject else { throw EZCoreDataError.jsonIsEmpty }
         guard let objectId = jsonObject[idKey] as? Int else { throw EZCoreDataError.invalidIdKey }
-        guard let object = getOrCreate(attribute: idKey, value: String(describing: objectId), context: context) else { throw EZCoreDataError.getOrCreateObjIsEmpty }
+        guard let object = getOrCreate(attribute: idKey,
+                                       value: String(describing: objectId),
+                                       context: context) else { throw EZCoreDataError.getOrCreateObjIsEmpty }
         object.populateFromJSON(jsonObject, context: context)
         // Context Save
-        if (shouldSave) {
+        if shouldSave {
             context.saveContextToStore()
         }
         return object
     }
-    
+
     /// SYNC import a JSON array into a list of objects and then save them to CoreData
     public static func importList(_ jsonArray: [[String: Any]]?,
                                   idKey: String = "id",
@@ -84,12 +83,12 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         }
 
         // Context Save
-        if (shouldSave) {
+        if shouldSave {
             context.saveContextToStore()
         }
         return objectsArray
     }
-    
+
     /// ASYNC import a JSON array into a list of objects and then save them to CoreData
     public static func importList(_ jsonArray: [[String: Any]]?,
                                   idKey: String = "id",
@@ -100,17 +99,20 @@ extension NSFetchRequestResult where Self: NSManagedObject {
             guard let jsonArray = jsonArray else { return }
             if jsonArray.isEmpty { return }
             var objectsArray: [Self] = []
-            
+
             // Looping over the array then GET or CREATE
             for objectJSON in jsonArray {
                 do {
-                    let object = try importObject(objectJSON, idKey: idKey, shouldSave: false, context: backgroundContext)
+                    let object = try importObject(objectJSON,
+                                                  idKey: idKey,
+                                                  shouldSave: false,
+                                                  context: backgroundContext)
                     objectsArray.append(object)
                 } catch let error {
                     completion(EZCoreDataResult<[Self]>.failure(error: error))
                 }
             }
-            
+
             // Context Save
             backgroundContext.saveContextToStore({ (result) in
                 switch result {

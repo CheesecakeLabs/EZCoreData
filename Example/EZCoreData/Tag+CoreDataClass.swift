@@ -11,15 +11,13 @@ import Foundation
 import CoreData
 import EZCoreData
 
-
 public class Tag: NSManagedObject {
-    
-}
 
+}
 
 extension Tag {
     /// Populates Tag objects from JSON
-    public override func populateFromJSON(_ json: [String : Any], context: NSManagedObjectContext) {
+    public override func populateFromJSON(_ json: [String: Any], context: NSManagedObjectContext) {
         guard let id = json["id"] as? Int16 else { return }
         self.id = id
         self.label = json["label"] as? String

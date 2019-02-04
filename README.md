@@ -1,6 +1,7 @@
 # EZCoreData
 
 [![CI Status](https://img.shields.io/travis/CheesecakeLabs/EZCoreData.svg?style=flat)](https://travis-ci.org/marcelosalloum/EZCoreData)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7f12b064c6a24c2f9c15a56e6a03a134)](https://www.codacy.com/app/marcelosalloum/EZCoreData?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CheesecakeLabs/EZCoreData&amp;utm_campaign=Badge_Grade)
 [![Version](https://img.shields.io/cocoapods/v/EZCoreData.svg?style=flat)](https://cocoapods.org/pods/EZCoreData)
 [![License](https://img.shields.io/cocoapods/l/EZCoreData.svg?style=flat)](https://cocoapods.org/pods/EZCoreData)
 [![Platform](https://img.shields.io/cocoapods/p/EZCoreData.svg?style=flat)](https://cocoapods.org/pods/EZCoreData)

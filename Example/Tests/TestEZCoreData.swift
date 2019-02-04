@@ -12,7 +12,6 @@ import CoreData
 @testable import EZCoreData_Example
 @testable import EZCoreData
 
-
 // MARK: - Mocking Core Data:
 class TestEZCoreData: XCTestCase {
 
@@ -21,12 +20,11 @@ class TestEZCoreData: XCTestCase {
     var context: NSManagedObjectContext {
         return EZCoreData.shared.mainThreadContext
     }
-    
+
     var backgroundContext: NSManagedObjectContext {
         return EZCoreData.shared.privateThreadContext
     }
 }
-
 
 // MARK: - Test Methods
 extension TestEZCoreData {
@@ -39,7 +37,7 @@ extension TestEZCoreData {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-    
+
     func testCount() {
         do {
             let articleCount = try Article.count(context: context)
@@ -51,8 +49,7 @@ extension TestEZCoreData {
         }
     }
 
-
-    // Mark: - Test Single Create
+    // MARK: - Test Single Create
     func testArticleCreation() {
         do {
             // Test Count and Save methods
@@ -66,7 +63,7 @@ extension TestEZCoreData {
         }
     }
 
-    // Mark: - Test Delete
+    // MARK: - Test Delete
     func testDeleteOne() {
         do {
             // Test Count and Save methods
@@ -93,7 +90,7 @@ extension TestEZCoreData {
         try? Article.deleteAll(context: context)
         var countZero = try? Article.count(context: context)
         XCTAssertEqual(countZero, 0)
-        
+
         _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
         let countSix = try? Article.count(context: context)
         XCTAssertEqual(countSix, 6)
@@ -102,56 +99,55 @@ extension TestEZCoreData {
         countZero = try? Article.count(context: context)
         XCTAssertEqual(countZero, 0)
     }
-    
+
     func testDeleteSubset() {
         try? Article.deleteAll(context: context)
         let countZero = try? Article.count(context: context)
         XCTAssertEqual(countZero, 0)
-        
+
         _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
         let countSix = try? Article.count(context: context)
         XCTAssertEqual(countSix, 6)
-        
+
         let remainingList = try? Article.readAll(predicate: NSPredicate(format: "id < 3"), context: context)
         let expectedCountSubset = remainingList?.count
         try? Article.deleteAll(except: remainingList, context: context)
         let countSubset = try? Article.count(context: context)
         XCTAssertEqual(countSubset, expectedCountSubset)
     }
-    
+
     // MARK: - Test Creation
     func testCreateAndSave() {
         let newArticle = Article.create(in: backgroundContext)
-        var bckgCount = try? Article.count(context: backgroundContext)   // Counts objects in the Background Context
-        var fgndCount = try? Article.count(context: context)             // Counts objects in the Foreground Context
+        var bckgCount = try? Article.count(context: backgroundContext) // Counts objects in the Background Context
+        var fgndCount = try? Article.count(context: context) // Counts objects in the Foreground Context
         XCTAssertEqual(bckgCount!, fgndCount! + 1)
-        
+
         newArticle?.managedObjectContext?.saveContextToStore()
         bckgCount = try? Article.count(context: backgroundContext)
         fgndCount = try? Article.count(context: context)
         XCTAssertEqual(bckgCount!, fgndCount!)
     }
-    
+
     func testSave() {
         _ = Article.create(in: backgroundContext, shouldSave: true)
-        let bckgCount = try? Article.count(context: backgroundContext)   // Counts objects in the Background Context
-        let fgndCount = try? Article.count(context: context)             // Counts objects in the Foreground Context
+        let bckgCount = try? Article.count(context: backgroundContext) // Counts objects in the Background Context
+        let fgndCount = try? Article.count(context: context) // Counts objects in the Foreground Context
         XCTAssertEqual(bckgCount!, fgndCount!)
     }
-
 
     // MARK: - Test Import
     func testImportObjectSync() {
         try? Article.deleteAll(context: context)
         let countZero = try? Article.count(context: context)
         XCTAssertEqual(countZero, 0)
-        
+
         _ = try? Article.importObject(mockArticleListResponseJSON[0], shouldSave: false, context: context)
         _ = try? Article.importObject(mockArticleListResponseJSON[1], shouldSave: true, context: context)
         let countSix = try? Article.count(context: context)
         XCTAssertEqual(countSix, 2)
     }
-    
+
     func testImportListSync() {
         try? Article.deleteAll(context: context)
         let countZero = try? Article.count(context: context)
@@ -188,22 +184,19 @@ extension TestEZCoreData {
         XCTAssertEqual(countSix, 6)
     }
 
-
-    // Mark: - Test Read
+    // MARK: - Test Read
     func testReadAll() {
         try? Article.deleteAll(context: context)
         _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
         let articles = try? Article.readAll(context: context)
         XCTAssertEqual(articles?.count, 6)
     }
-    
-    
+
     func testReadByAttribute() {
         _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
         let articles = try? Article.readAllByAttribute("title", value: "Art", context: context)
         XCTAssertEqual(articles?.count, 2)
     }
-
 
     func testReadAllAsync() {
         // Initial SetuUp
@@ -233,7 +226,7 @@ extension TestEZCoreData {
         XCTAssertEqual(articles.count, 6)
     }
 
-    // Mark: - Test Read
+    // MARK: - Test Read
     func testReadFirst() {
         do {
             try? Article.deleteAll(context: context)

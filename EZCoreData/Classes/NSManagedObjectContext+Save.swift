@@ -4,14 +4,14 @@
 //
 //  Created by Marcelo Salloum dos Santos on 22/01/19.
 //
-// `NSManagedObjectContext+Save` contains a convenience method (actually, sync and/or async versions of a method) for when you want to ensure the `privateThreadContext` saved changes will be propagated in it's parent and simblings.
+// `NSManagedObjectContext+Save` contains a convenience methods (sync and/or async versions) for when
+// you want to ensure the `privateThreadContext` saved changes will be propagated in it's parent and simblings.
 
 import Foundation
 import CoreData
 
-
 public extension NSManagedObjectContext {
-    
+
     /// Saves the context ASYNCRONOUSLY. Also saves context parents recursively (parent, then parent's parent, and so on
     public func saveContextToStore(_ completion: @escaping (EZCoreDataResult<Any>) -> Void) {
         func saveFlow() {
@@ -28,7 +28,7 @@ public extension NSManagedObjectContext {
                 completion(.failure(error: error))
             }
         }
-        
+
         switch concurrencyType {
         case .confinementConcurrencyType:
             saveFlow()
@@ -37,7 +37,7 @@ public extension NSManagedObjectContext {
             perform(saveFlow)
         }
     }
-    
+
     /// Saves the context SYNCRONOUSLY. Also saves context parents recursively (parent, then parent's parent, and so on
     public func saveContextToStore() {
         do {
@@ -53,7 +53,7 @@ public extension NSManagedObjectContext {
             return
         }
     }
-    
+
     /// Saves the context if there is any changes
     private func regularSaveFlow() throws {
         if !hasChanges {
@@ -63,5 +63,4 @@ public extension NSManagedObjectContext {
         try save()
         EZCoreDataLogger.log("Context successfully saved")
     }
-    
 }
