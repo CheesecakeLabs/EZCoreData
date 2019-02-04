@@ -14,3 +14,4 @@ script:
 - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/EZCoreData.xcworkspace -scheme EZCoreData-Example -sdk iphonesimulator12.0 ONLY_ACTIVE_ARCH=NO | xcpretty
 # - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/EZCoreData.xcworkspace -scheme EZCoreData-Example -sdk iphonesimulator12.0 -destination 'platform=iOS Simulator,name=iPhone 6,OS=12.0' ONLY_ACTIVE_ARCH=NO | xcpretty
 - pod lib lint
+- if [[ $TRAVIS_TAG ]]; then pod trunk push EZCoreData.podspec --verbose | xcpretty; else echo "No tag found"; fi
