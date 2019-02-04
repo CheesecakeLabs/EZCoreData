@@ -12,9 +12,11 @@ import CoreData
 // MARK: - Delete One
 extension NSFetchRequestResult where Self: NSManagedObject {
     /// Delete given object within the given context
-    static public func delete(_ object: Self, shouldSave: Bool = true, context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
+    static public func delete(_ object: Self,
+                              shouldSave: Bool = true,
+                              context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
         context.delete(object)
-        if (shouldSave) {
+        if shouldSave {
             try context.save()
         }
     }
@@ -30,7 +32,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 
     /// SYNC Delete all objects of this kind except the given list
     static public func deleteAll(except toKeep: [Self]? = nil,
-        context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
+                                 context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
         // Predicate
         var predicate: NSPredicate?
         if let toKeep = toKeep, toKeep.count > 0 {
@@ -43,8 +45,8 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 
     /// ASYNC Delete all objects of this kind except the given list
     static public func deleteAll(except toKeep: [Self]? = nil,
-        backgroundContext: NSManagedObjectContext = EZCoreData.privateThreadContext,
-        completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
+                                 backgroundContext: NSManagedObjectContext = EZCoreData.privateThreadContext,
+                                 completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
         backgroundContext.perform {
             // Predicate
             var predicate: NSPredicate?
@@ -76,20 +78,21 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 
     /// SYNC Delete all objects of this kind except those with the given attribute
     static public func deleteAllByAttribute(except attributeName: String,
-        toKeep: [String],
-        context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
+                                            toKeep: [String],
+                                            context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
         try deleteAllFromFetchRequest(NSPredicate(format: "NOT (\(attributeName) IN %@)", toKeep), context: context)
     }
 
     /// ASYNC Delete all objects of this kind except those with the given attribute
     static public func deleteAllByAttribute(except attributeName: String,
-        toKeep: [String],
-        backgroundContext: NSManagedObjectContext = EZCoreData.privateThreadContext,
-        completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
+                                            toKeep: [String],
+                                            backgroundContext: NSManagedObjectContext = EZCoreData.privateThreadContext,
+                                            completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
         backgroundContext.perform {
             // Delete Request
             do {
-                try deleteAllFromFetchRequest(NSPredicate(format: "NOT (\(attributeName) IN %@)", toKeep), context: backgroundContext)
+                try deleteAllFromFetchRequest(NSPredicate(format: "NOT (\(attributeName) IN %@)", toKeep),
+                                              context: backgroundContext)
                 completion(.success(result: nil))
             } catch let error {
                 EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
@@ -103,7 +106,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 extension NSFetchRequestResult where Self: NSManagedObject {
     /// Delete all objects returned in the given NSFetchRequest
     fileprivate static func deleteAllFromFetchRequest(_ predicate: NSPredicate?,
-        context: NSManagedObjectContext) throws {
+                                                      context: NSManagedObjectContext) throws {
         let objectList = try self.readAll(predicate: predicate, context: context)
         let objectCount = objectList.count
         var objectType: String = "Unknown"

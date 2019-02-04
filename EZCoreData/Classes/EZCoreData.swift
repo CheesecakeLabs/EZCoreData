@@ -12,7 +12,8 @@ import CoreData
 public class EZCoreData: NSObject {
     // MARK: - SetUp/Init
 
-    /// Shared instance of `EZCoreData`. If the shared version is not enough for your case, you're encoouraged to create an intance of your own
+    /// Shared instance of `EZCoreData`. If the shared version is not enough for your case
+    /// you're encoouraged to create an intance of your own
     public static let shared: EZCoreData = EZCoreData()
 
     /// Persistent container
@@ -24,7 +25,7 @@ public class EZCoreData: NSObject {
             if let persistentContainer = _persistentContainer {
                 return persistentContainer
             }
-            fatalError("You need to initialize the 'EZCoreData' instance using one of the mehods: 'setupPersistence' or 'setupInMemoryPersistence'. A simple way to do so is: 'EZCoreData.shared.setupPersistence(\"Model\")'")
+            fatalError("Missing 'EZCoreData' setup. Pleaase use: 'setupPersistence' or 'setupInMemoryPersistence'.")
         }
         set(newValue) {
             _persistentContainer = newValue
@@ -35,7 +36,7 @@ public class EZCoreData: NSObject {
     public func setupPersistence(_ modelName: String, _ completion: (() -> Void)? = nil) {
         if _persistentContainer != nil { return }
         persistentContainer = NSPersistentContainer(name: modelName)
-        persistentContainer.loadPersistentStores() { (description, error) in
+        persistentContainer.loadPersistentStores { _, error in
             if let error = error {
                 fatalError("Failed to load Core Data stack: \(error)")
             }

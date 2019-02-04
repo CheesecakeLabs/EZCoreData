@@ -57,7 +57,7 @@ public struct EZCoreDataLogger {
     /// Prints `logText` if `verboseLevel > authorizedVerbose`
     static func log(_ logText: Any?, verboseLevel: EZCoreDataLogLevel = .info) {
         guard let text = logText else { return }
-        if (verboseLevel.rawValue > self.authorizedVerbose.rawValue) { return }
+        if verboseLevel.rawValue > self.authorizedVerbose.rawValue { return }
         print("\(libName) \(String(describing: verboseLevel).uppercased()): \(text)")
     }
 }

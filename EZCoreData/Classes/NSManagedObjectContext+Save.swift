@@ -4,7 +4,8 @@
 //
 //  Created by Marcelo Salloum dos Santos on 22/01/19.
 //
-// `NSManagedObjectContext+Save` contains a convenience method (actually, sync and/or async versions of a method) for when you want to ensure the `privateThreadContext` saved changes will be propagated in it's parent and simblings.
+// `NSManagedObjectContext+Save` contains a convenience methods (sync and/or async versions) for when
+// you want to ensure the `privateThreadContext` saved changes will be propagated in it's parent and simblings.
 
 import Foundation
 import CoreData
