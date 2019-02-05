@@ -1,0 +1,2 @@
+ignore:
+  - "Example/EZCoreData"  # ignore folders and all its contents
