@@ -7,27 +7,12 @@
 //
 
 import XCTest
-import CoreData
 @testable import EZCoreData_Example
-@testable import EZCoreData
 
-class TestEntityDeletion: XCTestCase {
-
-    override func setUp() {
-        EZCoreData.shared.setupInMemoryPersistence("Model")
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+class TestEntityDeletion: EZTestCase {
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    private var context: NSManagedObjectContext {
-        return EZCoreData.shared.mainThreadContext
-    }
-
-    private var backgroundContext: NSManagedObjectContext {
-        return EZCoreData.shared.privateThreadContext
     }
 
     // MARK: - Test Delete

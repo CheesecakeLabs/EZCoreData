@@ -7,29 +7,10 @@
 //
 
 import XCTest
-import CoreData
 @testable import EZCoreData_Example
-@testable import EZCoreData
 
 // MARK: - Mocking Core Data:
-class TestEntityRead: XCTestCase {
-
-    var context: NSManagedObjectContext {
-        return EZCoreData.shared.mainThreadContext
-    }
-
-    var backgroundContext: NSManagedObjectContext {
-        return EZCoreData.shared.privateThreadContext
-    }
-}
-
-// MARK: - Test Methods
-extension TestEntityRead {
-
-    override func setUp() {
-        EZCoreData.shared.setupInMemoryPersistence("Model")
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+class TestEntityRead: EZTestCase {
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
