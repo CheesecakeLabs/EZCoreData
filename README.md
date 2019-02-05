@@ -1,6 +1,6 @@
 # EZCoreData
 
-[![CI Status](https://img.shields.io/travis/CheesecakeLabs/EZCoreData.svg?style=flat)](https://travis-ci.org/marcelosalloum/EZCoreData)
+[![Build Status](https://travis-ci.com/CheesecakeLabs/EZCoreData.svg?branch=master)](https://travis-ci.com/CheesecakeLabs/EZCoreData)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7f12b064c6a24c2f9c15a56e6a03a134)](https://www.codacy.com/app/marcelosalloum/EZCoreData?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CheesecakeLabs/EZCoreData&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/CheesecakeLabs/EZCoreData/branch/master/graph/badge.svg)](https://codecov.io/gh/CheesecakeLabs/EZCoreData)
 [![Version](https://img.shields.io/cocoapods/v/EZCoreData.svg?style=flat)](https://cocoapods.org/pods/EZCoreData)
