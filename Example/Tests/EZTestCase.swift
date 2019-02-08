@@ -9,6 +9,7 @@
 import XCTest
 import CoreData
 @testable import EZCoreData
+@testable import EZCoreData_Example
 
 // MARK: - Mocking Core Data:
 class EZTestCase: XCTestCase {
@@ -24,4 +25,17 @@ class EZTestCase: XCTestCase {
     var backgroundContext: NSManagedObjectContext {
         return EZCoreData.shared.privateThreadContext
     }
+
+    public func eraseAllArticles() {
+        try? Article.deleteAll(context: context)
+        let countZero = try? Article.count(context: context)
+        XCTAssertEqual(countZero, 0)
+    }
+
+    public func importAllArticles() {
+        _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
+        let countSix = try? Article.count(context: context)
+        XCTAssertEqual(countSix, 6)
+    }
 }
+
