@@ -11,10 +11,6 @@ import XCTest
 
 class TestEntityDeletion: EZTestCase {
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     // MARK: - Test Delete
     func testDeleteOne() {
         do {
@@ -24,13 +20,11 @@ class TestEntityDeletion: EZTestCase {
             let article = Article.getOrCreate(attribute: "id", value: "1234", context: context)
             try context.save()
             let countPP = try Article.count(context: context)
-            print(countPP)
             XCTAssertEqual(initialCount + 1, countPP)
 
             // Test Delete and Count Methods
             try article?.delete(context: context)
             let finalCount = try Article.count(context: context)
-            print(finalCount)
             XCTAssertEqual(countPP - 1, finalCount)
             XCTAssertEqual(initialCount, finalCount)
         } catch let error {
@@ -38,33 +32,121 @@ class TestEntityDeletion: EZTestCase {
         }
     }
 
-    func testDeleteAll() {
-        try? Article.deleteAll(context: context)
-        var countZero = try? Article.count(context: context)
-        XCTAssertEqual(countZero, 0)
-
-        _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
-        let countSix = try? Article.count(context: context)
-        XCTAssertEqual(countSix, 6)
-
-        try? Article.deleteAll(context: context)
-        countZero = try? Article.count(context: context)
-        XCTAssertEqual(countZero, 0)
+    // MARK: - Delee All
+    func testDeleteAllSync() {
+        eraseAllArticles()
+        importAllArticles()
+        eraseAllArticles()
     }
 
-    func testDeleteSubset() {
-        try? Article.deleteAll(context: context)
-        let countZero = try? Article.count(context: context)
-        XCTAssertEqual(countZero, 0)
+    func testDeleteAllAsync() {
+        eraseAllArticles()
+        importAllArticles()
 
-        _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
-        let countSix = try? Article.count(context: context)
-        XCTAssertEqual(countSix, 6)
+        let successExpectation = self.expectation(description: "testDeleteAllAsync_success")
+        let failureExpectation = self.expectation(description: "testDeleteAllAsync_failure")
+        failureExpectation.isInverted = true
 
-        let remainingList = try? Article.readAll(predicate: NSPredicate(format: "id < 3"), context: context)
-        let expectedCountSubset = remainingList?.count
+        Article.deleteAll(backgroundContext: backgroundContext) { result in
+            switch result {
+            case .success(result: _):
+                let countSubset = try? Article.count(context: self.backgroundContext)
+                XCTAssertEqual(countSubset, 0)
+                successExpectation.fulfill()
+            case .failure(error: _):
+                failureExpectation.fulfill()
+            }
+        }
+
+        // Waits for the expectations
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    // MARK: - Delete All EXCEPT
+    /// Delete All EXCEPT Sync
+    func testDeleteExceptSubsetSync() {
+        eraseAllArticles()
+        importAllArticles()
+
+        let remainingPredicate = NSPredicate(format: "id IN %@", NSArray(array: [1, 2]))
+        let remainingList = try? Article.readAll(predicate: remainingPredicate, context: context)
+        let expectedCountSubset = 2
+        XCTAssertEqual(remainingList?.count, expectedCountSubset)
+
         try? Article.deleteAll(except: remainingList, context: context)
         let countSubset = try? Article.count(context: context)
         XCTAssertEqual(countSubset, expectedCountSubset)
+    }
+
+    /// Delete All EXCEPT Async
+    func testDeleteExceptSubsetAsync() {
+        eraseAllArticles()
+        importAllArticles()
+
+        let remainingPredicate = NSPredicate(format: "id IN %@", NSArray(array: [1, 2]))
+        let remainingList = try? Article.readAll(predicate: remainingPredicate, context: context)
+        let expectedCountSubset = 2
+        XCTAssertEqual(remainingList?.count, expectedCountSubset)
+
+        let successExpectation = self.expectation(description: "testDeleteExceptSubsetAsync_success")
+        let failureExpectation = self.expectation(description: "testDeleteExceptSubsetAsync_failure")
+        failureExpectation.isInverted = true
+
+        Article.deleteAll(except: remainingList, backgroundContext: backgroundContext) { result in
+            switch result {
+            case .success(result: _):
+                let countSubset = try? Article.count(context: self.backgroundContext)
+                XCTAssertEqual(countSubset, expectedCountSubset)
+                successExpectation.fulfill()
+            case .failure(error: _):
+                failureExpectation.fulfill()
+            }
+        }
+
+        // Waits for the expectations
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    // MARK: - Delete From List
+    /// Delete All EXCEPT Sync
+    func testDeleteFromSubsetSync() {
+        eraseAllArticles()
+        importAllArticles()
+
+        let excludePredicate = NSPredicate(format: "id IN %@", NSArray(array: [1, 2]))
+        let excludeList = try? Article.readAll(predicate: excludePredicate, context: context)
+        XCTAssertEqual(excludeList?.count, 2)
+
+        try? Article.deleteObjects(fromList: excludeList!, context)
+        let countSubset = try? Article.count(context: context)
+        XCTAssertEqual(countSubset, 4)
+    }
+
+    /// Delete All EXCEPT Async
+    func testDeleteFromSubsetAsync() {
+        eraseAllArticles()
+        importAllArticles()
+
+        let excludePredicate = NSPredicate(format: "id IN %@", NSArray(array: [1, 2]))
+        let excludeList = try? Article.readAll(predicate: excludePredicate, context: backgroundContext)
+        XCTAssertEqual(excludeList?.count, 2)
+
+        let successExpectation = self.expectation(description: "testDeleteFromSubsetAsync_success")
+        let failureExpectation = self.expectation(description: "testDeleteFromSubsetAsync_failure")
+        failureExpectation.isInverted = true
+
+        Article.deleteObjects(fromList: excludeList!, backgroundContext, completion: { result in
+            switch result {
+            case .success(result: _):
+                let countSubset = try? Article.count(context: self.backgroundContext)
+                XCTAssertEqual(countSubset, 4)
+                successExpectation.fulfill()
+            case .failure(error: _):
+                failureExpectation.fulfill()
+            }
+        })
+
+        // Waits for the expectations
+        waitForExpectations(timeout: 1, handler: nil)
     }
 }

@@ -37,7 +37,7 @@ class EZTestCase: XCTestCase {
     public func importAllArticles() {
         _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
         let countSix = try? Article.count(context: context)
-        XCTAssertEqual(countSix, 6)
+        XCTAssertEqual(countSix, mockArticleListResponseJSON.count)
     }
 }
 
