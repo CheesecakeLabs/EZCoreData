@@ -35,14 +35,9 @@ class TestEntityDeletion: EZTestCase {
     // MARK: - Delee All
     func testDeleteAllSync() {
         eraseAllArticles()
-        importAllArticles()
-        eraseAllArticles()
     }
 
     func testDeleteAllAsync() {
-        eraseAllArticles()
-        importAllArticles()
-
         let successExpectation = self.expectation(description: "testDeleteAllAsync_success")
         let failureExpectation = self.expectation(description: "testDeleteAllAsync_failure")
         failureExpectation.isInverted = true
@@ -65,9 +60,6 @@ class TestEntityDeletion: EZTestCase {
     // MARK: - Delete All EXCEPT
     /// Delete All EXCEPT Sync
     func testDeleteExceptSubsetSync() {
-        eraseAllArticles()
-        importAllArticles()
-
         let remainingPredicate = NSPredicate(format: "id IN %@", NSArray(array: [1, 2]))
         let remainingList = try? Article.readAll(predicate: remainingPredicate, context: context)
         let expectedCountSubset = 2
@@ -80,9 +72,6 @@ class TestEntityDeletion: EZTestCase {
 
     /// Delete All EXCEPT Async
     func testDeleteExceptSubsetAsync() {
-        eraseAllArticles()
-        importAllArticles()
-
         let remainingPredicate = NSPredicate(format: "id IN %@", NSArray(array: [1, 2]))
         let remainingList = try? Article.readAll(predicate: remainingPredicate, context: context)
         let expectedCountSubset = 2
@@ -110,9 +99,6 @@ class TestEntityDeletion: EZTestCase {
     // MARK: - Delete From List
     /// Delete All EXCEPT Sync
     func testDeleteFromSubsetSync() {
-        eraseAllArticles()
-        importAllArticles()
-
         let excludePredicate = NSPredicate(format: "id IN %@", NSArray(array: [1, 2]))
         let excludeList = try? Article.readAll(predicate: excludePredicate, context: context)
         XCTAssertEqual(excludeList?.count, 2)
@@ -124,9 +110,6 @@ class TestEntityDeletion: EZTestCase {
 
     /// Delete All EXCEPT Async
     func testDeleteFromSubsetAsync() {
-        eraseAllArticles()
-        importAllArticles()
-
         let excludePredicate = NSPredicate(format: "id IN %@", NSArray(array: [1, 2]))
         let excludeList = try? Article.readAll(predicate: excludePredicate, context: backgroundContext)
         XCTAssertEqual(excludeList?.count, 2)
