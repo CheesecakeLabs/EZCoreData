@@ -21,11 +21,11 @@ class EZTestCase: XCTestCase {
     }
 
     var context: NSManagedObjectContext {
-        return EZCoreData.shared.mainThreadContext
+        return EZCoreData.mainThreadContext
     }
 
     var backgroundContext: NSManagedObjectContext {
-        return EZCoreData.shared.privateThreadContext
+        return EZCoreData.privateThreadContext
     }
 
     public func eraseAllArticles() {
@@ -40,4 +40,3 @@ class EZTestCase: XCTestCase {
         XCTAssertEqual(countSix, mockArticleListResponseJSON.count)
     }
 }
-

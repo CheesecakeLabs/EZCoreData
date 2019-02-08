@@ -14,6 +14,7 @@
 		1F1A8FD721F7E0E60037059F /* Article+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FD321F7E0E50037059F /* Article+CoreDataProperties.swift */; };
 		1F1A8FDA21F7E1460037059F /* MockJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FD821F7E1460037059F /* MockJSON.swift */; };
 		1F6C6DCD21F7AE5200E59082 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C6DCC21F7AE5200E59082 /* main.swift */; };
+		1F84CCB1220E231A003F9C10 /* TestEZCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84CCB0220E231A003F9C10 /* TestEZCoreData.swift */; };
 		1FBF9DEB22099077001DE192 /* TestEntityCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF9DEA22099077001DE192 /* TestEntityCreation.swift */; };
 		1FBF9DED2209912E001DE192 /* TestEntityDeletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF9DEC2209912E001DE192 /* TestEntityDeletion.swift */; };
 		1FBF9DEF2209925A001DE192 /* TestEntityImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF9DEE2209925A001DE192 /* TestEntityImport.swift */; };
@@ -47,6 +48,7 @@
 		1F1A8FD321F7E0E50037059F /* Article+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Article+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1F1A8FD821F7E1460037059F /* MockJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockJSON.swift; sourceTree = "<group>"; };
 		1F6C6DCC21F7AE5200E59082 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		1F84CCB0220E231A003F9C10 /* TestEZCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEZCoreData.swift; sourceTree = "<group>"; };
 		1FBF9DEA22099077001DE192 /* TestEntityCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEntityCreation.swift; sourceTree = "<group>"; };
 		1FBF9DEC2209912E001DE192 /* TestEntityDeletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEntityDeletion.swift; sourceTree = "<group>"; };
 		1FBF9DEE2209925A001DE192 /* TestEntityImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEntityImport.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				1F84CCB0220E231A003F9C10 /* TestEZCoreData.swift */,
 				1FBF9DF022099340001DE192 /* TestEntityRead.swift */,
 				1FBF9DEA22099077001DE192 /* TestEntityCreation.swift */,
 				1FBF9DEC2209912E001DE192 /* TestEntityDeletion.swift */,
@@ -428,6 +431,7 @@
 				1FBF9DF122099340001DE192 /* TestEntityRead.swift in Sources */,
 				1FBF9DEF2209925A001DE192 /* TestEntityImport.swift in Sources */,
 				1FBF9DED2209912E001DE192 /* TestEntityDeletion.swift in Sources */,
+				1F84CCB1220E231A003F9C10 /* TestEZCoreData.swift in Sources */,
 				1FBF9DEB22099077001DE192 /* TestEntityCreation.swift in Sources */,
 				1FBF9DF32209939D001DE192 /* EZTestCase.swift in Sources */,
 				1F1A8FDA21F7E1460037059F /* MockJSON.swift in Sources */,
