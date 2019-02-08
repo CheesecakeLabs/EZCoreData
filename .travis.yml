@@ -11,7 +11,10 @@ xcode_destination: platform=iOS Simulator,OS=12.0,name=iPhone X
 # - gem install cocoapods # Since Travis is not always on latest version
 # - pod install --project-directory=Example
 script:
-- set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/EZCoreData.xcworkspace -scheme EZCoreData-Example -sdk iphonesimulator12.0 ONLY_ACTIVE_ARCH=NO | xcpretty
-# - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/EZCoreData.xcworkspace -scheme EZCoreData-Example -sdk iphonesimulator12.0 -destination 'platform=iOS Simulator,name=iPhone 6,OS=12.0' ONLY_ACTIVE_ARCH=NO | xcpretty
-- pod lib lint
-- if [[ $TRAVIS_TAG ]]; then pod trunk push EZCoreData.podspec --verbose | xcpretty; else echo "No tag found"; fi
+  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/EZCoreData.xcworkspace -scheme EZCoreData-Example -sdk iphonesimulator12.0 ONLY_ACTIVE_ARCH=NO | xcpretty
+  # - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/EZCoreData.xcworkspace -scheme EZCoreData-Example -sdk iphonesimulator12.0 -destination 'platform=iOS Simulator,name=iPhone 6,OS=12.0' ONLY_ACTIVE_ARCH=NO | xcpretty
+  - pod lib lint
+  - if [[ $TRAVIS_TAG ]]; then pod trunk push EZCoreData.podspec --verbose | xcpretty; else echo "No tag found"; fi
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t CODACY_COVERAGE_KEY

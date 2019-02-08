@@ -29,6 +29,9 @@ public enum EZCoreDataError: Error {
 
     /// The `idKey` provided is not available in the given NSManagedObject
     case invalidIdKey
+
+    /// The `objectList` provided for deleting is nil
+    case emptyDeletionList
 }
 
 // MARK: - Logging Handling
