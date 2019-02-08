@@ -16,6 +16,8 @@ class EZTestCase: XCTestCase {
 
     override func setUp() {
         EZCoreData.shared.setupInMemoryPersistence("Model")
+        eraseAllArticles()
+        importAllArticles()
     }
 
     var context: NSManagedObjectContext {
