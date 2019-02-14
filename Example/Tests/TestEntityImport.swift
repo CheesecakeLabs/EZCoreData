@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import EZCoreData
 @testable import EZCoreData_Example
 
 class TestEntityImport: EZTestCase {
@@ -63,4 +64,69 @@ class TestEntityImport: EZTestCase {
         XCTAssertEqual(countSix, 6)
     }
 
+    func testImportObjectNilJSONError() {
+        XCTAssertThrowsError(try Article.importObject(nil, idKey: "a", shouldSave: true, context: context)) { error in
+            XCTAssertEqual(error as? EZCoreDataError, EZCoreDataError.jsonIsEmpty)
+        }
+    }
+
+    func testImportObjectInvalidIdKeyError() {
+        let obj = mockArticleListResponseJSON[0]
+        XCTAssertThrowsError(try Article.importObject(obj, idKey: "a", shouldSave: true, context: context)) { error in
+            XCTAssertEqual(error as? EZCoreDataError, EZCoreDataError.invalidIdKey)
+        }
+    }
+
+    func testImportListNilJSONError() {
+        XCTAssertThrowsError(try Article.importList(nil, idKey: "a", shouldSave: true, context: context)) { error in
+            XCTAssertEqual(error as? EZCoreDataError, EZCoreDataError.jsonIsEmpty)
+        }
+    }
+
+    func testImportListEmptyJSONError() {
+        XCTAssertThrowsError(try Article.importList([[String: Any]](), idKey: "a", shouldSave: true, context: context)) {
+            error in
+            XCTAssertEqual(error as? EZCoreDataError, EZCoreDataError.jsonIsEmpty)
+        }
+    }
+
+    func testAsyncImportListNilJSONError() {
+        let successExpectation = self.expectation(description: "asyncImportListEmptyJSONError_success")
+        successExpectation.isInverted = true
+        let failureExpectation = self.expectation(description: "asyncImportListEmptyJSONError_failure")
+
+        Article.importList(nil, idKey: "", backgroundContext: backgroundContext) { (result) in
+
+            switch result {
+            case .success(result: _):
+                successExpectation.fulfill()
+            case .failure(error: let error):
+                failureExpectation.fulfill()
+                XCTAssertEqual(error as? EZCoreDataError, EZCoreDataError.jsonIsEmpty)
+            }
+        }
+
+        // Waits for the expectations
+        waitForExpectations(timeout: 2, handler: nil)
+    }
+
+    func testAsyncImportListEmptyJSONError() {
+        let successExpectation = self.expectation(description: "asyncImportListEmptyJSONError_success")
+        successExpectation.isInverted = true
+        let failureExpectation = self.expectation(description: "asyncImportListEmptyJSONError_failure")
+
+        Article.importList([[String: Any]](), idKey: "", backgroundContext: backgroundContext) { (result) in
+
+            switch result {
+            case .success(result: _):
+                successExpectation.fulfill()
+            case .failure(error: let error):
+                failureExpectation.fulfill()
+                XCTAssertEqual(error as? EZCoreDataError, EZCoreDataError.jsonIsEmpty)
+            }
+        }
+
+        // Waits for the expectations
+        waitForExpectations(timeout: 2, handler: nil)
+    }
 }

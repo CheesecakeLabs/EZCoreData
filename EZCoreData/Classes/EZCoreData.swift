@@ -9,6 +9,12 @@
 //import UIKit
 import CoreData
 
+struct FatalMeessage {
+    static let missingSetupModel = """
+    Missing 'EZCoreData' setup. Pleaase use: 'setupPersistence' or 'setupInMemoryPersistence'.
+    """
+}
+
 public class EZCoreData: NSObject {
     // MARK: - SetUp/Init
 
@@ -25,7 +31,7 @@ public class EZCoreData: NSObject {
             if let persistentContainer = _persistentContainer {
                 return persistentContainer
             }
-            fatalError("Missing 'EZCoreData' setup. Pleaase use: 'setupPersistence' or 'setupInMemoryPersistence'.")
+            fatalError(FatalMeessage.missingSetupModel)
         }
         set(newValue) {
             _persistentContainer = newValue

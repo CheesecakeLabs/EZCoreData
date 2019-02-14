@@ -22,4 +22,17 @@ class TestEZCoreData: EZTestCase {
         XCTAssertNotNil(ezCoreData.persistentContainer)
     }
 
+    func testFatalErrorIfSetupWasntDone() {
+        let ezCoreData = EZCoreData()
+        expectFatalError(expectedMessage: FatalMeessage.missingSetupModel) {
+            ezCoreData.persistentContainer.newBackgroundContext()
+        }
+    }
+
+    func testFatalErrorIfModelNameWasWrong() {
+        let myEZCoreData = EZCoreData()
+        self.expectFatalError(expectedMessage: FatalMeessage.missingSetupModel) {
+            myEZCoreData.setupInMemoryPersistence("aaa")
+        }
+    }
 }

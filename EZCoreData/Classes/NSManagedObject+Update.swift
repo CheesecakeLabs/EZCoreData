@@ -96,7 +96,10 @@ extension NSFetchRequestResult where Self: NSManagedObject {
                                   completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
         backgroundContext.perform {
             // Input validations
-            guard let jsonArray = jsonArray else { return }
+            guard let jsonArray = jsonArray, jsonArray.count > 0 else {
+                completion(EZCoreDataResult<[Self]>.failure(error: EZCoreDataError.jsonIsEmpty))
+                return
+            }
             if jsonArray.isEmpty { return }
             var objectsArray: [Self] = []
 

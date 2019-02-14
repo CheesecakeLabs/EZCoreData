@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F08149B2215E29F0017C971 /* XCTestCase+FatalError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F08149A2215E29F0017C971 /* XCTestCase+FatalError.swift */; };
 		1F1A8FCF21F7DFA10037059F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FCD21F7DFA10037059F /* Model.xcdatamodeld */; };
 		1F1A8FD421F7E0E60037059F /* Article+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FD021F7E0E50037059F /* Article+CoreDataClass.swift */; };
 		1F1A8FD521F7E0E60037059F /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FD121F7E0E50037059F /* Tag+CoreDataProperties.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		150A636B2DC395C4FDEC1FBB /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		1F08149A2215E29F0017C971 /* XCTestCase+FatalError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FatalError.swift"; sourceTree = "<group>"; };
 		1F1A8FCE21F7DFA10037059F /* CKL_iOS_Challenge.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CKL_iOS_Challenge.xcdatamodel; sourceTree = "<group>"; };
 		1F1A8FD021F7E0E50037059F /* Article+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Article+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1F1A8FD121F7E0E50037059F /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 		607FACE91AFB9204008FA782 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1F08149A2215E29F0017C971 /* XCTestCase+FatalError.swift */,
 				1F1A8FD821F7E1460037059F /* MockJSON.swift */,
 				1FBF9DF22209939D001DE192 /* EZTestCase.swift */,
 				607FACEA1AFB9204008FA782 /* Info.plist */,
@@ -430,6 +433,7 @@
 			files = (
 				1FBF9DF122099340001DE192 /* TestEntityRead.swift in Sources */,
 				1FBF9DEF2209925A001DE192 /* TestEntityImport.swift in Sources */,
+				1F08149B2215E29F0017C971 /* XCTestCase+FatalError.swift in Sources */,
 				1FBF9DED2209912E001DE192 /* TestEntityDeletion.swift in Sources */,
 				1F84CCB1220E231A003F9C10 /* TestEZCoreData.swift in Sources */,
 				1FBF9DEB22099077001DE192 /* TestEntityCreation.swift in Sources */,
