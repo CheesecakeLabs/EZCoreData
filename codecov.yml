@@ -1,4 +1,4 @@
 ignore:
   - "Example/EZCoreData"          # ignore folders and all its contents
   - "Example/Tests"               # ignore folders and all its contents
-  - "Utils/FatalErrorUtil.swift"  # ignore file
+  - "Utils/FatalErrorUtil.swift"   # ignore file
