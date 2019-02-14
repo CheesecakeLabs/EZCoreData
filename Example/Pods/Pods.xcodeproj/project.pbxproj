@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		02C4F6D24CBACACB652A0B05991BDD61 /* Pods-EZCoreData_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4603B29AEC0925A4FF1757BDD3127BC8 /* Pods-EZCoreData_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1F0814992215CC250017C971 /* FatalErrorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0814982215CC250017C971 /* FatalErrorUtil.swift */; };
 		1F1A8FC821F7DE780037059F /* NSManagedObjectContext+Save.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FC621F7DE780037059F /* NSManagedObjectContext+Save.swift */; };
 		1F1A8FC921F7DE780037059F /* EZCoreDataLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FC721F7DE780037059F /* EZCoreDataLogger.swift */; };
 		1F1A8FCB21F7DECD0037059F /* NSManagedObject+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FCA21F7DECD0037059F /* NSManagedObject+Delete.swift */; };
@@ -48,8 +49,9 @@
 		0BD52AD474941D2BFA3AE7ADD9C1201C /* Pods-EZCoreData_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EZCoreData_Tests-resources.sh"; sourceTree = "<group>"; };
 		11A3575E4F2DE86F27CFA925C1E3AE41 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18036541F44164C63A204E60C76B0A55 /* Pods-EZCoreData_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EZCoreData_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		1F0814982215CC250017C971 /* FatalErrorUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatalErrorUtil.swift; sourceTree = "<group>"; };
 		1F1A8FC621F7DE780037059F /* NSManagedObjectContext+Save.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSManagedObjectContext+Save.swift"; path = "EZCoreData/Classes/NSManagedObjectContext+Save.swift"; sourceTree = "<group>"; };
-		1F1A8FC721F7DE780037059F /* EZCoreDataLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EZCoreDataLogger.swift; path = EZCoreData/Classes/EZCoreDataLogger.swift; sourceTree = "<group>"; };
+		1F1A8FC721F7DE780037059F /* EZCoreDataLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EZCoreDataLogger.swift; sourceTree = "<group>"; };
 		1F1A8FCA21F7DECD0037059F /* NSManagedObject+Delete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSManagedObject+Delete.swift"; path = "EZCoreData/Classes/NSManagedObject+Delete.swift"; sourceTree = "<group>"; };
 		1F1A8FE021F8646E0037059F /* NSManagedObject+Read.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSManagedObject+Read.swift"; path = "EZCoreData/Classes/NSManagedObject+Read.swift"; sourceTree = "<group>"; };
 		1F1A8FE221F867C70037059F /* NSManagedObject+Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSManagedObject+Update.swift"; path = "EZCoreData/Classes/NSManagedObject+Update.swift"; sourceTree = "<group>"; };
@@ -117,6 +119,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F0814972215CC150017C971 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1F1A8FC721F7DE780037059F /* EZCoreDataLogger.swift */,
+				1F0814982215CC250017C971 /* FatalErrorUtil.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		2620E85982218672FB8C7ABFBB1D30E0 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,12 +141,12 @@
 			isa = PBXGroup;
 			children = (
 				91B0F6D81669D0D6850BB481E643688B /* EZCoreData.swift */,
-				1F1A8FC721F7DE780037059F /* EZCoreDataLogger.swift */,
 				1F1A8FC621F7DE780037059F /* NSManagedObjectContext+Save.swift */,
 				1F1A8FE021F8646E0037059F /* NSManagedObject+Read.swift */,
 				1F34FA5321FA22EC0047739F /* NSManagedObject+Create.swift */,
 				1F1A8FE221F867C70037059F /* NSManagedObject+Update.swift */,
 				1F1A8FCA21F7DECD0037059F /* NSManagedObject+Delete.swift */,
+				1F0814972215CC150017C971 /* Utils */,
 				A11730D66E9B3DA2C215F432E13CF9FF /* Pod */,
 				D43C5B4AFCBED5940DA4824DAF78AA06 /* Support Files */,
 			);
@@ -395,6 +406,7 @@
 				1F1A8FC821F7DE780037059F /* NSManagedObjectContext+Save.swift in Sources */,
 				1F1A8FE121F8646E0037059F /* NSManagedObject+Read.swift in Sources */,
 				FF276542808B4B3E4417C3890B467A9B /* EZCoreData-dummy.m in Sources */,
+				1F0814992215CC250017C971 /* FatalErrorUtil.swift in Sources */,
 				1F34FA5421FA22EC0047739F /* NSManagedObject+Create.swift in Sources */,
 				1F1A8FE321F867C70037059F /* NSManagedObject+Update.swift in Sources */,
 				D534E98CABCC26D3438579551F498ADD /* EZCoreData.swift in Sources */,

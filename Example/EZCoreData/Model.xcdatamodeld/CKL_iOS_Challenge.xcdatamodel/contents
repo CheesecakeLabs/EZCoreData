@@ -11,6 +11,9 @@
         <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="articles" inverseEntity="Tag" syncable="YES"/>
     </entity>
+    <entity name="FatalErrorEntity" representedClassName=".FatalErrorEntity" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <entity name="Tag" representedClassName=".Tag" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,5 +22,6 @@
     <elements>
         <element name="Article" positionX="-63" positionY="-18" width="128" height="180"/>
         <element name="Tag" positionX="-54" positionY="45" width="128" height="90"/>
+        <element name="FatalErrorEntity" positionX="-54" positionY="54" width="128" height="60"/>
     </elements>
 </model>
