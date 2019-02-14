@@ -15,6 +15,8 @@
 		1F1A8FD721F7E0E60037059F /* Article+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FD321F7E0E50037059F /* Article+CoreDataProperties.swift */; };
 		1F1A8FDA21F7E1460037059F /* MockJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A8FD821F7E1460037059F /* MockJSON.swift */; };
 		1F6C6DCD21F7AE5200E59082 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C6DCC21F7AE5200E59082 /* main.swift */; };
+		1F7C7FD52215FFEE00B1A9FC /* FatalErrorEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C7FD32215FFEE00B1A9FC /* FatalErrorEntity+CoreDataClass.swift */; };
+		1F7C7FD62215FFEE00B1A9FC /* FatalErrorEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C7FD42215FFEE00B1A9FC /* FatalErrorEntity+CoreDataProperties.swift */; };
 		1F84CCB1220E231A003F9C10 /* TestEZCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84CCB0220E231A003F9C10 /* TestEZCoreData.swift */; };
 		1FBF9DEB22099077001DE192 /* TestEntityCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF9DEA22099077001DE192 /* TestEntityCreation.swift */; };
 		1FBF9DED2209912E001DE192 /* TestEntityDeletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF9DEC2209912E001DE192 /* TestEntityDeletion.swift */; };
@@ -50,6 +52,8 @@
 		1F1A8FD321F7E0E50037059F /* Article+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Article+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1F1A8FD821F7E1460037059F /* MockJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockJSON.swift; sourceTree = "<group>"; };
 		1F6C6DCC21F7AE5200E59082 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		1F7C7FD32215FFEE00B1A9FC /* FatalErrorEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FatalErrorEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1F7C7FD42215FFEE00B1A9FC /* FatalErrorEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FatalErrorEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1F84CCB0220E231A003F9C10 /* TestEZCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEZCoreData.swift; sourceTree = "<group>"; };
 		1FBF9DEA22099077001DE192 /* TestEntityCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEntityCreation.swift; sourceTree = "<group>"; };
 		1FBF9DEC2209912E001DE192 /* TestEntityDeletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEntityDeletion.swift; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 			children = (
 				1F1A8FD021F7E0E50037059F /* Article+CoreDataClass.swift */,
 				1F1A8FD321F7E0E50037059F /* Article+CoreDataProperties.swift */,
+				1F7C7FD32215FFEE00B1A9FC /* FatalErrorEntity+CoreDataClass.swift */,
+				1F7C7FD42215FFEE00B1A9FC /* FatalErrorEntity+CoreDataProperties.swift */,
 				1F1A8FD221F7E0E50037059F /* Tag+CoreDataClass.swift */,
 				1F1A8FD121F7E0E50037059F /* Tag+CoreDataProperties.swift */,
 				1F1A8FCD21F7DFA10037059F /* Model.xcdatamodeld */,
@@ -424,6 +430,8 @@
 				1F6C6DCD21F7AE5200E59082 /* main.swift in Sources */,
 				1F1A8FCF21F7DFA10037059F /* Model.xcdatamodeld in Sources */,
 				1F1A8FD621F7E0E60037059F /* Tag+CoreDataClass.swift in Sources */,
+				1F7C7FD62215FFEE00B1A9FC /* FatalErrorEntity+CoreDataProperties.swift in Sources */,
+				1F7C7FD52215FFEE00B1A9FC /* FatalErrorEntity+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

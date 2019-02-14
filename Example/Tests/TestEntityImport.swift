@@ -84,8 +84,10 @@ class TestEntityImport: EZTestCase {
     }
 
     func testImportListEmptyJSONError() {
-        XCTAssertThrowsError(try Article.importList([[String: Any]](), idKey: "a", shouldSave: true, context: context)) {
-            error in
+        XCTAssertThrowsError(try Article.importList([[String: Any]](),
+                                                    idKey: "a",
+                                                    shouldSave: true,
+                                                    context: context)) { error in
             XCTAssertEqual(error as? EZCoreDataError, EZCoreDataError.jsonIsEmpty)
         }
     }
@@ -128,5 +130,44 @@ class TestEntityImport: EZTestCase {
 
         // Waits for the expectations
         waitForExpectations(timeout: 2, handler: nil)
+    }
+
+    func testAsyncImportObjectInvalidIdKeyError() {
+        let successExpectation = self.expectation(description: "asyncImportObjectInvalidIdKeyError_success")
+        successExpectation.isInverted = true
+        let failureExpectation = self.expectation(description: "asyncImportObjectInvalidIdKeyError_failure")
+
+        let obj = mockArticleListResponseJSON[0]
+        Article.importList([obj], idKey: "a", backgroundContext: backgroundContext) { (result) in
+
+            switch result {
+            case .success(result: _):
+                successExpectation.fulfill()
+            case .failure(error: let error):
+                failureExpectation.fulfill()
+                XCTAssertEqual(error as? EZCoreDataError, EZCoreDataError.invalidIdKey)
+            }
+        }
+
+        // Waits for the expectations
+        waitForExpectations(timeout: 2, handler: nil)
+    }
+
+    func testFatalIfEntityMissingMethod() {
+        self.expectFatalError(expectedMessage: FatalMeessage.missingMethodOverride) {
+            let fatalErrorEntity = FatalErrorEntity.create(in: self.context, shouldSave: true)
+            fatalErrorEntity?.populateFromJSON([String: Any](), context: self.context)
+        }
+    }
+
+    func testIfImportDoesntDuplicaate() {
+        do {
+            let firstCount = try Article.count(context: context)
+            importAllArticles()
+            let secondCount = try Article.count(context: context)
+            XCTAssertEqual(firstCount, secondCount)
+        } catch let error {
+            XCTAssertNil(error)
+        }
     }
 }
