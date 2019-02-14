@@ -13,10 +13,10 @@ import XCTest
 class TestEZCoreData: EZTestCase {
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        // Please leave it here. I don'y need the default instance of EZCoreData for the tests below
     }
 
-    func testErrorWhenNotCallingSetupPersistence() {
+    func testNoErrorWhenCallingSetupPersistence() {
         let ezCoreData = EZCoreData()
         ezCoreData.setupPersistence("Model")
         XCTAssertNotNil(ezCoreData.persistentContainer)
