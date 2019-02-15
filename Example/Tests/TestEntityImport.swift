@@ -77,8 +77,9 @@ class TestEntityImport: EZTestCase {
     }
 
     func testImportListEmptyJSONError() {
-        XCTAssertThrowsError(try Article.importList([[String: Any]](), idKey: "a", shouldSave: true, context: context)) { error in
-            XCTAssertEqual(error as? EZCoreDataError, EZCoreDataError.jsonIsEmpty)
+        let emptyList = [[String: Any]]()
+        XCTAssertThrowsError(try Article.importList(emptyList, idKey: "a", shouldSave: true, context: context)) { err in
+            XCTAssertEqual(err as? EZCoreDataError, EZCoreDataError.jsonIsEmpty)
         }
     }
 
