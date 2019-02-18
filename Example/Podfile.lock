@@ -1,15 +1,30 @@
 PODS:
-  - EZCoreData (0.5.0)
+  - EZCoreData (0.5.0):
+    - PromiseKit
+  - PromiseKit (6.8.1):
+    - PromiseKit/CorePromise (= 6.8.1)
+    - PromiseKit/Foundation (= 6.8.1)
+    - PromiseKit/UIKit (= 6.8.1)
+  - PromiseKit/CorePromise (6.8.1)
+  - PromiseKit/Foundation (6.8.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.8.1):
+    - PromiseKit/CorePromise
 
 DEPENDENCIES:
   - EZCoreData (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - PromiseKit
 
 EXTERNAL SOURCES:
   EZCoreData:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EZCoreData: b1d30d38d43da392867744085c68b435b90744dc
+  EZCoreData: 68a28104641a3f090a8620d64267ffee1c7c22b8
+  PromiseKit: cd5df8e6553887c93cc009d1260cdf6f7efbcbbd
 
 PODFILE CHECKSUM: 76f861169b183ad662d5274a53c56d75f3bc53a7
 
