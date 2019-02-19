@@ -65,7 +65,7 @@ public extension NSManagedObjectContext {
         EZCoreDataLogger.log("Context successfully saved")
     }
 
-    /// Saves the context ASYNCRONOUSLY. Also saves context parents recursively (parent, then parent's parent, and so on
+    /// Saves the context to store and also saves it's parents recursively (parent, then parent's parent, and so on)
     public func saveToStore() -> Promise<Void> {
 
         // Declaring intitial values for the promises
@@ -86,18 +86,6 @@ public extension NSManagedObjectContext {
     }
 
     /// Saves the context if there is any changes
-    private func syncSave() -> Promise<Void> {
-        return Promise<Void>(resolver: { resolver in
-            if !hasChanges {
-                EZCoreDataLogger.log("Context has no changes to be saved")
-            } else {
-                try save()
-                EZCoreDataLogger.log("Context successfully saved")
-            }
-            resolver.fulfill_()
-        })
-    }
-
     private func asyncSave() -> Promise<Void> {
         return Promise<Void>(resolver: { resolver in
             self.perform {

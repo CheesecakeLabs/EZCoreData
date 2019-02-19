@@ -46,7 +46,7 @@ class TestEntityCreation: EZTestCase {
     }
 
     // MARK: - Test Create with Promises
-    func testCreateAndSaveInMainContext() {
+    func testCreateAndAsycSaveInMainContext() {
         // Initial Counter
         let initialCount = (try? Article.count(context: context))!
         _ = Article.getOrCreate(attribute: "id", value: "1234", context: context)
@@ -71,7 +71,7 @@ class TestEntityCreation: EZTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
 
-    func testCreateAndSaveInBckgContext() {
+    func testCreateAndAsyncSaveInBckgContext() {
         _ = Article.create(in: backgroundContext, shouldSave: false)
 
         // Declares expectations
@@ -97,7 +97,7 @@ class TestEntityCreation: EZTestCase {
 
     func testBckgContextObjectWntReachMinContextUntilSave() {
         // Before saving, the object created in bckg context is not showing in fgnd context
-        let newArticle = Article.create(in: backgroundContext)
+        _ = Article.create(in: backgroundContext)
         var bckgCount = try? Article.count(context: backgroundContext) // Counts objects in the Background Context
         var fgndCount = try? Article.count(context: context) // Counts objects in the Foreground Context
         XCTAssertEqual(bckgCount!, fgndCount! + 1)
