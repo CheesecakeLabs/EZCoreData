@@ -9,6 +9,7 @@
 
 import Foundation
 import CoreData
+import PromiseKit
 
 public extension NSManagedObjectContext {
 
@@ -62,5 +63,56 @@ public extension NSManagedObjectContext {
         }
         try save()
         EZCoreDataLogger.log("Context successfully saved")
+    }
+
+    /// Saves the context ASYNCRONOUSLY. Also saves context parents recursively (parent, then parent's parent, and so on
+    public func saveToStore() -> Promise<Void> {
+
+        // Declaring intitial values for the promises
+        var promise = self.asyncSave()
+        var parentCxt: NSManagedObjectContext?
+        parentCxt = self.parent
+
+        // Attaching the parent promises
+        while parentCxt != nil {
+            guard let parentContext = parentCxt else { return promise }
+            promise = promise.then({ () -> Promise<Void> in
+                parentContext.asyncSave()
+            })
+            parentCxt = parentContext.parent
+        }
+
+        return promise
+    }
+
+    /// Saves the context if there is any changes
+    private func syncSave() -> Promise<Void> {
+        return Promise<Void>(resolver: { resolver in
+            if !hasChanges {
+                EZCoreDataLogger.log("Context has no changes to be saved")
+            } else {
+                try save()
+                EZCoreDataLogger.log("Context successfully saved")
+            }
+            resolver.fulfill_()
+        })
+    }
+
+    private func asyncSave() -> Promise<Void> {
+        return Promise<Void>(resolver: { resolver in
+            self.perform {
+                if !self.hasChanges {
+                    EZCoreDataLogger.log("Context has no changes to be saved")
+                } else {
+                    do {
+                        try self.save()
+                        EZCoreDataLogger.log("Context successfully saved")
+                    } catch let error {
+                        resolver.reject(error)
+                    }
+                }
+                resolver.fulfill_()
+            }
+        })
     }
 }

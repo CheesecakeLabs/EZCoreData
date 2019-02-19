@@ -32,6 +32,9 @@ public enum EZCoreDataError: Error {
 
     /// The `objectList` provided for deleting is nil
     case emptyDeletionList
+
+    /// The parent context is nil although it wasn't expected to be so
+    case emptyParentContext
 }
 
 // MARK: - Logging Handling
