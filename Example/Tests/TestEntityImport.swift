@@ -16,7 +16,8 @@ class TestEntityImport: EZTestCase {
     // MARK: - Entity missing `populateFromJSON` Method
     func testFatalIfEntityMissingMethod() {
         self.expectFatalError(expectedMessage: FatalMeessage.missingMethodOverride) {
-            let fatalErrorEntity = FatalErrorEntity.create(in: self.context, shouldSave: true)
+            let fatalErrorEntity = FatalErrorEntity.create(in: self.context)
+            self.context.saveContextToStore()
             fatalErrorEntity?.populateFromJSON([String: Any](), context: self.context)
         }
     }
