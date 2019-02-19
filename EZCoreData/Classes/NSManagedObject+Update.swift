@@ -13,7 +13,7 @@ import CoreData
 extension NSManagedObject {
     /// All NSManagedObject children need to override this
     @objc open func populateFromJSON(_ json: [String: Any], context: NSManagedObjectContext) {
-        fatalError("[EZCoreData] FATAL! YOU MUST OVERRIDE METHOD populateFromJSON IN YOUR NSManagedObject subclasses!")
+        fatalError(FatalMeessage.missingMethodOverride)
     }
 }
 
@@ -96,8 +96,10 @@ extension NSFetchRequestResult where Self: NSManagedObject {
                                   completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
         backgroundContext.perform {
             // Input validations
-            guard let jsonArray = jsonArray else { return }
-            if jsonArray.isEmpty { return }
+            guard let jsonArray = jsonArray, jsonArray.count > 0, !jsonArray.isEmpty else {
+                completion(EZCoreDataResult<[Self]>.failure(error: EZCoreDataError.jsonIsEmpty))
+                return
+            }
             var objectsArray: [Self] = []
 
             // Looping over the array then GET or CREATE
@@ -110,6 +112,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
                     objectsArray.append(object)
                 } catch let error {
                     completion(EZCoreDataResult<[Self]>.failure(error: error))
+                    return
                 }
             }
 
