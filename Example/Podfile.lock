@@ -1,5 +1,5 @@
 PODS:
-  - EZCoreData (0.1.0)
+  - EZCoreData (0.5.0)
 
 DEPENDENCIES:
   - EZCoreData (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EZCoreData: 270a9e3946305891c18ef941601cdcf4e405728a
+  EZCoreData: b1d30d38d43da392867744085c68b435b90744dc
 
 PODFILE CHECKSUM: 76f861169b183ad662d5274a53c56d75f3bc53a7
 

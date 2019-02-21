@@ -38,7 +38,8 @@ class TestEntityCreation: EZTestCase {
     }
 
     func testSave() {
-        _ = Article.create(in: backgroundContext, shouldSave: true)
+        _ = Article.create(in: backgroundContext)
+        backgroundContext.saveContextToStore()
         let bckgCount = try? Article.count(context: backgroundContext) // Counts objects in the Background Context
         let fgndCount = try? Article.count(context: context) // Counts objects in the Foreground Context
         XCTAssertEqual(bckgCount!, fgndCount!)
