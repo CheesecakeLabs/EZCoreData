@@ -16,7 +16,8 @@ class TestEntityImport: EZTestCase {
     // MARK: - Entity missing `populateFromJSON` Method
     func testFatalIfEntityMissingMethod() {
         self.expectFatalError(expectedMessage: FatalMeessage.missingMethodOverride) {
-            let fatalErrorEntity = FatalErrorEntity.create(in: self.context, shouldSave: true)
+            let fatalErrorEntity = FatalErrorEntity.create(in: self.context)
+            self.context.saveContextToStore()
             fatalErrorEntity?.populateFromJSON([String: Any](), context: self.context)
         }
     }
@@ -27,22 +28,23 @@ class TestEntityImport: EZTestCase {
         let countZero = try? Article.count(context: context)
         XCTAssertEqual(countZero, 0)
 
-        _ = try? Article.importObject(mockArticleListResponseJSON[0], shouldSave: false, context: context)
-        _ = try? Article.importObject(mockArticleListResponseJSON[1], shouldSave: true, context: context)
+        _ = try? Article.importObject(mockArticleListResponseJSON[0], context: context)
+        _ = try? Article.importObject(mockArticleListResponseJSON[1], context: context)
+        context.saveContextToStore()
         let countSix = try? Article.count(context: context)
         XCTAssertEqual(countSix, 2)
     }
 
     // MARK: - Test Import Objects ERRORs
     func testImportObjectNilJSONError() {
-        XCTAssertThrowsError(try Article.importObject(nil, idKey: "a", shouldSave: true, context: context)) { error in
+        XCTAssertThrowsError(try Article.importObject(nil, idKey: "a", context: context)) { error in
             XCTAssertEqual(error as? EZCoreDataError, EZCoreDataError.jsonIsEmpty)
         }
     }
 
     func testImportObjectInvalidIdKeyError() {
         let obj = mockArticleListResponseJSON[0]
-        XCTAssertThrowsError(try Article.importObject(obj, idKey: "a", shouldSave: true, context: context)) { error in
+        XCTAssertThrowsError(try Article.importObject(obj, idKey: "a", context: context)) { error in
             XCTAssertEqual(error as? EZCoreDataError, EZCoreDataError.invalidIdKey)
         }
     }
@@ -53,7 +55,8 @@ class TestEntityImport: EZTestCase {
         let countZero = try? Article.count(context: context)
         XCTAssertEqual(countZero, 0)
 
-        _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", shouldSave: true, context: context)
+        _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", context: context)
+        context.saveContextToStore()
         let countSix = try? Article.count(context: context)
         XCTAssertEqual(countSix, 6)
     }
@@ -71,14 +74,14 @@ class TestEntityImport: EZTestCase {
 
     // MARK: - Import List Errors
     func testImportListNilJSONError() {
-        XCTAssertThrowsError(try Article.importList(nil, idKey: "a", shouldSave: true, context: context)) { error in
+        XCTAssertThrowsError(try Article.importList(nil, idKey: "a", context: context)) { error in
             XCTAssertEqual(error as? EZCoreDataError, EZCoreDataError.jsonIsEmpty)
         }
     }
 
     func testImportListEmptyJSONError() {
         let emptyList = [[String: Any]]()
-        XCTAssertThrowsError(try Article.importList(emptyList, idKey: "a", shouldSave: true, context: context)) { err in
+        XCTAssertThrowsError(try Article.importList(emptyList, idKey: "a", context: context)) { err in
             XCTAssertEqual(err as? EZCoreDataError, EZCoreDataError.jsonIsEmpty)
         }
     }
@@ -98,16 +101,56 @@ class TestEntityImport: EZTestCase {
         Article.importList(mockArticleListResponseJSON, idKey: "id", backgroundContext: context) { result in
             switch result {
             case .success(result: _):
-                successExpectation.fulfill()
                 let countSix = try? Article.count(context: self.context)
                 XCTAssertEqual(countSix, 6)
+                successExpectation.fulfill()
             case .failure(error: _):
                 failureExpectation.fulfill()
             }
         }
 
         // Waits for the expectations
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 0.5, handler: nil)
+    }
+
+    // MARK: - Import List Async
+    func testImportListAsyncWithoutIdKey() {
+        // Initial SetuUp
+        try? Article.deleteAll(context: backgroundContext)
+        let countZero = try? Article.count(context: backgroundContext)
+        XCTAssertEqual(countZero, 0)
+
+        // Creating expectations
+        let successExpectation = self.expectation(description: "testImportListAsyncWithoutIdKey_success")
+        let failureExpectation = self.expectation(description: "testImportListAsyncWithoutIdKey_failure")
+        failureExpectation.isInverted = true
+
+        Article.importList(mockArticleListResponseJSON, backgroundContext: backgroundContext) { result in
+            switch result {
+            case .success(result: _):
+                self.backgroundContext.saveContextToStore()
+                let countSix = try? Article.count(context: self.backgroundContext)
+                XCTAssertEqual(countSix, 6)
+                Article.importList(mockArticleListResponseJSON, backgroundContext: self.backgroundContext) { result2 in
+                    switch result2 {
+                    case .success(result: _):
+                        self.backgroundContext.saveContextToStore()
+                        let countTwelve = try? Article.count(context: self.backgroundContext)
+                        XCTAssertEqual(countTwelve, 12)
+                        successExpectation.fulfill()
+
+                    case .failure(error: _):
+                        failureExpectation.fulfill()
+                    }
+                }
+
+            case .failure(error: _):
+                failureExpectation.fulfill()
+            }
+        }
+
+        // Waits for the expectations
+        waitForExpectations(timeout: 0.5, handler: nil)
     }
 
     // MARK: - Import List Async ERRORs
@@ -143,6 +186,6 @@ class TestEntityImport: EZTestCase {
         }
 
         // Waits for the expectations
-        waitForExpectations(timeout: 2, handler: nil)
+        waitForExpectations(timeout: 0.5, handler: nil)
     }
 }

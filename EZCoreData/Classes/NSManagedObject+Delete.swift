@@ -17,7 +17,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         var objectType: String = "Unknown"
         for object in objectList {
             objectType = String(describing: type(of: object))
-            try object.delete(shouldSave: false, context: context)
+            try object.delete(context: context)
         }
         EZCoreDataLogger.log("Attempting to delete a list of \(objectCount) objects of type '\(objectType)'")
     }
@@ -50,17 +50,13 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 extension NSFetchRequestResult where Self: NSManagedObject {
     /// Delete given object within the given context
     static public func delete(_ object: Self,
-                              shouldSave: Bool = true,
                               context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
         context.delete(object)
-        if shouldSave {
-            try context.save()
-        }
     }
 
-    /// Delete the object within the given context
-    public func delete(shouldSave: Bool = true, context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
-        try Self.delete(self, shouldSave: shouldSave, context: context)
+    /// Delete the object within the given context. You must manualy save afterwards
+    public func delete(context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
+        try Self.delete(self, context: context)
     }
 }
 

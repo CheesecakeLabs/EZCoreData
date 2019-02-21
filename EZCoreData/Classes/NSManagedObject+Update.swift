@@ -22,7 +22,6 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     /// GET or CREATE object with `attribute` equals `value`
     public static func getOrCreate(attribute: String, value: String, context: NSManagedObjectContext) -> Self? {
         // Initializing return variables
-        var object: Self!
         var fetchedObjects: [Self] = []
 
         // GET, if idKey exists
@@ -35,14 +34,9 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 
         // CREATE if idKey doesn't exist
         if fetchedObjects.count > 0 {
-            object = fetchedObjects[0]
-        } else {
-            // let entity = NSEntityDescription.entity(forEntityName: String(self), in: context)!
-            // print(String(describing: self))
-            object = Self.init(entity: self.entity(), insertInto: context)
+            return fetchedObjects[0]
         }
-
-        return object
+        return Self.init(entity: self.entity(), insertInto: context)
     }
 }
 
@@ -50,26 +44,29 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 extension NSFetchRequestResult where Self: NSManagedObject {
     /// SYNC Import JSON Dict to Object
     public static func importObject(_ jsonObject: [String: Any]?,
-                                    idKey: String = "id",
-                                    shouldSave: Bool,
+                                    idKey: String? = nil,
                                     context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> Self {
         guard let jsonObject = jsonObject else { throw EZCoreDataError.jsonIsEmpty }
-        guard let objectId = jsonObject[idKey] as? Int else { throw EZCoreDataError.invalidIdKey }
-        guard let object = getOrCreate(attribute: idKey,
-                                       value: String(describing: objectId),
-                                       context: context) else { throw EZCoreDataError.getOrCreateObjIsEmpty }
-        object.populateFromJSON(jsonObject, context: context)
-        // Context Save
-        if shouldSave {
-            context.saveContextToStore()
+
+        // If no idKey is passed, a new object is created
+        var object: Self!
+        if let idKey = idKey {
+            guard let objectId = jsonObject[idKey] as? Int else { throw EZCoreDataError.invalidIdKey }
+            guard let newObject = getOrCreate(attribute: idKey,
+                                              value: String(describing: objectId),
+                                              context: context) else { throw EZCoreDataError.getOrCreateObjIsEmpty }
+            object = newObject
+        } else {
+            object = Self.create(in: context)
         }
+
+        object.populateFromJSON(jsonObject, context: context)
         return object
     }
 
     /// SYNC import a JSON array into a list of objects and then save them to CoreData
     public static func importList(_ jsonArray: [[String: Any]]?,
-                                  idKey: String = "id",
-                                  shouldSave: Bool,
+                                  idKey: String? = nil,
                                   context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> [Self]? {
         // Input validations
         guard let jsonArray = jsonArray else { throw EZCoreDataError.jsonIsEmpty }
@@ -78,53 +75,26 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 
         // Looping over the array then GET or CREATE
         for objectJSON in jsonArray {
-            let object = try importObject(objectJSON, idKey: idKey, shouldSave: false, context: context)
+            let object = try importObject(objectJSON, idKey: idKey, context: context)
             objectsArray.append(object)
         }
 
         // Context Save
-        if shouldSave {
-            context.saveContextToStore()
-        }
         return objectsArray
     }
 
     /// ASYNC import a JSON array into a list of objects and then save them to CoreData
     public static func importList(_ jsonArray: [[String: Any]]?,
-                                  idKey: String = "id",
+                                  idKey: String? = nil,
                                   backgroundContext: NSManagedObjectContext = EZCoreData.privateThreadContext,
                                   completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
         backgroundContext.perform {
-            // Input validations
-            guard let jsonArray = jsonArray, jsonArray.count > 0, !jsonArray.isEmpty else {
-                completion(EZCoreDataResult<[Self]>.failure(error: EZCoreDataError.jsonIsEmpty))
-                return
+            do {
+                let objectsArray = try self.importList(jsonArray, idKey: idKey, context: backgroundContext)
+                completion(EZCoreDataResult<[Self]>.success(result: objectsArray))
+            } catch let error {
+                completion(EZCoreDataResult<[Self]>.failure(error: error))
             }
-            var objectsArray: [Self] = []
-
-            // Looping over the array then GET or CREATE
-            for objectJSON in jsonArray {
-                do {
-                    let object = try importObject(objectJSON,
-                                                  idKey: idKey,
-                                                  shouldSave: false,
-                                                  context: backgroundContext)
-                    objectsArray.append(object)
-                } catch let error {
-                    completion(EZCoreDataResult<[Self]>.failure(error: error))
-                    return
-                }
-            }
-
-            // Context Save
-            backgroundContext.saveContextToStore({ (result) in
-                switch result {
-                case .success(result: _):
-                    completion(EZCoreDataResult<[Self]>.success(result: objectsArray))
-                case .failure(error: let error):
-                    completion(EZCoreDataResult<[Self]>.failure(error: error))
-                }
-            })
         }
     }
 }

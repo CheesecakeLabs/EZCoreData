@@ -47,7 +47,7 @@ class TestEntityRead: EZTestCase {
         }
 
         // Waits for the expectations
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 0.5, handler: nil)
     }
 
     // MARK: - Test Read All from Predicate
@@ -76,7 +76,7 @@ class TestEntityRead: EZTestCase {
         }
 
         // Waits for the expectations
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 0.5, handler: nil)
     }
 
     // MARK: - Test Read All By Attribute
@@ -101,7 +101,7 @@ class TestEntityRead: EZTestCase {
         }
 
         // Waits for the expectations
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 0.5, handler: nil)
     }
 
     // MARK: - Test Read First
