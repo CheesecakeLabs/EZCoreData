@@ -89,26 +89,12 @@ extension NSFetchRequestResult where Self: NSManagedObject {
                                   backgroundContext: NSManagedObjectContext = EZCoreData.privateThreadContext,
                                   completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
         backgroundContext.perform {
-            // Input validations
-            guard let jsonArray = jsonArray, jsonArray.count > 0, !jsonArray.isEmpty else {
-                completion(EZCoreDataResult<[Self]>.failure(error: EZCoreDataError.jsonIsEmpty))
-                return
+            do {
+                let objectsArray = try self.importList(jsonArray, idKey: idKey, context: backgroundContext)
+                completion(EZCoreDataResult<[Self]>.success(result: objectsArray))
+            } catch let error {
+                completion(EZCoreDataResult<[Self]>.failure(error: error))
             }
-            var objectsArray: [Self] = []
-
-            // Looping over the array then GET or CREATE
-            for objectJSON in jsonArray {
-                do {
-                    let object = try importObject(objectJSON, idKey: idKey, context: backgroundContext)
-                    objectsArray.append(object)
-                } catch let error {
-                    completion(EZCoreDataResult<[Self]>.failure(error: error))
-                    return
-                }
-            }
-
-            // return unsaved objects
-            completion(EZCoreDataResult<[Self]>.success(result: objectsArray))
         }
     }
 }
