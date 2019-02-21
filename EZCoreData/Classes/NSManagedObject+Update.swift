@@ -22,7 +22,6 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     /// GET or CREATE object with `attribute` equals `value`
     public static func getOrCreate(attribute: String, value: String, context: NSManagedObjectContext) -> Self? {
         // Initializing return variables
-        var object: Self!
         var fetchedObjects: [Self] = []
 
         // GET, if idKey exists
@@ -35,14 +34,9 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 
         // CREATE if idKey doesn't exist
         if fetchedObjects.count > 0 {
-            object = fetchedObjects[0]
-        } else {
-            // let entity = NSEntityDescription.entity(forEntityName: String(self), in: context)!
-            // print(String(describing: self))
-            object = Self.init(entity: self.entity(), insertInto: context)
+            return fetchedObjects[0]
         }
-
-        return object
+        return Self.init(entity: self.entity(), insertInto: context)
     }
 }
 
