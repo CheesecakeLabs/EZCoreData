@@ -107,7 +107,45 @@ class TestEntityImport: EZTestCase {
         }
 
         // Waits for the expectations
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 0.5, handler: nil)
+    }
+
+    // MARK: - Import List Async
+    func testImportListAsyncWithoutIdKey() {
+        // Initial SetuUp
+        try? Article.deleteAll(context: backgroundContext)
+        let countZero = try? Article.count(context: backgroundContext)
+        XCTAssertEqual(countZero, 0)
+
+        // Creating expectations
+        let successExpectation = self.expectation(description: "testImportAsync_success")
+        let failureExpectation = self.expectation(description: "testImportAsync_failure")
+        failureExpectation.isInverted = true
+
+        Article.importList(mockArticleListResponseJSON, backgroundContext: backgroundContext) { result in
+            switch result {
+            case .success(result: _):
+                let countSix = try? Article.count(context: self.backgroundContext)
+                XCTAssertEqual(countSix, 6)
+
+                Article.importList(mockArticleListResponseJSON, backgroundContext: self.backgroundContext) { result2 in
+                    switch result2 {
+                    case .success(result: _):
+                        let countTwelve = try? Article.count(context: self.backgroundContext)
+                        XCTAssertEqual(countTwelve, 12)
+                        successExpectation.fulfill()
+                    case .failure(error: _):
+                        failureExpectation.fulfill()
+                    }
+                }
+
+            case .failure(error: _):
+                failureExpectation.fulfill()
+            }
+        }
+
+        // Waits for the expectations
+        waitForExpectations(timeout: 0.5, handler: nil)
     }
 
     // MARK: - Import List Async ERRORs

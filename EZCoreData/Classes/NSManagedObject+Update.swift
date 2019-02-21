@@ -44,14 +44,23 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 extension NSFetchRequestResult where Self: NSManagedObject {
     /// SYNC Import JSON Dict to Object
     public static func importObject(_ jsonObject: [String: Any]?,
-                                    idKey: String = "id",
+                                    idKey: String? = nil,
                                     shouldSave: Bool,
                                     context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> Self {
         guard let jsonObject = jsonObject else { throw EZCoreDataError.jsonIsEmpty }
-        guard let objectId = jsonObject[idKey] as? Int else { throw EZCoreDataError.invalidIdKey }
-        guard let object = getOrCreate(attribute: idKey,
-                                       value: String(describing: objectId),
-                                       context: context) else { throw EZCoreDataError.getOrCreateObjIsEmpty }
+
+        // If no idKey is passed, a new object is created
+        var object: Self!
+        if let idKey = idKey {
+            guard let objectId = jsonObject[idKey] as? Int else { throw EZCoreDataError.invalidIdKey }
+            guard let newObject = getOrCreate(attribute: idKey,
+                                              value: String(describing: objectId),
+                                              context: context) else { throw EZCoreDataError.getOrCreateObjIsEmpty }
+            object = newObject
+        } else {
+            object = Self.create(in: context)
+        }
+
         object.populateFromJSON(jsonObject, context: context)
         // Context Save
         if shouldSave {
@@ -62,7 +71,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 
     /// SYNC import a JSON array into a list of objects and then save them to CoreData
     public static func importList(_ jsonArray: [[String: Any]]?,
-                                  idKey: String = "id",
+                                  idKey: String? = nil,
                                   shouldSave: Bool,
                                   context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> [Self]? {
         // Input validations
@@ -85,7 +94,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 
     /// ASYNC import a JSON array into a list of objects and then save them to CoreData
     public static func importList(_ jsonArray: [[String: Any]]?,
-                                  idKey: String = "id",
+                                  idKey: String? = nil,
                                   backgroundContext: NSManagedObjectContext = EZCoreData.privateThreadContext,
                                   completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
         backgroundContext.perform {
