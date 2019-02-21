@@ -181,6 +181,6 @@ class TestEntityImport: EZTestCase {
         }
 
         // Waits for the expectations
-        waitForExpectations(timeout: 2, handler: nil)
+        waitForExpectations(timeout: 0.5, handler: nil)
     }
 }

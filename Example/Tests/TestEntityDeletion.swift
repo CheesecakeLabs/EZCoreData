@@ -54,7 +54,7 @@ class TestEntityDeletion: EZTestCase {
         }
 
         // Waits for the expectations
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 0.5, handler: nil)
     }
 
     // MARK: - Delete All EXCEPT
@@ -93,7 +93,7 @@ class TestEntityDeletion: EZTestCase {
         }
 
         // Waits for the expectations
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 0.5, handler: nil)
     }
 
     // MARK: - Delete From List
@@ -130,6 +130,6 @@ class TestEntityDeletion: EZTestCase {
         })
 
         // Waits for the expectations
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 0.5, handler: nil)
     }
 }
