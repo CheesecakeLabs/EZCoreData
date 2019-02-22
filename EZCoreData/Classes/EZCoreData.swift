@@ -95,11 +95,15 @@ public class EZCoreData: NSObject {
 
     /// NSManagedObjectContext that executes in a Private Thread
     public lazy var privateThreadContext: NSManagedObjectContext = {
+        return newPrivateContext()
+    }()
+
+    func newPrivateContext() -> NSManagedObjectContext {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.parent = self.mainThreadContext
         configureContext(managedObjectContext)
         return managedObjectContext
-    }()
+    }
 
     /// static NSManagedObjectContext that executes in Main Thread
     public static var mainThreadContext: NSManagedObjectContext {
