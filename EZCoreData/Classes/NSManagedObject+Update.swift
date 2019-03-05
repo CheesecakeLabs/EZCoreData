@@ -51,9 +51,15 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         // If no idKey is passed, a new object is created
         var object: Self!
         if let idKey = idKey {
-            guard let objectId = jsonObject[idKey] as? Int else { throw EZCoreDataError.invalidIdKey }
-            guard let newObject = getOrCreate(attribute: idKey,
-                                              value: String(describing: objectId),
+            var id: String!
+            if let objectId = jsonObject[idKey] as? Int {
+                id = String(describing: objectId)
+            } else if let objectId = jsonObject[idKey] as? String {
+                id = "'\(objectId)'"
+            } else {
+                throw EZCoreDataError.invalidIdKey
+            }
+            guard let newObject = getOrCreate(attribute: idKey, value: id,
                                               context: context) else { throw EZCoreDataError.getOrCreateObjIsEmpty }
             object = newObject
         } else {
