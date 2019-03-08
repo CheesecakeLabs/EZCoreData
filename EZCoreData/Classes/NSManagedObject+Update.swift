@@ -19,24 +19,49 @@ extension NSManagedObject {
 
 // MARK: - Get or Create
 extension NSFetchRequestResult where Self: NSManagedObject {
-    /// GET or CREATE object with `attribute` equals `value`
+    /// GET or CREATE object with `attribute` equals `value`, where value is a String
     public static func getOrCreate(attribute: String, value: String, context: NSManagedObjectContext) -> Self? {
+        let predicate = comparisionPredicate(attribute: attribute, value: value)
+        return getOrCreate(predicate: predicate, attribute: attribute, value: value, context: context)
+    }
+
+    /// GET or CREATE object with `attribute` equals `value`, where value is an Int
+    public static func getOrCreate(attribute: String, value: Int, context: NSManagedObjectContext) -> Self? {
+        let predicate = comparisionPredicate(attribute: attribute, value: value)
+        return getOrCreate(predicate: predicate, attribute: attribute, value: value, context: context)
+    }
+
+    /// GET or CREATE object with a given predicate
+    private static func getOrCreate(predicate: NSPredicate, attribute: String,
+                                    value: Any?, context: NSManagedObjectContext) -> Self? {
         // Initializing return variables
         var fetchedObjects: [Self] = []
 
         // GET, if idKey exists
         do {
-            fetchedObjects = try readAll(predicate: NSPredicate(format: "\(attribute) == \(value)"), context: context)
+            fetchedObjects = try readAll(predicate: predicate, context: context)
+            if fetchedObjects.count > 0 {
+                return fetchedObjects[0]
+            }
         } catch let error {
             EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
             return nil
         }
 
         // CREATE if idKey doesn't exist
-        if fetchedObjects.count > 0 {
-            return fetchedObjects[0]
-        }
-        return Self.init(entity: self.entity(), insertInto: context)
+        let newObject = Self.init(entity: self.entity(), insertInto: context)
+        newObject.setValue(value, forKey: attribute)
+        return newObject
+    }
+
+    /// Creates a comparision predicate where the keyPath value is an Int
+    static public func comparisionPredicate(attribute: String, value: Int) -> NSPredicate {
+        return NSPredicate(format: "\(attribute) == \(value)")
+    }
+
+    /// Creates a comparision predicate where the keyPath value is a String
+    static public func comparisionPredicate(attribute: String, value: String) -> NSPredicate {
+        return NSPredicate(format: "\(attribute) == %@", value)
     }
 }
 
@@ -51,17 +76,21 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         // If no idKey is passed, a new object is created
         var object: Self!
         if let idKey = idKey {
-            var id: String!
             if let objectId = jsonObject[idKey] as? Int {
-                id = String(describing: objectId)
+                if let newObject = getOrCreate(attribute: idKey, value: objectId, context: context) {
+                    object = newObject
+                } else {
+                    throw EZCoreDataError.getOrCreateObjIsEmpty
+                }
             } else if let objectId = jsonObject[idKey] as? String {
-                id = "'\(objectId)'"
+                if let newObject = getOrCreate(attribute: idKey, value: objectId, context: context) {
+                    object = newObject
+                } else {
+                    throw EZCoreDataError.getOrCreateObjIsEmpty
+                }
             } else {
                 throw EZCoreDataError.invalidIdKey
             }
-            guard let newObject = getOrCreate(attribute: idKey, value: id,
-                                              context: context) else { throw EZCoreDataError.getOrCreateObjIsEmpty }
-            object = newObject
         } else {
             object = Self.create(in: context)
         }

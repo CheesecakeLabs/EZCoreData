@@ -16,7 +16,7 @@ class TestEntityCreation: EZTestCase {
         do {
             // Test Count and Save methods
             let initialCount = try Article.count(context: context)
-            _ = Article.getOrCreate(attribute: "id", value: "1234", context: context)
+            _ = Article.getOrCreate(attribute: "id", value: 1234, context: context)
             try context.save()
             let countPP = try Article.count(context: context)
             XCTAssertEqual(initialCount + 1, countPP)

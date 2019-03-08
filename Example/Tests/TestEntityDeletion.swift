@@ -17,7 +17,7 @@ class TestEntityDeletion: EZTestCase {
             // Test Count and Save methods
             let initialCount = try Article.count(context: context)
             print(initialCount)
-            let article = Article.getOrCreate(attribute: "id", value: "1234", context: context)
+            let article = Article.getOrCreate(attribute: "id", value: 1234, context: context)
             try context.save()
             let countPP = try Article.count(context: context)
             XCTAssertEqual(initialCount + 1, countPP)
