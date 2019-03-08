@@ -66,7 +66,16 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     static public func readFirst(attribute: String,
                                  value: String,
                                  context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> Self? {
-        let predicate = NSPredicate(format: "\(attribute) == \(value)")
+        let predicate = comparisionPredicate(attribute: attribute, value: value)
+        let fetchRequest = readFirstFetchRequest(predicate, context: context)
+        return try context.fetch(fetchRequest).first
+    }
+
+    /// SYNC read first result with the given `attribute` and `value`
+    static public func readFirst(attribute: String,
+                                 value: Int,
+                                 context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws -> Self? {
+        let predicate = comparisionPredicate(attribute: attribute, value: value)
         let fetchRequest = readFirstFetchRequest(predicate, context: context)
         return try context.fetch(fetchRequest).first
     }
@@ -125,7 +134,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
                                           value: String,
                                           sortDescriptors: [NSSortDescriptor]? = nil,
                                           context: NSManagedObjectContext = EZCoreData.mainThreadContext)
-        throws -> [Self] {
+    throws -> [Self] {
         // Prepare the request
         let fetchRequest = readAllByAttributeFetchRequest(attribute,
                                                           value: value,

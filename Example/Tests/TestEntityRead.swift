@@ -117,10 +117,13 @@ class TestEntityRead: EZTestCase {
 
     func testReadFirstWithAttribute() {
         do {
-            let randId = Int16.random(in: 1 ... 6)
-            let randIdString = String(describing: randId)
-            let article = try Article.readFirst(attribute: "id", value: randIdString, context: context)
-            XCTAssertEqual(article!.id, randId)
+            let randId = Int.random(in: 1 ... 6)
+//            let article = try Article.readFirst(attribute: "id", value: randId, context: context)
+            if let article = try Article.readFirst(attribute: "id", value: randId, context: context) {
+                XCTAssertEqual(article.id, Int16(randId))
+            } else {
+                XCTAssertTrue(false)
+            }
         } catch let error {
             print(error.localizedDescription)
         }
