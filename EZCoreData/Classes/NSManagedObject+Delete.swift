@@ -48,7 +48,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 
 // MARK: - Delete One
 extension NSFetchRequestResult where Self: NSManagedObject {
-    /// Delete given object within the given context
+    /// Delete given object within the given context. You must manualy save afterwards
     static public func delete(_ object: Self,
                               context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
         context.delete(object)
@@ -63,7 +63,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 // MARK: - Delete All
 extension NSFetchRequestResult where Self: NSManagedObject {
 
-    /// SYNC Delete all objects of this kind except the given list
+    /// SYNC Delete all objects of this kind except the given list. You must manualy save afterwards
     static public func deleteAll(except toKeep: [Self]? = nil,
                                  context: NSManagedObjectContext = EZCoreData.mainThreadContext) throws {
         // Predicate
@@ -76,7 +76,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         context.saveContextToStore()
     }
 
-    /// ASYNC Delete all objects of this kind except the given list
+    /// ASYNC Delete all objects of this kind except the given list. You must manualy save afterwards
     static public func deleteAll(except toKeep: [Self]? = nil,
                                  backgroundContext: NSManagedObjectContext = EZCoreData.privateThreadContext,
                                  completion: @escaping (EZCoreDataResult<[Self]>) -> Void) {
@@ -108,7 +108,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
 // MARK: - Private Funcs
 extension NSFetchRequestResult where Self: NSManagedObject {
 
-    /// Delete all objects returned in the given NSFetchRequest
+    /// Delete all objects returned in the given NSFetchRequest. You must manualy save afterwards
     fileprivate static func deleteAllFromFetchRequest(_ predicate: NSPredicate?,
                                                       context: NSManagedObjectContext) throws {
         let objectList = try self.readAll(predicate: predicate, context: context)
