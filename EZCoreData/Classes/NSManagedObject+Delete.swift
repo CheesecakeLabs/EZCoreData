@@ -28,16 +28,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         backgroundContext.perform {
             do {
                 try deleteObjects(fromList: objectList, backgroundContext)
-
-                // Save and call return function
-                backgroundContext.saveContextToStore({ (result) in
-                    switch result {
-                    case .success(result: _):
-                        completion(EZCoreDataResult<[Self]>.success(result: nil))
-                    case .failure(error: let error):
-                        completion(EZCoreDataResult<[Self]>.failure(error: error))
-                    }
-                })
+                completion(EZCoreDataResult<[Self]>.success(result: nil))
             } catch let error {
                 EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
                 completion(.failure(error: error))
@@ -73,7 +64,6 @@ extension NSFetchRequestResult where Self: NSManagedObject {
         }
         // Delete Request
         try deleteAllFromFetchRequest(predicate, context: context)
-        context.saveContextToStore()
     }
 
     /// ASYNC Delete all objects of this kind except the given list. You must manualy save afterwards
@@ -89,14 +79,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
             do {
                 // Delete Request
                 try deleteAllFromFetchRequest(predicate, context: backgroundContext)
-                backgroundContext.saveContextToStore({ (result) in
-                    switch result {
-                    case .success(result: _):
-                        completion(EZCoreDataResult<[Self]>.success(result: nil))
-                    case .failure(error: let error):
-                        completion(EZCoreDataResult<[Self]>.failure(error: error))
-                    }
-                })
+                completion(EZCoreDataResult<[Self]>.success(result: nil))
             } catch let error {
                 EZCoreDataLogger.log(error.localizedDescription, verboseLevel: .error)
                 completion(.failure(error: error))
