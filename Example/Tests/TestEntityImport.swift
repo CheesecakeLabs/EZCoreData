@@ -117,6 +117,7 @@ class TestEntityImport: EZTestCase {
     func testImportListAsyncWithoutIdKey() {
         // Initial SetuUp
         try? Article.deleteAll(context: backgroundContext)
+        backgroundContext.saveContextToStore()
         let countZero = try? Article.count(context: backgroundContext)
         XCTAssertEqual(countZero, 0)
 
