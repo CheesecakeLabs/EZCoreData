@@ -14,4 +14,4 @@ script:
   - set -o pipefail && xcodebuild -scheme EZCoreData-Example -workspace Example/EZCoreData.xcworkspace -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.0' ONLY_ACTIVE_ARCH=NO build test | xcpretty  # Build and run tests
   - bash <(curl -s https://codecov.io/bash) -t CODACY_COVERAGE_KEY  # Send test coverage to Codacy
   - if [[ $TRAVIS_TAG ]]; then pod lib lint; fi  # check is cocoapods can be updated
-  - if [[ $TRAVIS_TAG ]]; then pod trunk push EZCoreData.podspec --verbose | xcpretty; else echo "No tag found"; fi  # Update cocoapods version
+  - if [[ $TRAVIS_TAG ]]; then pod trunk push EZCoreData.podspec --verbose --allow-warnings | xcpretty; else echo "No tag found"; fi  # Update cocoapods version
