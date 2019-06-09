@@ -55,7 +55,7 @@ class TestEntityImport: EZTestCase {
         let countZero = try? Article.count(context: context)
         XCTAssertEqual(countZero, 0)
 
-        _ = try? Article.importList(mockArticleListResponseJSON, idKey: "id", context: context)
+        _ = ((try? Article.importList(mockArticleListResponseJSON, idKey: "id", context: context)) as [Article]??)
         context.saveContextToStore()
         let countSix = try? Article.count(context: context)
         XCTAssertEqual(countSix, 6)

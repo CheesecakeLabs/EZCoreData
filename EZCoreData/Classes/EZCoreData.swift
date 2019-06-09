@@ -99,7 +99,8 @@ public class EZCoreData: NSObject {
     }()
 
     /// Returns a new NSManagedObjectContext that executes in a Private Thread
-    public func newPrivateContext(withPatent parent: NSManagedObjectContext = EZCoreData.mainThreadContext) -> NSManagedObjectContext {
+    public func newPrivateContext(withPatent parent: NSManagedObjectContext = EZCoreData.mainThreadContext) ->
+    NSManagedObjectContext {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.parent = parent
         configureContext(managedObjectContext)

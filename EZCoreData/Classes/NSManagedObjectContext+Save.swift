@@ -13,7 +13,7 @@ import CoreData
 public extension NSManagedObjectContext {
 
     /// Saves the context ASYNCRONOUSLY. Also saves context parents recursively (parent, then parent's parent, and so on
-    public func saveContextToStore(_ completion: @escaping (EZCoreDataResult<Any>) -> Void) {
+    func saveContextToStore(_ completion: @escaping (EZCoreDataResult<Any>) -> Void) {
         func saveFlow() {
             do {
                 try regularSaveFlow()
@@ -35,11 +35,13 @@ public extension NSManagedObjectContext {
         case .privateQueueConcurrencyType,
              .mainQueueConcurrencyType:
             perform(saveFlow)
+        @unknown default:
+            fatalError()
         }
     }
 
     /// Saves the context SYNCRONOUSLY. Also saves context parents recursively (parent, then parent's parent, and so on
-    public func saveContextToStore() {
+    func saveContextToStore() {
         do {
             try regularSaveFlow()
             if let parentContext = parent {
